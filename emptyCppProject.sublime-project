@@ -1,0 +1,57 @@
+{
+	"folders":
+	[
+		{
+            "folder_exclude_patterns":
+            [
+                "build*", "externalSource"
+            ],
+			"path": "."
+		}
+	],
+    "settings":
+    {
+        "cppinabox":{
+            "enable":true
+        },
+    },
+    "build_systems":
+    [
+        {
+            "shell":true,
+            "name": "cmake-linux-build&run",
+            "file_regex": "^([\\/\\.^\\s^\\[]..*?):([0-9]+):([0-9]+):(.*)",
+            "shell_cmd": "cd $project_path/build; make -j8 install && echo ------------------------------------------------------------------------------------------- && cd dist/bin && ./cleanExampleProject"
+        },
+        {
+            "shell":true,
+            "name": "cmake-linux-build-only",
+            "file_regex": "^([\\/\\.^\\s^\\[]..*?):([0-9]+):([0-9]+):(.*)",
+            "shell_cmd": "cd $project_path/build; make -j8 install"
+        },
+        {
+            "shell":true,
+            "name": "cmake-linux-clean",
+            "file_regex": "^([\\/\\.^\\s^\\[]..*?):([0-9]+):([0-9]+):(.*)",
+            "shell_cmd": "cd $project_path/build; make clean"
+        },
+        {
+            "shell":true,
+            "name": "cmake-linux-test",
+            "file_regex": "^([\\/\\.^\\s^\\[]..*?):([0-9]+):([0-9]+):(.*)",
+            "shell_cmd": "cd $project_path/build; make test -j8 install && echo ------------------------------------------------------------------------------------------- && cd dist/bin && ./test"
+        },
+        {
+            "shell":true,
+            "name": "cmake-linux-showRoom",
+            "file_regex": "^([\\/\\.^\\s^\\[]..*?):([0-9]+):([0-9]+):(.*)",
+            "shell_cmd": "cd $project_path/build; make showRoom -j8 install && echo ------------------------------------------------------------------------------------------- && cd dist/bin && ./showRoom"
+        },
+        {
+            "working_dir": "$project_path",
+            "file_regex": "^([^\\s^\\[][:.]..*?):([0-9]+):([0-9]+):(.*)",
+            "name": "cmake-win",
+            "cmd": "build.bat"
+        }
+    ]
+}
