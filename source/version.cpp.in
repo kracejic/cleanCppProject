@@ -1,0 +1,45 @@
+#include "version.h"
+
+using namespace std;
+
+
+std::string Version::getBuildTime()
+{
+    return std::string(__DATE__) + " " + __TIME__;
+}
+//-----------------------------------------------------------------------------------
+int Version::getMajor()
+{
+    return @MAJOR_VERSION@;
+}
+//-----------------------------------------------------------------------------------
+int Version::getMinor()
+{
+    return @MINOR_VERSION@;
+}
+//-----------------------------------------------------------------------------------
+int Version::getPatch()
+{
+    return @PATCH_VERSION@;
+}
+//-----------------------------------------------------------------------------------
+long long Version::getVersionNumber()
+{
+    return @MAJOR_VERSION@ * 10000 * 10000 + @MINOR_VERSION@ * 10000 + @PATCH_VERSION@;
+}
+//-----------------------------------------------------------------------------------
+std::string Version::getVersionShort()
+{
+    string version = to_string(getMajor()) + "."
+     + to_string(getMinor()) + "."
+     + to_string(getPatch()) + " @VERSION_TYPE@";
+    return version;
+}
+//-----------------------------------------------------------------------------------
+std::string Version::getVersionLong()
+{
+    return getVersionShort() + " / " + getBuildTime() + " / @VERSION_HOST@";
+}
+//-----------------------------------------------------------------------------------
+
+
