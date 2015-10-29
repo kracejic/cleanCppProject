@@ -35,7 +35,6 @@ install(TARGETS runMe DESTINATION bin)
 
 install(DIRECTORY ${PROJECT_SOURCE_DIR}/data
         DESTINATION ./
-        CONFIGURATIONS All
     )
 
 
@@ -49,5 +48,6 @@ message(STATUS "")
 message(STATUS "    == Overview ==")
 message(STATUS "Version: ${MAJOR_VERSION}.${MINOR_VERSION}.${PATCH_VERSION} ${VERSION_TYPE}")
 message(STATUS "Install prefix: ${CMAKE_INSTALL_PREFIX}")
+message(STATUS "PROJECT_SOURCE_DIR: ${PROJECT_SOURCE_DIR}")
 message(STATUS "")
 
