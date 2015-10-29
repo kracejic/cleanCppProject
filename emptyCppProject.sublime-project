@@ -18,40 +18,59 @@
     "build_systems":
     [
         {
-            "shell":true,
-            "name": "cmake-linux-build&run",
+            "name": "ninja",
+            "working_dir": "${project_path}/build",
             "file_regex": "^([\\/\\.^\\s^\\[]..*?):([0-9]+):([0-9]+):(.*)",
-            "shell_cmd": "cd $project_path/build; make -j8 install && echo ------------------------------------------------------------------------------------------- && cd dist/bin && ./cleanExampleProject"
+            "cmd":["ninja"],
+            "shell": true,
+            "variants": [
+                {
+                    "name":"ninja install",
+                    "cmd":["ninja install"],
+                },
+                {
+                    "name":"ninja clean",
+                    "cmd":["ninja clean"],
+                },
+                {
+                    "name":"ninja install + run",
+                    "linux":{
+                        "cmd":["ninja install && cd dist/bin ; echo ; ./runMe"],
+                    },
+                    "windows":{
+                        "cmd":["ninja install & cd dist/bin & echo & runMe"],
+                    },
+                },
+
+            ]
         },
         {
-            "shell":true,
-            "name": "cmake-linux-build-only",
+            "name": "make",
+            "working_dir": "${project_path}/build",
             "file_regex": "^([\\/\\.^\\s^\\[]..*?):([0-9]+):([0-9]+):(.*)",
-            "shell_cmd": "cd $project_path/build; make -j8 install"
+            "cmd":["make"],
+            "shell": true,
+            "variants": [
+                {
+                    "name":"make install",
+                    "cmd":["make install"],
+                },
+                {
+                    "name":"make clean",
+                    "cmd":["make clean"],
+                },
+                {
+                    "name":"make install + run",
+                    "linux":{
+                        "cmd":["make install && cd dist/bin ; echo ; ./runMe"],
+                    },
+                    "windows":{
+                        "cmd":["make install & cd dist/bin & echo & runMe"],
+                    },
+                },
+
+            ]
         },
-        {
-            "shell":true,
-            "name": "cmake-linux-clean",
-            "file_regex": "^([\\/\\.^\\s^\\[]..*?):([0-9]+):([0-9]+):(.*)",
-            "shell_cmd": "cd $project_path/build; make clean"
-        },
-        {
-            "shell":true,
-            "name": "cmake-linux-test",
-            "file_regex": "^([\\/\\.^\\s^\\[]..*?):([0-9]+):([0-9]+):(.*)",
-            "shell_cmd": "cd $project_path/build; make test -j8 install && echo ------------------------------------------------------------------------------------------- && cd dist/bin && ./test"
-        },
-        {
-            "shell":true,
-            "name": "cmake-linux-showRoom",
-            "file_regex": "^([\\/\\.^\\s^\\[]..*?):([0-9]+):([0-9]+):(.*)",
-            "shell_cmd": "cd $project_path/build; make showRoom -j8 install && echo ------------------------------------------------------------------------------------------- && cd dist/bin && ./showRoom"
-        },
-        {
-            "working_dir": "$project_path",
-            "file_regex": "^([^\\s^\\[][:.]..*?):([0-9]+):([0-9]+):(.*)",
-            "name": "cmake-win",
-            "cmd": "build.bat"
-        }
+
     ]
 }

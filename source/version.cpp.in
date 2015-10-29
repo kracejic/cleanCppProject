@@ -25,14 +25,14 @@ int Version::getPatch()
 //-----------------------------------------------------------------------------------
 long long Version::getVersionNumber()
 {
-    return @MAJOR_VERSION@ * 10000 * 10000 + @MINOR_VERSION@ * 10000 + @PATCH_VERSION@;
+    return @MAJOR_VERSION@ * 10000 * 10000 + @MINOR_VERSION@ * 10000
+           + @PATCH_VERSION@;
 }
 //-----------------------------------------------------------------------------------
 std::string Version::getVersionShort()
 {
-    string version = to_string(getMajor()) + "."
-     + to_string(getMinor()) + "."
-     + to_string(getPatch()) + " @VERSION_TYPE@";
+    string version = to_string(getMajor()) + "." + to_string(getMinor()) + "."
+                     + to_string(getPatch()) + " @VERSION_TYPE@";
     return version;
 }
 //-----------------------------------------------------------------------------------

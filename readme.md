@@ -2,8 +2,10 @@
 
 This is a frame for project in C++.
 These tools are in mind:
-    
+
     * Sublime text
+        * build system defined for *make* or *ninja*
+        * cppinabox support
     * CMake based build
     * YCMD
 
@@ -16,8 +18,14 @@ These tools are in mind:
 
 ```
 mkdir build ; cd build
-cmake -DCMAKE_CXX_COMPILER="g++-5" ..
+cmake ..
 make -j8
+```
+
+```
+mkdir build ; cd build
+cmake -GNinja -DCMAKE_CXX_COMPILER="clang++-3.6" ..
+ninja
 ```
 
 
