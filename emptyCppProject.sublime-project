@@ -1,14 +1,14 @@
 {
-	"folders":
-	[
-		{
+    "folders":
+    [
+        {
             "folder_exclude_patterns":
             [
                 "build*", "externalSource"
             ],
-			"path": "."
-		}
-	],
+            "path": "."
+        }
+    ],
     "settings":
     {
         "cppinabox":{
@@ -21,25 +21,25 @@
             "name": "ninja",
             "working_dir": "${project_path}/build",
             "file_regex": "^([\\/\\.^\\s^\\[]..*?):([0-9]+):([0-9]+):(.*)",
-            "cmd":["ninja"],
             "shell": true,
+            "cmd":["ninja"],
+            "windows":{"shell_cmd":"c:/runLinux32.bat ../ninja"},
             "variants": [
                 {
                     "name":"ninja install",
                     "cmd":["ninja install"],
+                    "windows":{"shell_cmd":"c:/runLinux32.bat ninja install"},
                 },
                 {
                     "name":"ninja clean",
                     "cmd":["ninja clean"],
+                    "windows":{"shell_cmd":"c:/runLinux32.bat ninja clean"},
+
                 },
                 {
                     "name":"ninja install + run",
-                    "linux":{
-                        "cmd":["ninja install && cd dist/bin ; echo ; ./runMe"],
-                    },
-                    "windows":{
-                        "cmd":["ninja install & cd dist/bin & echo & runMe"],
-                    },
+                    "cmd":["ninja install && cd dist ; echo ; time -f %e ./runMe -d freedict-deu-eng.dict Ihre deutsch ist möglich"],
+                    "windows":{"shell_cmd":"c:/runLinux32.bat ../ninjabuildrun.sh"},
                 },
 
             ]
@@ -48,25 +48,24 @@
             "name": "make",
             "working_dir": "${project_path}/build",
             "file_regex": "^([\\/\\.^\\s^\\[]..*?):([0-9]+):([0-9]+):(.*)",
-            "cmd":["make"],
             "shell": true,
+            "cmd":["make"],
+            "windows":{"shell_cmd":"c:/runLinux32.bat make"},
             "variants": [
                 {
                     "name":"make install",
                     "cmd":["make install"],
+                    "windows":{"shell_cmd":"c:/runLinux32.bat make install"},
                 },
                 {
                     "name":"make clean",
                     "cmd":["make clean"],
+                    "windows":{"shell_cmd":"c:/runLinux32.bat make clean"},
                 },
                 {
                     "name":"make install + run",
-                    "linux":{
-                        "cmd":["make install && cd dist/bin ; echo ; ./runMe"],
-                    },
-                    "windows":{
-                        "cmd":["make install & cd dist/bin & echo & runMe"],
-                    },
+                    "cmd":["make install && cd dist/bin ; echo ; ./runMe"],
+                    "windows":{"shell_cmd":"c:/runLinux32.bat ../makebuildrun.sh"},
                 },
 
             ]

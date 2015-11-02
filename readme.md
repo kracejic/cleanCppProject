@@ -28,6 +28,14 @@ cmake -GNinja -DCMAKE_CXX_COMPILER="clang++-3.6" ..
 ninja
 ```
 
+* Notes for sublime text: You want to have *c:/runLinux32.bat* with this:
+```
+set MSYSTEM=MINGW32
+C:\msys64\usr\bin\bash.exe --login -c "cd - ; %*"
+```
+    * and edit makebuildrun.sh and ninjabuildrun.sh to execute final executable
+
+
 
 ### Build on windows using MSYS2 + ninja
 
