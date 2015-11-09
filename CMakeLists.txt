@@ -16,7 +16,7 @@ configure_file (
 
 
 # Flags
-set(CMAKE_CXX_FLAGS "-std=c++14")
+set(CMAKE_CXX_FLAGS "-std=c++14 -O3")
 
 include_directories( 
     ${PROJECT_SOURCE_DIR}/source
@@ -28,8 +28,9 @@ set(SRCS
 )
 
 
+find_package (Threads) #threading
 add_executable(runMe ${SRCS})
-
+target_link_libraries (runMe ${CMAKE_THREAD_LIBS_INIT}) #threading
 
 install(TARGETS runMe DESTINATION bin)
 
@@ -37,6 +38,16 @@ install(DIRECTORY ${PROJECT_SOURCE_DIR}/data
         DESTINATION ./
     )
 
+
+# Copy MINGW libraries
+if(MINGW)
+  get_filename_component(GCC_PATH ${CMAKE_C_COMPILER} PATH)
+  install(FILES ${GCC_PATH}/libgcc_s_dw2-1.dll
+      ${GCC_PATH}/libwinpthread-1.dll
+      ${GCC_PATH}/libstdc++-6.dll
+      DESTINATION ./
+    )
+endif(MINGW)
 
 
 
@@ -49,5 +60,12 @@ message(STATUS "    == Overview ==")
 message(STATUS "Version: ${MAJOR_VERSION}.${MINOR_VERSION}.${PATCH_VERSION} ${VERSION_TYPE}")
 message(STATUS "Install prefix: ${CMAKE_INSTALL_PREFIX}")
 message(STATUS "PROJECT_SOURCE_DIR: ${PROJECT_SOURCE_DIR}")
+message(STATUS "")
+
+if(MINGW) 
+  # MESSAGE (STATUS "* Will copy MINGW libs to install folder: " ${GCC_PATH}) 
+  MESSAGE (STATUS "* Will copy MINGW libs to install folder: ") 
+endif(MINGW)
+
 message(STATUS "")
 

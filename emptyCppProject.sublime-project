@@ -4,7 +4,7 @@
         {
             "folder_exclude_patterns":
             [
-                "build*", "externalSource"
+                "build*"
             ],
             "path": "."
         }
@@ -38,7 +38,7 @@
                 },
                 {
                     "name":"ninja install + run",
-                    "cmd":["ninja install && cd dist ; echo ; time -f %e ./runMe -d freedict-deu-eng.dict Ihre deutsch ist möglich"],
+                    "cmd":["../ninjabuildrun.sh"],
                     "windows":{"shell_cmd":"c:/runLinux32.bat ../ninjabuildrun.sh"},
                 },
 
@@ -64,7 +64,7 @@
                 },
                 {
                     "name":"make install + run",
-                    "cmd":["make install && cd dist/bin ; echo ; ./runMe"],
+                    "cmd":["../makebuildrun.sh"],
                     "windows":{"shell_cmd":"c:/runLinux32.bat ../makebuildrun.sh"},
                 },
 
