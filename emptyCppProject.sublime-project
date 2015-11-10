@@ -23,7 +23,7 @@
             "file_regex": "^([\\/\\.^\\s^\\[]..*?):([0-9]+):([0-9]+):(.*)",
             "shell": true,
             "cmd":["ninja"],
-            "windows":{"shell_cmd":"c:/runLinux32.bat ../ninja"},
+            "windows":{"shell_cmd":"c:/runLinux32.bat ninja"},
             "variants": [
                 {
                     "name":"ninja install",
