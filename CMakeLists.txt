@@ -1,4 +1,8 @@
 cmake_minimum_required (VERSION 3.0)
+message(STATUS "")
+message(STATUS "    == Empty Project configuration ==")
+message(STATUS "")
+
 
 # Project setup
 project (emptyProject)
@@ -16,7 +20,7 @@ configure_file (
 
 
 # Flags
-set(CMAKE_CXX_FLAGS "-std=c++14 -O3")
+set(CMAKE_CXX_FLAGS "-std=c++14 -O3 -Wall -Wextra")
 
 include_directories( 
     ${PROJECT_SOURCE_DIR}/source
@@ -41,11 +45,20 @@ install(DIRECTORY ${PROJECT_SOURCE_DIR}/data
 
 # Copy MINGW libraries
 if(MINGW)
-  get_filename_component(GCC_PATH ${CMAKE_C_COMPILER} PATH)
-  install(FILES ${GCC_PATH}/libgcc_s_dw2-1.dll
-      ${GCC_PATH}/libwinpthread-1.dll
-      ${GCC_PATH}/libstdc++-6.dll
-      DESTINATION ./
+    message(STATUS "MinGW detected")
+    get_filename_component(GCC_PATH ${CMAKE_C_COMPILER} PATH)
+    if(${GCC_PATH} MATCHES "mingw64/bin")
+        set(libgcc "libgcc_s_seh-1.dll") #64bit
+        message(STATUS "  64bit dlls is building")
+    else()
+        set(libgcc "libgcc_s_dw2-1.dll") #32bit
+        message(STATUS "  32bit dlls is building")
+    endif()
+
+    install(FILES ${GCC_PATH}/${libgcc}
+        ${GCC_PATH}/libwinpthread-1.dll
+        ${GCC_PATH}/libstdc++-6.dll
+        DESTINATION ./
     )
 endif(MINGW)
 
