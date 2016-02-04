@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 3.0)
+cmake_minimum_required (VERSION 3.2)
 message(STATUS "")
 message(STATUS "    == Empty Project configuration ==")
 message(STATUS "")
@@ -19,10 +19,10 @@ configure_file (
   )
 
 
-# Flags
-set(CMAKE_CXX_FLAGS "-std=c++14 -O3 -Wall -Wextra")
+# Flags for all, used every time, see target_compile_options
+# set(CMAKE_CXX_FLAGS "-std=c++14 -Wall -Wextra")
 
-include_directories( 
+include_directories(
     ${PROJECT_SOURCE_DIR}/source
 )
 
@@ -32,9 +32,14 @@ set(SRCS
 )
 
 
-find_package (Threads) #threading
+find_package (Threads REQUIRED) #threading
 add_executable(runMe ${SRCS})
+target_compile_options(runMe PRIVATE -funroll-loops -std=c++14 -Wall -Wextra)
 target_link_libraries (runMe ${CMAKE_THREAD_LIBS_INIT}) #threading
+
+# Will add -DBAR_ENABLE_FEATURE or equivalent
+# target_compile_definitions(bar PRIVATE BAR_ENABLE_FEATURE)
+
 
 install(TARGETS runMe DESTINATION bin)
 
@@ -70,14 +75,17 @@ endif()
 
 message(STATUS "")
 message(STATUS "    == Overview ==")
-message(STATUS "Version: ${MAJOR_VERSION}.${MINOR_VERSION}.${PATCH_VERSION} ${VERSION_TYPE}")
-message(STATUS "Install prefix: ${CMAKE_INSTALL_PREFIX}")
-message(STATUS "PROJECT_SOURCE_DIR: ${PROJECT_SOURCE_DIR}")
+message(STATUS "Version:              ${MAJOR_VERSION}.${MINOR_VERSION}.${PATCH_VERSION} ${VERSION_TYPE} @ ${VERSION_HOST}")
+message(STATUS "Install prefix:       ${CMAKE_INSTALL_PREFIX}")
+message(STATUS "PROJECT_SOURCE_DIR:   ${PROJECT_SOURCE_DIR}")
+message(STATUS "CMAKE_BUILD_TYPE:     ${CMAKE_BUILD_TYPE}")
+message(STATUS "  possible options: Debug Release RelWithDebInfo MinSizeRel")
+message(STATUS "  set with ` cmake -DCMAKE_BUILD_TYPE=Debug .. `")
 message(STATUS "")
 
-if(MINGW) 
-  # MESSAGE (STATUS "* Will copy MINGW libs to install folder: " ${GCC_PATH}) 
-  MESSAGE (STATUS "* Will copy MINGW libs to install folder: ") 
+if(MINGW)
+  # MESSAGE (STATUS "* Will copy MINGW libs to install folder: " ${GCC_PATH})
+  MESSAGE (STATUS "* Will copy MINGW libs to install folder: ")
 endif(MINGW)
 
 message(STATUS "")
