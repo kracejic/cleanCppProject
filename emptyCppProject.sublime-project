@@ -2,6 +2,9 @@
     "folders":
     [
         {
+            "file_exclude_patterns":[
+                "*swp"
+            ],
             "folder_exclude_patterns":
             [
                 "build*"
@@ -31,6 +34,11 @@
                     "windows":{"shell_cmd":"c:/runLinux32.bat ninja install"},
                 },
                 {
+                    "name":"ninja doc all install",
+                    "cmd":["ninja doc all; ninja install > /dev/null"],
+                    "windows":{"shell_cmd":"c:/runLinux32.bat ninja doc all install"},
+                },
+                {
                     "name":"ninja clean",
                     "cmd":["ninja clean"],
                     "windows":{"shell_cmd":"c:/runLinux32.bat ninja clean"},
@@ -56,6 +64,11 @@
                     "name":"make install",
                     "cmd":["make install"],
                     "windows":{"shell_cmd":"c:/runLinux32.bat make install"},
+                },
+                {
+                    "name":"make doc all install",
+                    "cmd":["make doc all install"],
+                    "windows":{"shell_cmd":"c:/runLinux32.bat make doc all install"},
                 },
                 {
                     "name":"make clean",

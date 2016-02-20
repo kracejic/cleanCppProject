@@ -4,6 +4,8 @@
 #include <stdio.h>
 
 #include "version.h"
+#include "SomeClass.h"
+
 
 using namespace std;
 
@@ -13,6 +15,8 @@ void printHelp()
     cout << "Version: " << Version::getVersionLong() << endl;
     cout << "Author:  " << endl;
     cout << "URL:     " << endl;
+/// @todo Do stuff in here also
+
 }
 
 int main(int argc, char const* argv[])
@@ -38,5 +42,13 @@ int main(int argc, char const* argv[])
     for(; argIt < argc; ++argIt)
         cout << argv[argIt] << endl;
 
+    /// @todo Do more stuff.
+
+    SomeClass o;
+    o.set(5);
+    cout<<o.get()<<endl;
+
+
     return 0;
 }
+

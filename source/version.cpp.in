@@ -41,5 +41,12 @@ std::string Version::getVersionLong()
     return getVersionShort() + " / " + getBuildTime() + " / @VERSION_HOST@";
 }
 //-----------------------------------------------------------------------------------
+std::string Version::getBuildMachine()
+{
+    return "@VERSION_HOST@";
+}
+//-----------------------------------------------------------------------------------
+
+
 
 
