@@ -80,12 +80,23 @@ C:\msys64\usr\bin\bash.exe --login -c "cd - ; %*"
     * and edit makebuildrun.sh and ninjabuildrun.sh to execute final executable
 
 
+### Build on Windows using Microsoft Visual Studio 14
+
+First you can edit `CMakeLists.txt` and set new project name. Just go to the folder with the project and create new directory and create project files with this:
+
+~~~
+mkdir buildmsvc
+cd buildmsvc
+cmake -G "Visual Studio 14 2015" ..
+~~~
+
+and you can now open a `.sln` file with Visual Studio. You need to RMB click on executable target and *Set as StartUp project*. To really see the console window you want to do *Start without debugging*, when run in debug mode, console widow is closed too fast.
 
 ### CMAKE variables
 
-* -DCMAKE_INSTALL_PREFIX= - location for instalation
-* -DVERSION_HOST= - build machine name
-* -DCMAKE_BUILD_TYPE=RelWithDebInfo - for build type
+* `-DCMAKE_INSTALL_PREFIX`= - location for instalation
+* `-DVERSION_HOST`= - build machine name
+* `-DCMAKE_BUILD_TYPE`=RelWithDebInfo - for build type
 
 
 

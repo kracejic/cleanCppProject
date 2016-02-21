@@ -37,7 +37,9 @@ find_package (Threads REQUIRED) #threading
 #runMe executable setup
 add_executable(runMe ${SRCS})
 target_link_libraries (runMe ${CMAKE_THREAD_LIBS_INIT}) #threading
-target_compile_options(runMe PRIVATE -Wall -Wextra) # extra warnings
+if(NOT MSVC)
+    target_compile_options(runMe PRIVATE -Wall -Wextra) # extra warnings
+endif()
 set_property(TARGET runMe PROPERTY CXX_STANDARD 14) # we want C++14
 install(TARGETS runMe DESTINATION bin) #copy executable to bin folder on install
 
@@ -116,6 +118,14 @@ message(STATUS "  possible options: Debug Release RelWithDebInfo MinSizeRel")
 message(STATUS "  set with ` cmake -DCMAKE_BUILD_TYPE=Debug .. `")
 message(STATUS "Building doc:         ${BUILD_DOCUMENTATION}")
 message(STATUS "")
+message(STATUS "Building doc:         ${CMAKE_SOURCE_DIR}")
+message(STATUS "Building doc:         ${PROJECT_SOURCE_DIR}")
+
+set(xxx TO_CMAKE_PATH(${CMAKE_SOURCE_DIR}))
+message(STATUS "Building doc:         ${xxx}")
+message(STATUS "")
+
+#TODO see https://cmake.org/cmake/help/v3.5/command/file.html
 
 if(MINGW)
   # MESSAGE (STATUS "* Will copy MINGW libs to install folder: " ${GCC_PATH})
