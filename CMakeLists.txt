@@ -84,12 +84,25 @@ endif()
 #-------------------------------------------------------------------------------
 # Doxygen documentation generating
 find_package(Doxygen)
+
+# Helper functions
+macro(path_linux_to_win MsysPath ResultingPath)
+  string(REGEX REPLACE "^/([a-zA-Z])/" "\\1:/" ${ResultingPath} "${MsysPath}")
+endmacro()
+macro(path_win_to_linux MsysPath ResultingPath)
+  string(REGEX REPLACE "^([a-zA-Z]):/" "/\\1/" ${ResultingPath} "${MsysPath}")
+endmacro()
+
+
 # enable if doxygen found
 option(BUILD_DOCUMENTATION "Create and install the HTML based API documentation (requires Doxygen)" ${DOXYGEN_FOUND})
 if(BUILD_DOCUMENTATION)
     if(NOT DOXYGEN_FOUND)
         message(FATAL_ERROR "Doxygen is needed to build the documentation.")
     endif()
+
+    path_win_to_linux(${PROJECT_SOURCE_DIR} PROJECT_SOURCE_DIR_LINUX)
+    path_win_to_linux(${PROJECT_BINARY_DIR} PROJECT_BINARY_DIR_LINUX)
 
     set(doxyfile_in ${CMAKE_CURRENT_SOURCE_DIR}/doc/doxygen/Doxyfile.in)
     set(doxyfile ${CMAKE_CURRENT_BINARY_DIR}/doc/Doxyfile)
@@ -117,12 +130,6 @@ message(STATUS "CMAKE_BUILD_TYPE:     ${CMAKE_BUILD_TYPE}")
 message(STATUS "  possible options: Debug Release RelWithDebInfo MinSizeRel")
 message(STATUS "  set with ` cmake -DCMAKE_BUILD_TYPE=Debug .. `")
 message(STATUS "Building doc:         ${BUILD_DOCUMENTATION}")
-message(STATUS "")
-message(STATUS "Building doc:         ${CMAKE_SOURCE_DIR}")
-message(STATUS "Building doc:         ${PROJECT_SOURCE_DIR}")
-
-set(xxx TO_CMAKE_PATH(${CMAKE_SOURCE_DIR}))
-message(STATUS "Building doc:         ${xxx}")
 message(STATUS "")
 
 #TODO see https://cmake.org/cmake/help/v3.5/command/file.html

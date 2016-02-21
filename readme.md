@@ -53,8 +53,12 @@ ninja all doc install
 ~~~
 
 
+### Build on windows
 
-### Build on windows using MSYS2 + ninja
+* note on call graphs and rest. Since there is no package in MSYS2, getting more graphs to work could be challenging.
+
+
+#### Build on windows using MSYS2 + ninja
 
 On windows prefer Ninja since it is **MUCH** faster than make.
 
@@ -80,7 +84,7 @@ C:\msys64\usr\bin\bash.exe --login -c "cd - ; %*"
     * and edit makebuildrun.sh and ninjabuildrun.sh to execute final executable
 
 
-### Build on Windows using Microsoft Visual Studio 14
+#### Build on Windows using Microsoft Visual Studio 14
 
 First you can edit `CMakeLists.txt` and set new project name. Just go to the folder with the project and create new directory and create project files with this:
 
