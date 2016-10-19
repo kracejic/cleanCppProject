@@ -14,17 +14,24 @@ site_name(VERSION_HOST)
 set(VERSION_HOST "${VERSION_HOST}" CACHE STRING "host of build" FORCE)
 
 #------------------------------------------------------------------------------
-# Includes
-
-add_subdirectory(doc)
-
-add_subdirectory(source)
+# Custom Install target
+add_custom_target( Install COMMAND "${CMAKE_COMMAND}" --build . --target install
+    WORKING_DIRECTORY "${CMAKE_BINARY_DIR}")
 
 #-------------------------------------------------------------------------------
 # Set default install location to dist folder in build dir
 if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
     set (CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/dist" CACHE PATH "Install path prefix, prepended onto install directories." FORCE )
 endif()
+
+
+#------------------------------------------------------------------------------
+# Includes
+
+add_subdirectory(doc)
+
+add_subdirectory(source)
+
 
 #-------------------------------------------------------------------------------
 # Wrap up of settings printed on build

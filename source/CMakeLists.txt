@@ -1,5 +1,5 @@
 
-# wsourceill configure version.cpp.in with selected version
+# configure version.cpp.in with selected version
 configure_file (
   "${CMAKE_CURRENT_SOURCE_DIR}/version.cpp.in"
   "${CMAKE_CURRENT_BINARY_DIR}/version.cpp"
@@ -19,17 +19,25 @@ set(SRCS
 find_package (Threads REQUIRED) #threading
 
 #-------------------------------------------------------------------------------
-#runMe executable setup
-add_executable(runMe ${SRCS})
-target_link_libraries (runMe ${CMAKE_THREAD_LIBS_INIT}) #threading
+#example executable setup
+add_executable(example ${SRCS})
+target_link_libraries (example ${CMAKE_THREAD_LIBS_INIT}) #threading
 if(NOT MSVC)
-    target_compile_options(runMe PRIVATE -Wall -Wextra) # extra warnings
+    target_compile_options(example PRIVATE -Wall -Wextra) # extra warnings
 endif()
-set_property(TARGET runMe PROPERTY CXX_STANDARD 14) # we want C++14
-install(TARGETS runMe DESTINATION bin) #copy executable to bin folder on install
+set_property(TARGET example PROPERTY CXX_STANDARD 14) # we want C++14
+install(TARGETS example DESTINATION bin) #copy executable to bin folder on install
+# convenience target for running the binary
+add_custom_target(example-run
+    WORKING_DIRECTORY ${CMAKE_INSTALL_PREFIX}/bin
+    COMMAND ./example
+    DEPENDS Install)
+message(STATUS "CMAKE_INSTALL_PREFIX:         ${CMAKE_INSTALL_PREFIX}")
+message(STATUS "CMAKE_BINARY_DIR:             ${CMAKE_BINARY_DIR}")
+
 
 # And this would add -DBAR_ENABLE_FEATURE or equivalent
-# target_compile_definitions(runMe PRIVATE BAR_ENABLE_FEATURE)
+# target_compile_definitions(example PRIVATE BAR_ENABLE_FEATURE)
 
 
 #-------------------------------------------------------------------------------

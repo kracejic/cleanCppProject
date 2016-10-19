@@ -40,11 +40,11 @@ if(BUILD_DOCUMENTATION)
     # where doc will be installed
     install(
         DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/doc/
-        DESTINATION ./doc )
+        DESTINATION ./doc
+        OPTIONAL)
 endif()
 
 
 message(STATUS "Building doc:         ${BUILD_DOCUMENTATION}")
-message(STATUS "PROJECT_SOURCE_DIR:         ${PROJECT_SOURCE_DIR_LINUX}")
 
 
