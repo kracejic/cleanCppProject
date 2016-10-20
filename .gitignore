@@ -1,6 +1,6 @@
 build*/
 *.sublime-workspace
 .tags
-*.out
+tags
 *.pyc
 *.swp

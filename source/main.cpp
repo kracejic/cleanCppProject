@@ -43,10 +43,27 @@ int main(int argc, char const* argv[])
         cout << argv[argIt] << endl;
 
     /// @todo Do more stuff.
+    {
+        BaseClass c;
+        if(argc == 1)
+            c.freePtr();
+    }
 
     SomeClass o;
     o.set(5);
     cout<<o.get()<<endl;
+
+    // possible memory leak here, run with `make analyze`
+    int* a = new int(5);
+    cout<<*a<<endl;
+
+    if (argc == 2)
+        return 1;
+
+   
+   
+    delete a;
+    cout<<*a<<endl;
 
 
     return 0;

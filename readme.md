@@ -1,6 +1,6 @@
-# EmptyCppProject
+# cleanCppProject
 
-This is a empty frame for project in C++. It should help to start a new project without caring much about project/build enviroment setup.
+This is a empty frame for project in C++. It should help to start a new project without caring much about project/build environment setup.
 
 
 ## Important pages
@@ -20,7 +20,7 @@ This is a empty frame for project in C++. It should help to start a new project 
 * Doxygen for docs (*Graphviz for more graphs in docs, PlantUML for more UML diagrams*)
 
 
-### Build on linux
+### Build on Linux
 
 Standard Makefiles:
 ~~~
@@ -62,12 +62,23 @@ cd buildmsvc
 cmake -G "Visual Studio 14 2015" ..
 ~~~
 
-and you can now open a `.sln` file with Visual Studio. You need to RMB click on executable target and *Set as StartUp project*. To really see the console window you want to do *Start without debugging*, since when run in debug mode only, console widow is closed too fast.
+and you can now open a `.sln` file with Visual Studio. You need to right click on executable target and *Set as StartUp project*. To really see the console window you want to do *Start without debugging*, since when run in debug mode only, console widow is closed too fast.
+
+### Targets
+
+* all (the default if no target is provided)
+* clean
+* example - build example binary
+* example-run - build, install and run example binary (for your convenience)
+* install - install binaries into *CMAKE_INSTALL_PREFIX*
+* doc - build documentation (if doxygen is available)
+* tidy - run clang static analysis on all sources
+
 
 ### CMAKE variables
 
-* `-DCMAKE_INSTALL_PREFIX`= - location for instalation
-* `-DVERSION_HOST`= - build machine name
+* `-DCMAKE_INSTALL_PREFIX`= - location for installation
+* `-DVERSION_HOST`= - build machine name, see Version::getVersionLong
 * `-DCMAKE_BUILD_TYPE`=RelWithDebInfo - for build type
 
 
@@ -76,9 +87,9 @@ and you can now open a `.sln` file with Visual Studio. You need to RMB click on 
 # License
 
 > Copyright (c) 2016 Kracejic
-> 
+>
 > Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-> 
+>
 > The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-> 
+>
 > THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.

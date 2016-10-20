@@ -45,6 +45,3 @@ if(BUILD_DOCUMENTATION)
 endif()
 
 
-message(STATUS "Building doc:         ${BUILD_DOCUMENTATION}")
-
-

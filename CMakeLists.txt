@@ -13,16 +13,18 @@ set(VERSION_TYPE "beta" CACHE STRING "version type" FORCE)
 site_name(VERSION_HOST)
 set(VERSION_HOST "${VERSION_HOST}" CACHE STRING "host of build" FORCE)
 
-#------------------------------------------------------------------------------
-# Custom Install target
-add_custom_target( Install COMMAND "${CMAKE_COMMAND}" --build . --target install
-    WORKING_DIRECTORY "${CMAKE_BINARY_DIR}")
+#be nice and export compile commands by default
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 #-------------------------------------------------------------------------------
 # Set default install location to dist folder in build dir
 if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
     set (CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/dist" CACHE PATH "Install path prefix, prepended onto install directories." FORCE )
 endif()
+#------------------------------------------------------------------------------
+# Custom Install target
+add_custom_target( Install COMMAND "${CMAKE_COMMAND}" --build . --target install
+    WORKING_DIRECTORY "${CMAKE_BINARY_DIR}")
 
 
 #------------------------------------------------------------------------------
@@ -39,18 +41,15 @@ message(STATUS "")
 message(STATUS "    == Final overview ==")
 message(STATUS "Version:              ${MAJOR_VERSION}.${MINOR_VERSION}.${PATCH_VERSION} ${VERSION_TYPE} @ ${VERSION_HOST}")
 message(STATUS "Install prefix:       ${CMAKE_INSTALL_PREFIX}")
-message(STATUS "PROJECT_SOURCE_DIR:   ${PROJECT_SOURCE_DIR}")
 message(STATUS "CMAKE_BUILD_TYPE:     ${CMAKE_BUILD_TYPE}")
 message(STATUS "  possible options: Debug Release RelWithDebInfo MinSizeRel")
 message(STATUS "  set with ` cmake -DCMAKE_BUILD_TYPE=Debug .. `")
-message(STATUS "Building doc:         ${BUILD_DOCUMENTATION}")
-message(STATUS "")
+message(STATUS "Can build doc?         ${BUILD_DOCUMENTATION}")
 
-#TODO see https://cmake.org/cmake/help/v3.5/command/file.html
 
 if(MINGW)
   MESSAGE (STATUS "* Will copy MINGW libs to install folder")
 endif(MINGW)
-
 message(STATUS "")
+
 

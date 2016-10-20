@@ -10,8 +10,13 @@
 class BaseClass
 {
 public:
-    BaseClass(){};
+    BaseClass(){
+        mPointer = new int(5);
+    };
+
     ~BaseClass(){};
+    void freePtr(){delete mPointer;};
+    int* mPointer;
 
 };
 
