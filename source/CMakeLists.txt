@@ -80,15 +80,35 @@ endif(MINGW)
 
 
 # Static analysis via clang-tidy target
-file(GLOB_RECURSE ALL_SOURCE_FILES *.cpp)
+file(GLOB_RECURSE ALL_SOURCE_FILES *.cpp *.cc *.c)
 add_custom_target(
     tidy
-    COMMAND clang-tidy
-    ${ALL_SOURCE_FILES}
-    -p=./
+    COMMAND clang-tidy ${ALL_SOURCE_FILES} -p=./
     )
 
-# Does not work well, left here for future work
+# run clang-format on all files
+file(GLOB_RECURSE ALL_HEADER_FILES *.h *.hpp)
+add_custom_target(
+    format
+    COMMAND clang-format -i ${ALL_SOURCE_FILES} ${ALL_HEADER_FILES}
+    )
+
+# cpp check static analysis
+add_custom_target(
+        cppcheck
+        COMMAND cppcheck
+        --enable=warning,performance,portability,information,missingInclude
+        --std=c++11
+        --template=gcc
+        --verbose
+        --quiet
+        ${ALL_SOURCE_FILES} ${ALL_HEADER_FILES}
+)
+
+
+# Does not work well, left here for future work, but it would still only
+# provide same info as tidy, but in html form.
+#
 # Produces html analysis in *.plist dirs in build dir or build/source directory
 # add_custom_target(
 #     analyze

@@ -73,6 +73,8 @@ and you can now open a `.sln` file with Visual Studio. You need to right click o
 * install - install binaries into *CMAKE_INSTALL_PREFIX*
 * doc - build documentation (if doxygen is available)
 * tidy - run clang static analysis on all sources
+* format - run clang-format on all source files (.clang-format in root directory of a project is used)
+* cppcheck - call cppcheck on all files (another static analysis)
 
 
 ### CMAKE variables

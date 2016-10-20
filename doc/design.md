@@ -22,8 +22,11 @@ Project is built on these technologies:
 * clang-format 
     - Configuration file in the root of project for easy formating
     - Clang-format automaticaly uses nearest *.clang-format* file
+    - Target *format* will run format on all source files
 * clang-tidy 
     - With target *tidy* you can run static code analysis
+* cppcheck
+    - With target *cppcheck* you can run static code analysis
 
 
 There is extra support for these:

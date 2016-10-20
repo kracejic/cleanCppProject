@@ -19,7 +19,8 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 #-------------------------------------------------------------------------------
 # Set default install location to dist folder in build dir
 if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
-    set (CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/dist" CACHE PATH "Install path prefix, prepended onto install directories." FORCE )
+    set (CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/dist" CACHE PATH 
+        "Install path prefix, prepended onto install directories." FORCE )
 endif()
 #------------------------------------------------------------------------------
 # Custom Install target
