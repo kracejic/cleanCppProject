@@ -15,6 +15,7 @@ set(VERSION_HOST "${VERSION_HOST}" CACHE STRING "host of build" FORCE)
 
 #be nice and export compile commands by default
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+enable_testing()
 
 #-------------------------------------------------------------------------------
 # Set default install location to dist folder in build dir
@@ -35,6 +36,7 @@ add_subdirectory(doc)
 
 add_subdirectory(source)
 
+add_subdirectory(test)
 
 #-------------------------------------------------------------------------------
 # Wrap up of settings printed on build

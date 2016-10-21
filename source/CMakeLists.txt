@@ -34,6 +34,9 @@ add_custom_target(example-run
     COMMAND ./example
     DEPENDS example Install)
 
+# short convenience target
+add_custom_target(run DEPENDS example-run)
+
 
 # And this would add -DBAR_ENABLE_FEATURE or equivalent
 # target_compile_definitions(example PRIVATE BAR_ENABLE_FEATURE)

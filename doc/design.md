@@ -12,6 +12,7 @@ Project is built on these technologies:
 * CMake
     - Used as build tool
     - Doxygen generation
+    - CTest - for running tests
 * Doxygen
     - For documentation and API reference generation
     - Generates wiki from markdown files
@@ -33,8 +34,10 @@ There is extra support for these:
 
 * .ycm_extra_conf.py for ycmd support
     - Smart autocompletion, goto def, etc.
-    - Works in Vim, Sublime Text 3, Atom
+    - Works in Vim, Emacs, Sublime Text 3, Atom, Visual Studio Code
+    - Site: [github.com/Valloric/ycmd](https://github.com/Valloric/ycmd)
 * Sublime text 3 project file
+    - with build system targets
 
 
 

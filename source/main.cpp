@@ -56,7 +56,7 @@ int main(int argc, char const *argv[])
     int *a = new int(5);
     cout << *a << endl;
 
-    if (argc == 2)
+    if (argc == 3)
         return 1;
 
 

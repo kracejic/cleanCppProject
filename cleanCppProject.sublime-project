@@ -1,0 +1,56 @@
+{
+    "folders":
+    [
+        {
+            "file_exclude_patterns":[
+                "*swp"
+            ],
+            "folder_exclude_patterns":
+            [
+                "build*"
+            ],
+            "path": "."
+        }
+    ],
+    "build_systems":
+    [
+        {
+            "name": "build",
+            "working_dir": "${project_path}/build",
+            "file_regex": "^([\\/\\.^\\s^\\[]..*?):([0-9]+):([0-9]+):(.*)",
+            "shell": true,
+            "cmd":["cmake --build ."],
+            // "syntax": "Packages/cppinabox/C++build.sublime-syntax",
+            "windows":{"shell_cmd":"c:/runLinux32.bat cmake --build ."},
+            "variants": [
+                {
+                    "name":"install",
+                    "cmd":["cmake --build . --target install"],
+                    "windows":{"shell_cmd":"c:/runLinux32.bat cmake --build . --target install"},
+                },
+                {
+                    "name":"doc",
+                    "cmd":["cmake --build . --target doc"],
+                    "windows":{"shell_cmd":"c:/runLinux32.bat cmake --build . --target doc"},
+                },
+                {
+                    "name":"check",
+                    "cmd":["cmake --build . --target check"],
+                    "windows":{"shell_cmd":"c:/runLinux32.bat cmake --build . --target check"},
+                },
+                {
+                    "name":"clean",
+                    "cmd":["cmake --build . --target clean"],
+                    "windows":{"shell_cmd":"c:/runLinux32.bat cmake --build . --target clean"},
+                },
+                {
+                    "name":"run",
+                    "cmd":["cmake --build . --target run"],
+                    "windows":{"shell_cmd":"c:/runLinux32.bat cmake --build . --target run"},
+                },
+
+            ]
+        },
+
+    ]
+}
