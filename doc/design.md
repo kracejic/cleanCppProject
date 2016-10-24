@@ -28,6 +28,10 @@ Project is built on these technologies:
     - With target *tidy* you can run static code analysis
 * cppcheck
     - With target *cppcheck* you can run static code analysis
+* [Catch](https://github.com/philsquared/Catch)
+    - Modern unit test framework
+    - Downloaded via externalproject from *external/CMakeLists.txt*
+
 
 
 There is extra support for these:

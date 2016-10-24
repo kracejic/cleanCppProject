@@ -57,8 +57,8 @@ add_custom_target(run DEPENDS example-run)
 #-------------------------------------------------------------------------------
 # copy all from data to install dir /share
 # here can be images, models
-install(DIRECTORY ${PROJECT_SOURCE_DIR}/data
-        DESTINATION ./share
+install(DIRECTORY ${PROJECT_SOURCE_DIR}/data/
+        DESTINATION ./share/data
     )
 
 #-------------------------------------------------------------------------------
@@ -81,6 +81,9 @@ if(MINGW)
     )
 endif(MINGW)
 
+
+#------------------------------------------------------------------------------
+# Other targets
 
 # Static analysis via clang-tidy target
 file(GLOB_RECURSE ALL_SOURCE_FILES *.cpp *.cc *.c)
@@ -110,7 +113,7 @@ add_custom_target(
 
 
 # Does not work well, left here for future work, but it would still only
-# provide same info as tidy, but in html form.
+# provide same info as tidy, only in html form.
 #
 # Produces html analysis in *.plist dirs in build dir or build/source directory
 # add_custom_target(

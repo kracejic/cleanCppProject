@@ -46,6 +46,7 @@ int main(int argc, char const *argv[])
         BaseClass c;
         if (argc == 1)
             c.freePtr();
+        /// @todo fix another leak
     }
 
     SomeClass o;

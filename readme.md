@@ -66,18 +66,27 @@ and you can now open a `.sln` file with Visual Studio. You need to right click o
 
 ### Targets
 
-* all (the default if no target is provided)
-* clean
-* example - build example binary
-* example-run - build, install and run example binary (for your convenience)
-* run - alias for example-run
-* install - install binaries into *CMAKE_INSTALL_PREFIX*
-* check - run whole test suite (see test/CMakeLists.txt)
-* checkVerbose - run whole test suite (see test/CMakeLists.txt), but more verbose
-* doc - build documentation (if doxygen is available)
-* tidy - run clang static analysis on all sources
-* format - run clang-format on all source files (.clang-format in root directory of a project is used)
-* cppcheck - call cppcheck on all files (another static analysis)
+* Build
+    * *all* (the default if no target is provided)
+    * *clean*
+    * *install* - install binaries into *CMAKE_INSTALL_PREFIX*
+    * *example* - build example binary
+    * *example-run* - build, install and run example binary (for your convenience)
+    * *run* - alias for example-run (in order to keep it short)
+* Testing
+    * *check* - run whole test suite (see test/CMakeLists.txt)
+    * *checkVerbose* - run whole test suite (see test/CMakeLists.txt), but more verbose
+    * *unit* - build and run unit tests only (see test/CMakeLists.txt)
+    * *unitall* - same as previous, only prints even successful unit tests results
+* Miscellaneous
+    * *doc* - build documentation (if doxygen is available)
+    * *format* - run clang-format on all source files (.clang-format in root directory of a project is used)
+* Static analysis
+    * *tidy* - run clang static analysis on all sources
+    * *cppcheck* - call cppcheck on all files (another static analysis)
+* External
+    * *external-update-all* - update all external sources/projects
+    * *external-update-Catch* - update Catch (Unit test library)
 
 
 ### CMAKE variables

@@ -13,30 +13,35 @@ set(VERSION_TYPE "beta" CACHE STRING "version type" FORCE)
 site_name(VERSION_HOST)
 set(VERSION_HOST "${VERSION_HOST}" CACHE STRING "host of build" FORCE)
 
-#be nice and export compile commands by default
+#be nice and export compile commands by default, this is handy for clang-tidy
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 enable_testing()
 
 #-------------------------------------------------------------------------------
 # Set default install location to dist folder in build dir
 if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
-    set (CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/dist" CACHE PATH 
+    set (CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/dist" CACHE PATH
         "Install path prefix, prepended onto install directories." FORCE )
 endif()
 #------------------------------------------------------------------------------
-# Custom Install target
+# Custom Install target, used in run target in source/CMakeLists.txt
 add_custom_target( Install COMMAND "${CMAKE_COMMAND}" --build . --target install
     WORKING_DIRECTORY "${CMAKE_BINARY_DIR}")
 
 
 #------------------------------------------------------------------------------
-# Includes
+# Included CMakeLists.txt
 
+# Documentation build
 add_subdirectory(doc)
 
-add_subdirectory(source)
+# External resources/repositories are downloaded here
+add_subdirectory(external)
 
 add_subdirectory(test)
+add_subdirectory(source)
+
+
 
 #-------------------------------------------------------------------------------
 # Wrap up of settings printed on build
