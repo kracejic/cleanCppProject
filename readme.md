@@ -12,13 +12,29 @@ This is a empty frame for project in C++. It should help to start a new project 
 
 \todo see how todo works
 
+## How to convert this to your new project
+
+~~~
+git clone https://github.com/kracejic/cleanCppProject.git yourNewProject
+cd yourNewProject
+rm -rf .git
+git init
+git add .
+git commit -m "first commit"
+~~~
+
+Do not forget to change name of *example* binary in `source/CMakeLists.txt` and `test/CMakeLists.txt`. Also working on design document is helpfull.
+
 ## Building instructions
 
 ### Prerequisites
 
 * CMake 3.2 and newer
+* Compiler with support for C++14
+* git
 * Doxygen for docs (*Graphviz for more graphs in docs, PlantUML for more UML diagrams*)
 
+Ubuntu: `sudo apt-get install cmake g++ graphviz plantuml git`
 
 ### Build on Linux
 
