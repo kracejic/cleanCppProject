@@ -5,6 +5,16 @@
 
 /**
  * Empty BaseClass, just to show how it looks in doxygen.
+ *
+ *  Here is some graph:
+ *
+ *  \startuml
+ *    Sender->Receiver  : Command()
+ *    Sender<--Receiver : Ack()
+ *  \enduml
+ *
+ *  How you like it?
+ *
  */
 class BaseClass
 {

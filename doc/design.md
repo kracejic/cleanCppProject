@@ -44,5 +44,119 @@ There is extra support for these:
     - with build system targets
 
 
+## Deployment view
+
+To showcase PlantUML, here is a graph for you:
+
+\startuml
+top to bottom direction
+
+frame "Internal network" {
+
+    frame "git server" {
+      artifact "git repository" as gitS
+    }
+
+    frame "build server" {
+      artifact "build git repository" as gitB
+      node doxygen
+      node "build system" as buildB
+    }
+
+    frame "developer machine" as dev {
+      artifact "local git repository" as gitD
+      node "build system" as buildD
+      artifact "binaries" as releaseD
+    }
+
+    gitD --> buildD
+    buildD --> releaseD
+
+    gitS --> gitB
+    gitS <--> gitD
+
+    frame "internal web server" {
+      artifact "generated documentation" as doc
+    }
+
+    :developer: ..> dev : "develops at"
+    :developer: ..> doc : "looks at"
+
+
+    gitB --> doxygen
+    doxygen --> doc
+
+}
+
+frame "external web server" {
+  artifact "customer support, etc."
+  artifact "released versions" as release
+}
+
+:customer: ..> release : downloads 
+
+gitB --> buildB
+buildB -right-> release
+\enduml
+
+This graph was generated from this:
+
+~~~
+\\startuml
+top to bottom direction
+
+frame "Internal network" {
+
+    frame "git server" {
+      artifact "git repository" as gitS
+    }
+
+    frame "build server" {
+      artifact "build git repository" as gitB
+      node doxygen
+      node "build system" as buildB
+    }
+
+    frame "developer machine" as dev {
+      artifact "local git repository" as gitD
+      node "build system" as buildD
+      artifact "binaries" as releaseD
+    }
+
+    gitD --> buildD
+    buildD --> releaseD
+
+    gitS --> gitB
+    gitS <--> gitD
+
+    frame "internal web server" {
+      artifact "generated documentation" as doc
+    }
+
+    :developer: ..> dev : "develops at"
+    :developer: ..> doc : "looks at"
+
+
+    gitB --> doxygen
+    doxygen --> doc
+
+}
+
+frame "external web server" {
+  artifact "customer support, etc."
+  artifact "released versions" as release
+}
+
+:customer: ..> release : downloads 
+
+gitB --> buildB
+buildB -right-> release
+\\enduml
+
+~~~
+
+For more inspiration on what can be done with PlantUML look at their pages [plantuml.com](http://plantuml.com/sequence-diagram), and see #main funtion for example sequence diagram.
+
+
 
 

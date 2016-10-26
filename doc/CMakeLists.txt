@@ -21,6 +21,11 @@ if(BUILD_DOCUMENTATION)
         message(FATAL_ERROR "Doxygen is needed to build the documentation.")
     endif()
 
+    find_program(PLANT_UML plantuml.jar)
+    if(NOT PLANT_UML)
+        message(WARNING "Looking for PlantUML - not found, some UML diagrams will not be generated via doxygen.")
+    endif()
+
     path_win_to_linux(${CMAKE_CURRENT_SOURCE_DIR} CMAKE_CURRENT_SOURCE_DIR_LINUX)
     path_win_to_linux(${PROJECT_SOURCE_DIR} PROJECT_SOURCE_DIR_LINUX)
 

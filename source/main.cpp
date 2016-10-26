@@ -18,6 +18,45 @@ void printHelp()
     /// @todo Do stuff in here also
 }
 
+/**
+ * Example UML diagram:
+ *
+ * \startuml
+ *
+ * [-> main : start program
+ *
+ * activate main
+ *
+ * main -> main : process parameters
+ *
+ * main -> Version : get version
+ *
+ * activate Version
+ * Version -> Version : loads version
+ * Version -> main
+ * deactivate Version
+ *
+ * main -> main : prints version
+ *
+ * main -> SomeClass : create instance
+ * activate SomeClass
+ * SomeClass -> BaseClass : call constructor
+ * activate BaseClass
+ *
+ * main -> SomeClass : do stuff
+ * activate SomeClass
+ * SomeClass -> main : return stuff
+ * deactivate SomeClass
+ *
+ * BaseClass -> SomeClass
+ * deactivate BaseClass
+ * SomeClass -> main
+ * deactivate SomeClass
+ *
+ * deactivate main
+ *
+ * \enduml
+*/
 int main(int argc, char const *argv[])
 {
     // Print help if no arguments are given
