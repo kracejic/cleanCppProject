@@ -8,12 +8,12 @@ enable_testing()
 # Convenience targets for fast testing
 add_custom_target(check
     COMMAND echo [----] Running tests
-    COMMAND ${CMAKE_CTEST_COMMAND}  --output-on-failure
+    COMMAND ${CMAKE_CTEST_COMMAND}  --output-on-failure -C Debug
     DEPENDS example unittests)
 
 add_custom_target(checkVerbose
     COMMAND echo [----] Running tests
-    COMMAND ${CMAKE_CTEST_COMMAND}  -V --output-on-failure
+    COMMAND ${CMAKE_CTEST_COMMAND}  -V --output-on-failure -C Debug
     DEPENDS example unittests)
 
 #------------------------------------------------------------------------------
@@ -65,11 +65,11 @@ target_include_directories(unittests PRIVATE
 add_custom_target(unit
     #this way we can use faux data from /test dir (if we hady any):
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-    COMMAND ${CMAKE_CURRENT_BINARY_DIR}/unittests
+    COMMAND $<TARGET_FILE:unittests>
     DEPENDS unittests)
 add_custom_target(unitall
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-    COMMAND ${CMAKE_CURRENT_BINARY_DIR}/unittests -s -a -r=compact
+    COMMAND $<TARGET_FILE:unittests> -s -a -r=compact
     DEPENDS unittests)
 
 

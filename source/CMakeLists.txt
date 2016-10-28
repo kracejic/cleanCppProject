@@ -14,6 +14,7 @@ include_directories(
 set(SRCS
     ${CMAKE_CURRENT_BINARY_DIR}/version.cpp
     SomeClass.cpp
+    SomeClass.h
     main.cpp
 )
 
@@ -32,7 +33,7 @@ install(TARGETS example DESTINATION bin) #copy executable to bin folder on insta
 add_custom_target(example-run
     WORKING_DIRECTORY ${CMAKE_INSTALL_PREFIX}/bin
     COMMAND ./example
-    DEPENDS example Install)
+    DEPENDS example Install_)
 
 # short convenience target
 add_custom_target(run DEPENDS example-run)
@@ -85,31 +86,38 @@ endif(MINGW)
 #------------------------------------------------------------------------------
 # Other targets
 
-# Static analysis via clang-tidy target
 file(GLOB_RECURSE ALL_SOURCE_FILES *.cpp *.cc *.c)
-add_custom_target(
-    tidy
-    COMMAND clang-tidy ${ALL_SOURCE_FILES} -p=./
-    )
+file(GLOB_RECURSE ALL_HEADER_FILES *.h *.hpp)
+
+# Static analysis via clang-tidy target
+# We check for program, since when it is not here, target makes no sense
+find_program(TIDY_PATH clang-tidy)
+if(TIDY_PATH)
+    add_custom_target(tidy
+        COMMAND ${TIDY_PATH} ${ALL_SOURCE_FILES} -p=./ )
+endif()
 
 # run clang-format on all files
-file(GLOB_RECURSE ALL_HEADER_FILES *.h *.hpp)
-add_custom_target(
-    format
-    COMMAND clang-format -i ${ALL_SOURCE_FILES} ${ALL_HEADER_FILES}
-    )
+find_program(FORMAT_PATH clang-format)
+if(FORMAT_PATH)
+add_custom_target(format
+    COMMAND ${FORMAT_PATH} -i ${ALL_SOURCE_FILES} ${ALL_HEADER_FILES} )
+endif()
 
 # cpp check static analysis
-add_custom_target(
-        cppcheck
-        COMMAND cppcheck
-        --enable=warning,performance,portability,information,missingInclude
-        --std=c++11
-        --template=gcc
-        --verbose
-        --quiet
-        ${ALL_SOURCE_FILES} ${ALL_HEADER_FILES}
-)
+find_program(CPPCHECK_PATH cppcheck)
+if(CPPCHECK_PATH)
+    add_custom_target(
+            cppcheck
+            COMMAND ${CPPCHECK_PATH}
+            --enable=warning,performance,portability,information,missingInclude
+            --std=c++11
+            --template=gcc
+            --verbose
+            --quiet
+            ${ALL_SOURCE_FILES} ${ALL_HEADER_FILES}
+    )
+endif()
 
 
 # Does not work well, left here for future work, but it would still only

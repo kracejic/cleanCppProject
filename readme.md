@@ -23,7 +23,7 @@ git add .
 git commit -m "first commit"
 ~~~
 
-Do not forget to change name of *example* binary in `source/CMakeLists.txt` and `test/CMakeLists.txt`. Also working on design document is helpfull.
+Do not forget to change name of *example* binary in `source/CMakeLists.txt` and `test/CMakeLists.txt`. 
 
 ## Building instructions
 
@@ -31,10 +31,29 @@ Do not forget to change name of *example* binary in `source/CMakeLists.txt` and 
 
 * CMake 3.2 and newer
 * Compiler with support for C++14
-* git
-* Doxygen for docs (*Graphviz for more graphs in docs, PlantUML for more UML diagrams*)
+* git - for downloading external resources
+* Doxygen for docs (*Graphviz for more graphs in docs, PlantUML for more UML diagrams*, PlantUML needs java)
+* clang-tools for static analysis and formating
+* cpp check for another static analysis
 
-Ubuntu: `sudo apt-get install cmake g++ graphviz plantuml git`
+Arch Linux: `sudo pacman -S cmake g++ graphviz git clang clang-tools-extra cppcheck`, download plantuml.jar and have it somewhere where *PATH* points to
+Ubuntu: `sudo apt-get install cmake g++ graphviz plantuml git clang clang-tools-extra`
+
+#### Prerequisites on Windows
+
+Two ways, which were tested:
+
+* msys2 based
+    * Minimal: `pacman -S cmake g++ git`
+    * Additional software `pacman -S clang mingw-w64-x86_64-clang-tools-extra mingw-w64-x86_64-clang-analyzer doxygen`
+    * For graphs in documentation install Graphviz (to `c:\Program Files\Graphviz`, so scripts can find it) and add its `bin` subdirectory to *PATH*, install java (have it on *PATH*), download PlantUML jar file and have it on *PATH*. 
+
+* Microsoft Visual Studio
+    * Install cmake
+    * Install git
+    * For additional features install clang with tools, doxygen, graphviz, plantuml, java and add them to the PATH (*not tested*)
+
+
 
 ### Build on Linux
 
@@ -58,7 +77,7 @@ ninja all doc && ninja install
 
 #### Build on windows using MSYS2 + ninja
 
-On windows prefer Ninja since it is **MUCH** faster than make.
+On windows you should prefer Ninja since it is much faster than make (but has no color in shell).
 
 With gcc:
 ~~~

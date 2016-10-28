@@ -13,6 +13,9 @@ set(VERSION_TYPE "beta" CACHE STRING "version type" FORCE)
 site_name(VERSION_HOST)
 set(VERSION_HOST "${VERSION_HOST}" CACHE STRING "host of build" FORCE)
 
+#be nice to visual studio
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+
 #be nice and export compile commands by default, this is handy for clang-tidy
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 enable_testing()
@@ -25,7 +28,7 @@ if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
 endif()
 #------------------------------------------------------------------------------
 # Custom Install target, used in run target in source/CMakeLists.txt
-add_custom_target( Install COMMAND "${CMAKE_COMMAND}" --build . --target install
+add_custom_target( Install_ COMMAND "${CMAKE_COMMAND}" --build . --target install
     WORKING_DIRECTORY "${CMAKE_BINARY_DIR}")
 
 
