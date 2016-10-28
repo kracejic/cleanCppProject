@@ -8,6 +8,7 @@ This is a empty frame for project in C++. It should help to start a new project 
 * [Design document](./md_design.html)
 * [List of todos](./todo.html)
 * [Basic directory structure](./md_directoryStructure.html)
+* [How to start working](./md_start_working.html)
 <!-- * \link todo List of todos DoxygenStyle \endlink -->
 
 \todo see how todo works
@@ -100,6 +101,8 @@ cmake -G "Visual Studio 14 2015" ..
 and you can now open a `.sln` file with Visual Studio. You need to right click on executable target and *Set as StartUp project*. To really see the console window you want to do *Start without debugging*, since when run in debug mode only, console widow is closed too fast.
 
 ### Targets
+
+*Note:* Availability of some targets depends on availability certain executables (e.g. clang-format for *format* target)
 
 * Build
     * *all* (the default if no target is provided)

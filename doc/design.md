@@ -22,7 +22,7 @@ Project is built on these technologies:
     - Graphviz - for creating UML diagrams with doxygen
 * clang-format 
     - Configuration file in the root of project for easy formating
-    - Clang-format automaticaly uses nearest *.clang-format* file
+    - Clang-format automatically uses nearest *.clang-format* file
     - Target *format* will run format on all source files
 * clang-tidy 
     - With target *tidy* you can run static code analysis
@@ -155,7 +155,7 @@ buildB -right-> release
 
 ~~~
 
-For more inspiration on what can be done with PlantUML look at their pages [plantuml.com](http://plantuml.com/sequence-diagram), and see #main funtion for example sequence diagram.
+For more inspiration on what can be done with PlantUML look at their pages [plantuml.com](http://plantuml.com/sequence-diagram), and see #main function for example sequence diagram.
 
 
 
