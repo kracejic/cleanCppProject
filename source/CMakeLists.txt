@@ -1,4 +1,3 @@
-
 # configure version.cpp.in with selected version
 configure_file (
   "${CMAKE_CURRENT_SOURCE_DIR}/version.cpp.in"
@@ -55,12 +54,6 @@ add_custom_target(run DEPENDS example-run)
 # set_property(TARGET exampleLibrary PROPERTY CXX_STANDARD 14) # we want C++14
 
 
-#-------------------------------------------------------------------------------
-# copy all from data to install dir /share
-# here can be images, models
-install(DIRECTORY ${PROJECT_SOURCE_DIR}/data/
-        DESTINATION ./share/data
-    )
 
 #-------------------------------------------------------------------------------
 # Copy MINGW needed libraries for building on windows
@@ -93,20 +86,27 @@ file(GLOB_RECURSE ALL_HEADER_FILES *.h *.hpp)
 # We check for program, since when it is not here, target makes no sense
 find_program(TIDY_PATH clang-tidy)
 if(TIDY_PATH)
+    message(STATUS "clang-tidy - static analysis              YES ")
     add_custom_target(tidy
         COMMAND ${TIDY_PATH} ${ALL_SOURCE_FILES} -p=./ )
+else()
+    message(STATUS "clang-tidy - static analysis              NO ")
 endif()
 
 # run clang-format on all files
 find_program(FORMAT_PATH clang-format)
 if(FORMAT_PATH)
-add_custom_target(format
-    COMMAND ${FORMAT_PATH} -i ${ALL_SOURCE_FILES} ${ALL_HEADER_FILES} )
+    message(STATUS "clang-format - code formating             YES ")
+    add_custom_target(format
+        COMMAND ${FORMAT_PATH} -i ${ALL_SOURCE_FILES} ${ALL_HEADER_FILES} )
+else()
+    message(STATUS "clang-format - code formating             NO ")
 endif()
 
 # cpp check static analysis
 find_program(CPPCHECK_PATH cppcheck)
 if(CPPCHECK_PATH)
+    message(STATUS "cppcheck - static analysis                YES ")
     add_custom_target(
             cppcheck
             COMMAND ${CPPCHECK_PATH}
@@ -117,6 +117,8 @@ if(CPPCHECK_PATH)
             --quiet
             ${ALL_SOURCE_FILES} ${ALL_HEADER_FILES}
     )
+else()
+    message(STATUS "cppcheck - static analysis                NO ")
 endif()
 
 

@@ -9,7 +9,6 @@ This is a empty frame for project in C++. It should help to start a new project 
 * [List of todos](./todo.html)
 * [Basic directory structure](./md_directoryStructure.html)
 * [How to start working](./md_start_working.html)
-<!-- * \link todo List of todos DoxygenStyle \endlink -->
 
 \todo see how todo works
 
@@ -35,10 +34,14 @@ Do not forget to change name of *example* binary in `source/CMakeLists.txt` and 
 * git - for downloading external resources
 * Doxygen for docs (*Graphviz for more graphs in docs, PlantUML for more UML diagrams*, PlantUML needs java)
 * clang-tools for static analysis and formating
-* cpp check for another static analysis
+* cppcheck for another static analysis
 
-Arch Linux: `sudo pacman -S cmake g++ graphviz git clang clang-tools-extra cppcheck`, download plantuml.jar and have it somewhere where *PATH* points to
-Ubuntu: `sudo apt-get install cmake g++ graphviz plantuml git clang clang-tools-extra`
+#### Prerequisites on Linux
+
+* Arch Linux: `sudo pacman -S cmake g++ graphviz git clang clang-tools-extra cppcheck java-runtime-common`
+    * download plantuml.jar and have it somewhere where *PATH* points to
+
+* Ubuntu 16.04: `sudo apt-get install cmake g++ graphviz plantuml git clang clang-tidy clang-format`
 
 #### Prerequisites on Windows
 

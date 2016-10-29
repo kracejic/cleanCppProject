@@ -41,6 +41,9 @@ add_subdirectory(doc)
 # External resources/repositories are downloaded here
 add_subdirectory(external)
 
+# install images, databases and other data
+add_subdirectory(data)
+
 add_subdirectory(test)
 add_subdirectory(source)
 
@@ -55,7 +58,6 @@ message(STATUS "Install prefix:       ${CMAKE_INSTALL_PREFIX}")
 message(STATUS "CMAKE_BUILD_TYPE:     ${CMAKE_BUILD_TYPE}")
 message(STATUS "  possible options: Debug Release RelWithDebInfo MinSizeRel")
 message(STATUS "  set with ` cmake -DCMAKE_BUILD_TYPE=Debug .. `")
-message(STATUS "Can build doc?         ${BUILD_DOCUMENTATION}")
 
 
 if(MINGW)
