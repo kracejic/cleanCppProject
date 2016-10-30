@@ -1,18 +1,35 @@
 #pragma once
-#include <vector>
 #include <string>
-
+#include <vector>
 
 
 /**
  * Empty BaseClass, just to show how it looks in doxygen.
+ *
+ *  Here is some graph:
+ *
+ *  \startuml
+ *    Sender->Receiver  : Command()
+ *    Sender<--Receiver : Ack()
+ *  \enduml
+ *
+ *  How you like it?
+ *
  */
 class BaseClass
 {
-public:
-    BaseClass(){};
-    ~BaseClass(){};
+  public:
+    BaseClass()
+    {
+        mPointer = new int(5);
+    };
 
+    ~BaseClass(){};
+    void freePtr()
+    {
+        delete mPointer;
+    };
+    int *mPointer;
 };
 
 /**
@@ -20,10 +37,9 @@ public:
  */
 class Data
 {
-public:
+  public:
     Data(){};
     ~Data(){};
-
 };
 
 /**
@@ -34,11 +50,12 @@ public:
  */
 class SomeClass : public BaseClass
 {
-    int mVal {0};  ///< Stores the value
+    int mVal{0}; ///< Stores the value
     std::vector<Data> mData;
     std::vector<std::string> mStrings;
-    Data* mParent;
-public:
+    Data *mParent;
+
+  public:
     SomeClass(); ///< Creates empty SomeClass
     ~SomeClass();
 
@@ -54,7 +71,4 @@ public:
      * @return current value
      */
     int get();
-
 };
-
-

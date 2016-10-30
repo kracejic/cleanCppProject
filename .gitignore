@@ -1,6 +1,8 @@
 build*/
+external/*
+!external/CMakeLists.txt
 *.sublime-workspace
 .tags
-*.out
+tags
 *.pyc
 *.swp
