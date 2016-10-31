@@ -5,10 +5,10 @@ This is a empty frame for project in C++. It should help to start a new project 
 
 ## Important pages
 
-* [Design document](./md_design.html)
+* [Design document](doc/design.md)
 * [List of todos](./todo.html)
-* [Basic directory structure](./md_directoryStructure.html)
-* [How to start working](./md_start_working.html)
+* [Basic directory structure](doc/directoryStructure.md)
+* [How to start working](doc/start_working.md)
 
 \todo see how todo works
 

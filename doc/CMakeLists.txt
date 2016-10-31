@@ -35,6 +35,7 @@ if(DOXYGEN_FOUND)
     path_win_to_linux(${PROJECT_SOURCE_DIR} PROJECT_SOURCE_DIR_LINUX)
     path_win_to_linux(${DOT_PATH} DOT_PATH_LINUX)
     path_win_to_linux(${PLANT_UML_PATH} PLANT_UML_PATH_LINUX)
+    path_win_to_linux(${CMAKE_CURRENT_BINARY_DIR} CMAKE_CURRENT_BINARY_DIR_LINUX)
 
     # configure doxygen configuration file
     set(doxyfile_in ${CMAKE_CURRENT_SOURCE_DIR}/doxygen/Doxyfile.in)
@@ -45,7 +46,7 @@ if(DOXYGEN_FOUND)
     # triggered explicitly
     add_custom_target(doc
         COMMAND ${DOXYGEN_EXECUTABLE} ${doxyfile}
-        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+        WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
         COMMENT "Generating API documentation with Doxygen"
         VERBATIM)
 

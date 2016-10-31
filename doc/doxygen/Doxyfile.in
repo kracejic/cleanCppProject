@@ -28,7 +28,7 @@ FILE_PATTERNS          = *.h \
 RECURSIVE              = YES
 USE_MDFILE_AS_MAINPAGE = @PROJECT_SOURCE_DIR_LINUX@/readme.md
 # output location
-HTML_OUTPUT            = doc
+HTML_OUTPUT            = @CMAKE_CURRENT_BINARY_DIR_LINUX@/doc
 
 IMAGE_PATH = @CMAKE_CURRENT_SOURCE_DIR_LINUX@
 
