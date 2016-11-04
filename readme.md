@@ -57,9 +57,11 @@ Two ways, which were tested:
     * Install git
     * For additional features install clang with tools, doxygen, graphviz, plantuml, java and add them to the PATH (*not tested*)
 
+#### Prerequisites on macOS
 
+* macOS Sierra `brew install llvm doxygen cppcheck graphviz`
 
-### Build on Linux
+### Build on Linux & macOS
 
 Standard Makefiles:
 ~~~
