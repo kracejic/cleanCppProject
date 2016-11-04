@@ -15,7 +15,7 @@ message(STATUS "Can build doc?                            ${DOXYGEN_FOUND}")
 
 if(DOXYGEN_FOUND)
     # Search for plantUML for creating UML diagrams from doxygen
-    find_program(PLANT_UML_PATH NAMES plantuml.jar plantuml PATH_SUFFIXES PlantUML plantuml Plantuml 
+    find_program(PLANT_UML_PATH plantuml.jar PATH_SUFFIXES PlantUML plantuml Plantuml 
         PATHS /usr/share /usr/local/share/ /usr/local/bin c/Program\ Files* )
     if(NOT PLANT_UML_PATH)
         message(WARNING "Looking for PlantUML - not found, some UML diagrams will not be generated via doxygen.")
