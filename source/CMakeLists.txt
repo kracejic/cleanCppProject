@@ -84,7 +84,7 @@ file(GLOB_RECURSE ALL_HEADER_FILES *.h *.hpp)
 
 # Static analysis via clang-tidy target
 # We check for program, since when it is not here, target makes no sense
-find_program(TIDY_PATH clang-tidy)
+find_program(TIDY_PATH clang-tidy PATHS /usr/local/Cellar/llvm/*/bin)
 if(TIDY_PATH)
     message(STATUS "clang-tidy - static analysis              YES ")
     add_custom_target(tidy
