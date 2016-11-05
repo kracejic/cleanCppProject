@@ -142,7 +142,6 @@ and you can now open a `.sln` file with Visual Studio. You need to right click o
 
 
 
-
 # License
 
 > Copyright (c) 2016 Kracejic
