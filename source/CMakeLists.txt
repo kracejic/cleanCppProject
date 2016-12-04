@@ -24,7 +24,7 @@ find_package (Threads REQUIRED) #threading
 add_executable(example ${SRCS})
 target_link_libraries (example ${CMAKE_THREAD_LIBS_INIT}) #threading
 if(NOT MSVC)
-    target_compile_options(example PRIVATE -Wall -Wextra) # extra warnings
+    target_compile_options(example PRIVATE -Wall -Wextra -Wshadow -Wnon-virtual-dtor -Wunused -Wmisleading-indentation -pedantic) # extra warnings
 endif()
 set_property(TARGET example PROPERTY CXX_STANDARD 14) # we want C++14
 install(TARGETS example DESTINATION bin) #copy executable to bin folder on install
