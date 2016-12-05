@@ -57,7 +57,7 @@ void printHelp()
  *
  * \enduml
 */
-int main(int argc, char const *argv[])
+int main(int argc, char const* argv[])
 {
     // Print help if no arguments are given
     if (argc == 1)
@@ -93,7 +93,7 @@ int main(int argc, char const *argv[])
     cout << o.get() << endl;
 
     // possible memory leak here, run with `make analyze`
-    int *a = new int(5);
+    int* a = new int(5);
     cout << *a << endl;
 
     if (argc == 3)

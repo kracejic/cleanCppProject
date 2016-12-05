@@ -39,7 +39,7 @@ add_test(NAME "Is_Runable-h"
 
 # Add unit test to CTest suite as one of the tests
 add_test(NAME "catch_unit_tests"
-    COMMAND $<TARGET_FILE:unittests> --use-colour yes
+    COMMAND $<TARGET_FILE:unittests>
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 
 #------------------------------------------------------------------------------
