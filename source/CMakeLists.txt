@@ -71,7 +71,7 @@ if(MINGW)
     install(FILES ${GCC_PATH}/${libgcc}
         ${GCC_PATH}/libwinpthread-1.dll
         ${GCC_PATH}/libstdc++-6.dll
-        DESTINATION ./
+        DESTINATION ./bin/
     )
 endif(MINGW)
 
