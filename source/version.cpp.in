@@ -10,23 +10,23 @@ std::string Version::getBuildTime()
 //-----------------------------------------------------------------------------------
 int Version::getMajor()
 {
-    return @MAJOR_VERSION@;
+    return @PROJECT_VERSION_MAJOR@;
 }
 //-----------------------------------------------------------------------------------
 int Version::getMinor()
 {
-    return @MINOR_VERSION@;
+    return @PROJECT_VERSION_MINOR@;
 }
 //-----------------------------------------------------------------------------------
 int Version::getPatch()
 {
-    return @PATCH_VERSION@;
+    return @PROJECT_VERSION_PATCH@;
 }
 //-----------------------------------------------------------------------------------
 long long Version::getVersionNumber()
 {
-    return @MAJOR_VERSION@ * 10000 * 10000 + @MINOR_VERSION@ * 10000 +
-           @PATCH_VERSION@;
+    return @PROJECT_VERSION_MAJOR@ * 10000 * 10000 + @PROJECT_VERSION_MINOR@ * 10000 +
+           @PROJECT_VERSION_PATCH@;
 }
 //-----------------------------------------------------------------------------------
 std::string Version::getVersionShort()
