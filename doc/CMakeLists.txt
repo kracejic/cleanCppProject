@@ -1,5 +1,11 @@
 cmake_minimum_required (VERSION 2.8)
 
+# This CMake file will add doc target for convenient documentation generation.
+#
+# Additional features are supported:
+#   * dot = for automatically generated UML diagrams (class, include, caller, call, collaboration)
+#   * PlantUML = for easy generation of custom diagrams
+
 # Helper functions
 macro(path_linux_to_win MsysPath ResultingPath)
   string(REGEX REPLACE "^/([a-zA-Z])/" "\\1:/" ${ResultingPath} "${MsysPath}")
@@ -10,9 +16,7 @@ endmacro()
 
 # enable if doxygen found
 find_package(Doxygen 1.8.0)
-
 message(STATUS "Can build doc?                            ${DOXYGEN_FOUND}")
-
 if(DOXYGEN_FOUND)
     # Search for plantUML for creating UML diagrams from doxygen
     find_program(PLANT_UML_PATH plantuml.jar PATH_SUFFIXES PlantUML plantuml Plantuml 
@@ -50,7 +54,9 @@ if(DOXYGEN_FOUND)
         COMMENT "Generating API documentation with Doxygen"
         VERBATIM)
 
-    # where doc will be installed
+    # Where docs will be installed.
+    # Note: if docs shall be not a part of final config, delete this install command,
+    # docs will be only available in [build_dir]/doc/doc/index.html
     install(
         DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/doc/
         DESTINATION ./doc/${PROJECT_NAME}

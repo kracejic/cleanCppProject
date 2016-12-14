@@ -38,7 +38,7 @@ add_custom_target(example-run
 add_custom_target(run DEPENDS example-run)
 
 
-# And this would add -DBAR_ENABLE_FEATURE or equivalent
+# And this would add -DBAR_ENABLE_FEATURE or equivalent to build command
 # target_compile_definitions(example PRIVATE BAR_ENABLE_FEATURE)
 
 # Add compile time definition based on option
@@ -48,7 +48,7 @@ add_custom_target(run DEPENDS example-run)
 #     target_compile_definitions(example PRIVATE DEFINE_NAME)
 # endif()
 
-# Add shared library
+# Add building new shared library
 # add_library(exampleLibrary SHARED ${LIBRARY_SOURCES})
 # target_link_libraries (exampleLibrary ${CMAKE_THREAD_LIBS_INIT})
 # set_property(TARGET exampleLibrary PROPERTY CXX_STANDARD 14) # we want C++14
@@ -77,7 +77,8 @@ endif(MINGW)
 
 
 #------------------------------------------------------------------------------
-# Other targets
+# Other MISC targets
+#------------------------------------------------------------------------------
 
 file(GLOB_RECURSE ALL_SOURCE_FILES *.cpp *.cc *.c)
 file(GLOB_RECURSE ALL_HEADER_FILES *.h *.hpp)
@@ -91,16 +92,6 @@ if(TIDY_PATH)
         COMMAND ${TIDY_PATH} ${ALL_SOURCE_FILES} -p=./ )
 else()
     message(STATUS "clang-tidy - static analysis              NO ")
-endif()
-
-# run clang-format on all files
-find_program(FORMAT_PATH clang-format)
-if(FORMAT_PATH)
-    message(STATUS "clang-format - code formating             YES ")
-    add_custom_target(format
-        COMMAND ${FORMAT_PATH} -i ${ALL_SOURCE_FILES} ${ALL_HEADER_FILES} )
-else()
-    message(STATUS "clang-format - code formating             NO ")
 endif()
 
 # cpp check static analysis
@@ -121,9 +112,19 @@ else()
     message(STATUS "cppcheck - static analysis                NO ")
 endif()
 
+# run clang-format on all files
+find_program(FORMAT_PATH clang-format)
+if(FORMAT_PATH)
+    message(STATUS "clang-format - code formating             YES ")
+    add_custom_target(format
+        COMMAND ${FORMAT_PATH} -i ${ALL_SOURCE_FILES} ${ALL_HEADER_FILES} )
+else()
+    message(STATUS "clang-format - code formating             NO ")
+endif()
+
 
 # Does not work well, left here for future work, but it would still only
-# provide same info as tidy, only in html form.
+# provides same info as tidy, only in html form.
 #
 # Produces html analysis in *.plist dirs in build dir or build/source directory
 # add_custom_target(
