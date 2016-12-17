@@ -4,8 +4,8 @@
 include(InstallRequiredSystemLibraries)
 
 set(CPACK_PACKAGE_VENDOR "kracejic")
-set(CPACK_PACKAGE_CONTACT "kracejic@gmail.com")
-set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Clean cpp project")
+set(CPACK_PACKAGE_CONTACT "kracejic <kracejic@gmail.com>")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Clean cpp project. This is simple cpp example project build with CMake.")
 set(CPACK_PACKAGE_DESCRIPTION_FILE "${PROJECT_SOURCE_DIR}/readme.md")
 SET(CPACK_RESOURCE_FILE_LICENSE "${PROJECT_SOURCE_DIR}/license.md")
 set(CPACK_PACKAGE_VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
@@ -13,7 +13,8 @@ set(CPACK_PACKAGE_VERSION_MINOR ${PROJECT_VERSION_MINOR})
 set(CPACK_PACKAGE_VERSION_PATCH ${PROJECT_VERSION_PATCH})
 
 set(CPACK_PACKAGE_INSTALL_DIRECTORY "${CMAKE_PROJECT_NAME}")
-set(CPACK_PACKAGE_DIRECTORY "${CMAKE_BINARY_DIR}/packages")
+set(CPACK_PACKAGE_DIRECTORY "${CMAKE_BINARY_DIR}/out")
+
 
 
 if(WIN32 AND NOT UNIX)
@@ -47,11 +48,11 @@ if(WIN32 AND NOT UNIX)
 else()
     #-----------------------------------------------------------------------------
     # Linux
-    set(CPACK_GENERATOR "DEB;TGZ;TBZ2")
+    set(CPACK_GENERATOR "DEB;TBZ2;TXZ")
     message(STATUS "Package generation - UNIX")
     message(STATUS "   + DEB                                  YES ")
-    message(STATUS "   + TGZ                                  YES ")
     message(STATUS "   + TBZ2                                 YES ")
+    message(STATUS "   + TXZ                                  YES ")
 
     find_program(RPMBUILD_PATH rpmbuild)
     if(RPMBUILD_PATH)
@@ -66,14 +67,39 @@ else()
 
     # TODO do this better
     set(CPACK_DEBIAN_PACKAGE_ARCHITECTURE "amd64")
+    set(CPACK_DEBIAN_PACKAGE_CONTROL_STRICT_PERMISSION TRUE)
     set(CPACK_DEBIAN_PACKAGE_HOMEPAGE "https://github.com/kracejic/cleanCppProject")
+    set(CPACK_DEBIAN_COMPRESSION_TYPE "xz")
     # set(CPACK_DEBIAN_PACKAGE_DEPENDS "libgtkmm-3.0")
+
+
+
+    # Icon and app shortcut for Linux systems
+    install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/example.desktop
+        DESTINATION share/applications/
+        PERMISSIONS OWNER_READ OWNER_WRITE GROUP_READ WORLD_READ
+        )
+    install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/example.png
+        DESTINATION share/icons/hicolor/256x256/apps/
+        PERMISSIONS OWNER_READ OWNER_WRITE GROUP_READ WORLD_READ
+        )
+    # License file
+    install(FILES ${PROJECT_SOURCE_DIR}/license.md
+        DESTINATION share/doc/${PROJECT_NAME}/
+        PERMISSIONS OWNER_READ OWNER_WRITE GROUP_READ WORLD_READ
+        RENAME copyright)
 endif()
 
 
 set(CPACK_PACKAGE_EXECUTABLES "example" "My Example Executable")
 set(CPACK_CREATE_DESKTOP_LINKS "example")
+set(CPACK_STRIP_FILES TRUE)
 
-# TODO
-# set(CPACK_PACKAGE_ICON "${CMAKE_CURRENT_SOURCE_DIR}/packages")
+set(CPACK_PACKAGE_ICON "${CMAKE_CURRENT_6OURCE_DIR}/example.png")
+
+#------------------------------------------------------------------------------
+# and include CPack, so we get target for packages
+include(CPack)
+
+
 

@@ -5,7 +5,8 @@ message(STATUS "")
 
 
 # Project setup, versioning stuff here, change when changing the version
-project (cleanCppProject VERSION 0.3.2)
+# Note: keep it lower case only for easy linux packaging support
+project (cleancppproject VERSION 0.3.2)
 set(VERSION_TYPE "beta" CACHE STRING "version type" FORCE)
 site_name(VERSION_HOST)
 set(VERSION_HOST "${VERSION_HOST}" CACHE STRING "host of build" FORCE)
@@ -49,7 +50,6 @@ add_subdirectory(source)
 
 # Packaging stuff (deb, rpm, windows installer)
 add_subdirectory(packaging)
-include(CPack)
 
 
 
