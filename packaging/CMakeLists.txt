@@ -61,6 +61,20 @@ else()
         set(CPACK_GENERATOR "${CPACK_GENERATOR};RPM")
         set(CPACK_RPM_PACKAGE_LICENSE "MIT")
         # set(CPACK_RPM_PACKAGE_REQUIRES "gtkmm30")
+        # exclude folders which clash with default ones
+        set(CPACK_RPM_EXCLUDE_FROM_AUTO_FILELIST ${CPACK_RPM_EXCLUDE_FROM_AUTO_FILELIST}
+            /usr
+            /usr/bin
+            /usr/share
+            /usr/share/applications
+            /usr/share/doc
+            /usr/share/icons
+            /usr/share/icons/hicolor
+            /usr/share/icons/hicolor/256x256
+            /usr/share/icons/hicolor/256x256/apps
+            /usr/share/icons/hicolor
+            /usr/share/icons/hicolor/256x256
+            /usr/share/icons/hicolor/256x256/apps)
     else()
         message(STATUS "   + RPM                                  NO ")
     endif()
