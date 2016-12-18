@@ -21,7 +21,11 @@ find_package (Threads REQUIRED) #threading
 
 #-------------------------------------------------------------------------------
 #example executable setup
-add_executable(example ${SRCS})
+if(WIN32) #windows icon resource file, provided from /packaging directory
+    set(WINDOWS_ICON_RESOURCE "${PROJECT_BINARY_DIR}/example.icon.rc")
+endif()
+
+add_executable(example ${SRCS} ${WINDOWS_ICON_RESOURCE})
 target_link_libraries (example ${CMAKE_THREAD_LIBS_INIT}) #threading
 if(NOT MSVC)
     target_compile_options(example PRIVATE -Wall -Wextra -Wshadow -Wnon-virtual-dtor -Wunused -pedantic) # extra warnings

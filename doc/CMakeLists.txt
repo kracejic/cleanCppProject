@@ -59,7 +59,7 @@ if(DOXYGEN_FOUND)
     # docs will be only available in [build_dir]/doc/doc/index.html
     install(
         DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/doc/
-        DESTINATION ./doc/${PROJECT_NAME}
+        DESTINATION ./share/doc/${PROJECT_NAME}
         OPTIONAL)
 endif()
 

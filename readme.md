@@ -5,10 +5,21 @@
 This is a empty frame for project in C++. It should help to start a new project without caring much about project/build environment setup.
 
 
+## Features
+
+* Modern, simple CMake build scripts, divided into several components for readability.
+* Sane and simple targets for everything (see *targets* section).
+* CPack script which can produce **deb**, **rpm**, **windows installer** and various compressed packages.
+* Tests via CTest.
+* Unit tests via Catch.
+* Documentation generation via Doxygen (code + wiki + UML diagrams with Graphviz and PlanUML).
+* Static analysis support (clang-tidy, cppcheck).
+* Works with your favourite distro, Windows and MacOS.
+
 ## Important pages
 
 * [Design document](doc/design.md)
-* [List of todos](./todo.html)
+* [List of todos (doxygen only)](./todo.html)
 * [Basic directory structure](doc/directoryStructure.md)
 * [How to start working](doc/start_working.md)
 
@@ -35,7 +46,7 @@ Do not forget to change name of *example* binary in `source/CMakeLists.txt` and 
 * Compiler with support for C++14
 * git - for downloading external resources
 * Doxygen for docs (*Graphviz for more graphs in docs, PlantUML for more UML diagrams*, PlantUML needs java)
-* clang-tools for static analysis and formating
+* clang-tools for static analysis and formatting
 * cppcheck for another static analysis
 
 #### Prerequisites on Linux
@@ -52,7 +63,7 @@ Two ways, which were tested:
 * msys2 based
     * Minimal: `pacman -S cmake g++ git`
     * Additional software `pacman -S clang mingw-w64-x86_64-clang-tools-extra mingw-w64-x86_64-clang-analyzer doxygen`
-    * For graphs in documentation install Graphviz (to `c:\Program Files\Graphviz`, so scripts can find it) and add its `bin` subdirectory to *PATH*, install java (have it on *PATH*), download PlantUML jar file and have it on *PATH*. 
+    * For graphs in documentation install Graphviz (to `c:\Program Files\Graphviz`, so scripts can find it) and add its `bin` subdirectory to *PATH*, install java (have its bin directory on *PATH*), download PlantUML jar file and have it on *PATH*. 
 
 * Microsoft Visual Studio
     * Install cmake
@@ -123,6 +134,8 @@ and you can now open a `.sln` file with Visual Studio. You need to right click o
     * *checkVerbose* - run whole test suite (see test/CMakeLists.txt), but more verbose
     * *unit* - build and run unit tests only (see test/CMakeLists.txt)
     * *unitall* - same as previous, only prints even successful unit tests results
+* Releases
+    * *package* - builds packages (zip,deb,rpm,windows installer depending on OS)
 * Miscellaneous
     * *doc* - build documentation (if doxygen is available)
     * *format* - run clang-format on all source files (.clang-format in root directory of a project is used)
@@ -137,7 +150,7 @@ and you can now open a `.sln` file with Visual Studio. You need to right click o
 ### CMAKE variables
 
 * `-DCMAKE_INSTALL_PREFIX`= - location for installation
-* `-DVERSION_HOST`= - build machine name, see Version::getVersionLong
+* `-DVERSION_HOST`= - build machine name, see Version::getVersionLong in version.h.in
 * `-DCMAKE_BUILD_TYPE`=RelWithDebInfo - for build type
 
 
