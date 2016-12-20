@@ -1,6 +1,5 @@
 # Design Document
 
-
 Goal of this project is to create a base empty project for everyone to use.
 
 ## Used technologies

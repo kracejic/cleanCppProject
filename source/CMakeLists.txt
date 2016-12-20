@@ -20,36 +20,36 @@ set(SRCS
 find_package (Threads REQUIRED) #threading
 
 #-------------------------------------------------------------------------------
-#example executable setup
+#exampleApp executable setup
 if(WIN32) #windows icon resource file, provided from /packaging directory
-    set(WINDOWS_ICON_RESOURCE "${PROJECT_BINARY_DIR}/example.icon.rc")
+    set(WINDOWS_ICON_RESOURCE "${PROJECT_BINARY_DIR}/exampleApp.icon.rc")
 endif()
 
-add_executable(example ${SRCS} ${WINDOWS_ICON_RESOURCE})
-target_link_libraries (example ${CMAKE_THREAD_LIBS_INIT}) #threading
+add_executable(exampleApp ${SRCS} ${WINDOWS_ICON_RESOURCE})
+target_link_libraries (exampleApp ${CMAKE_THREAD_LIBS_INIT}) #threading
 if(NOT MSVC)
-    target_compile_options(example PRIVATE -Wall -Wextra -Wshadow -Wnon-virtual-dtor -Wunused -pedantic) # extra warnings
+    target_compile_options(exampleApp PRIVATE -Wall -Wextra -Wshadow -Wnon-virtual-dtor -Wunused -pedantic) # extra warnings
 endif()
-set_property(TARGET example PROPERTY CXX_STANDARD 14) # we want C++14
-install(TARGETS example DESTINATION bin) #copy executable to bin folder on install
+set_property(TARGET exampleApp PROPERTY CXX_STANDARD 14) # we want C++14
+install(TARGETS exampleApp DESTINATION bin) #copy executable to bin folder on install
 # convenience target for running the binary
-add_custom_target(example-run
+add_custom_target(exampleApp-run
     WORKING_DIRECTORY ${CMAKE_INSTALL_PREFIX}/bin
-    COMMAND ./example
-    DEPENDS example Install_)
+    COMMAND ./exampleApp
+    DEPENDS exampleApp Install_)
 
 # short convenience target
-add_custom_target(run DEPENDS example-run)
+add_custom_target(run DEPENDS exampleApp-run)
 
 
 # And this would add -DBAR_ENABLE_FEATURE or equivalent to build command
-# target_compile_definitions(example PRIVATE BAR_ENABLE_FEATURE)
+# target_compile_definitions(exampleApp PRIVATE BAR_ENABLE_FEATURE)
 
 # Add compile time definition based on option
 # option(OPTION_NAME "description for end user" OFF)
 # if(OPTION_NAME)
 #     # you can do anything here, eg. setup new optional executable
-#     target_compile_definitions(example PRIVATE DEFINE_NAME)
+#     target_compile_definitions(exampleApp PRIVATE DEFINE_NAME)
 # endif()
 
 # Add building new shared library

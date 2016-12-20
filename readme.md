@@ -14,7 +14,7 @@ This is a empty frame for project in C++. It should help to start a new project 
 * Unit tests via Catch.
 * Documentation generation via Doxygen (code + wiki + UML diagrams with Graphviz and PlanUML).
 * Static analysis support (clang-tidy, cppcheck).
-* Works with your favourite distro, Windows and MacOS.
+* Works with your favourite linux distro, Windows and MacOS.
 
 ## Important pages
 
@@ -36,7 +36,7 @@ git add .
 git commit -m "first commit"
 ~~~
 
-Do not forget to change name of *example* binary in `source/CMakeLists.txt` and `test/CMakeLists.txt`. 
+More in [How to start working](doc/start_working.md).
 
 ## Building instructions
 
@@ -126,9 +126,9 @@ and you can now open a `.sln` file with Visual Studio. You need to right click o
     * *all* (the default if no target is provided)
     * *clean*
     * *install* - install binaries into *CMAKE_INSTALL_PREFIX*
-    * *example* - build example binary
-    * *example-run* - build, install and run example binary (for your convenience)
-    * *run* - alias for example-run (in order to keep it short)
+    * *exampleApp* - build exampleApp binary
+    * *exampleApp-run* - build, install and run exampleApp binary (for your convenience)
+    * *run* - alias for exampleApp-run (in order to keep it short)
 * Testing
     * *check* - run whole test suite (see test/CMakeLists.txt)
     * *checkVerbose* - run whole test suite (see test/CMakeLists.txt), but more verbose

@@ -18,10 +18,10 @@
             * doxygen settings, and modern style config
     - **packaging**
         + CMakeLists.txt - package creation
-        + example.desktop - linux shortcut (app is then visible in launchers)
-        + example.png - icon for linux shortcut
-        + example.icon.in.rc - icon for windows description file (used in source/CMakeLists.txt)
-        + example.ico - icon for windows shortcut (linked via example.icon.in.rc into the executable)
+        + exampleApp.desktop - linux shortcut (app is then visible in launchers)
+        + exampleApp.png - icon for linux shortcut
+        + exampleApp.icon.in.rc - icon for windows description file (used in source/CMakeLists.txt)
+        + exampleApp.ico - icon for windows shortcut (linked via exampleApp.icon.in.rc into the executable)
     - **source** - contain source files
         + CMakeLists.txt - source building
         + .ycm_extra_conf.py - for ycm smart autocompletion

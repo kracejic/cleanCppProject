@@ -5,7 +5,7 @@ message(STATUS "")
 
 
 # Project setup, versioning stuff here, change when changing the version
-# Note: keep it lower case only for easy linux packaging support
+# Note: keep the project name lower case only for easy linux packaging support
 project (cleancppproject VERSION 0.3.2)
 set(VERSION_TYPE "beta" CACHE STRING "version type" FORCE)
 site_name(VERSION_HOST)
@@ -15,10 +15,12 @@ set(VERSION_HOST "${VERSION_HOST}" CACHE STRING "host of build" FORCE)
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 # Be nice and export compile commands by default, this is handy for clang-tidy
+# and for other tools.
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 #-------------------------------------------------------------------------------
 # Set default install location to dist folder in build dir
+# we do not want to install to /usr by default
 if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
     set (CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/dist" CACHE PATH
         "Install path prefix, prepended onto install directories." FORCE )
