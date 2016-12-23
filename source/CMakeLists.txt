@@ -20,35 +20,47 @@ set(SRCS
 find_package (Threads REQUIRED) #threading
 
 #-------------------------------------------------------------------------------
-#example executable setup
-add_executable(example ${SRCS})
-target_link_libraries (example ${CMAKE_THREAD_LIBS_INIT}) #threading
-if(NOT MSVC)
-    target_compile_options(example PRIVATE -Wall -Wextra -Wshadow -Wnon-virtual-dtor -Wunused -Wmisleading-indentation -pedantic) # extra warnings
+#exampleApp executable setup
+if(WIN32) #windows icon resource file, provided from /packaging directory
+    set(WINDOWS_ICON_RESOURCE "${PROJECT_BINARY_DIR}/exampleApp.icon.rc")
 endif()
-set_property(TARGET example PROPERTY CXX_STANDARD 14) # we want C++14
-install(TARGETS example DESTINATION bin) #copy executable to bin folder on install
+
+add_executable(exampleApp ${SRCS} ${WINDOWS_ICON_RESOURCE})
+target_link_libraries (exampleApp ${CMAKE_THREAD_LIBS_INIT}) #threading
+if(NOT MSVC)
+    target_compile_options(exampleApp PRIVATE -Wall -Wextra -Wshadow -Wnon-virtual-dtor -Wunused -pedantic) # extra warnings
+endif()
+set_property(TARGET exampleApp PROPERTY CXX_STANDARD 14) # we want C++14
+install(TARGETS exampleApp DESTINATION bin) #copy executable to bin folder on install
 # convenience target for running the binary
-add_custom_target(example-run
+add_custom_target(exampleApp-run
     WORKING_DIRECTORY ${CMAKE_INSTALL_PREFIX}/bin
-    COMMAND ./example
-    DEPENDS example Install_)
+    COMMAND ./exampleApp
+    DEPENDS exampleApp Install_)
 
 # short convenience target
-add_custom_target(run DEPENDS example-run)
+add_custom_target(run DEPENDS exampleApp-run)
 
+# convenience run gdb target
+find_program(GDB_PATH gdb)
+if(GDB_PATH)
+    add_custom_target(gdb
+        WORKING_DIRECTORY ${CMAKE_INSTALL_PREFIX}/bin
+        COMMAND ${GDB_PATH} ./exampleApp
+        DEPENDS exampleApp Install_)
+endif()
 
-# And this would add -DBAR_ENABLE_FEATURE or equivalent
-# target_compile_definitions(example PRIVATE BAR_ENABLE_FEATURE)
+# And this would add -DBAR_ENABLE_FEATURE or equivalent to build command
+# target_compile_definitions(exampleApp PRIVATE BAR_ENABLE_FEATURE)
 
 # Add compile time definition based on option
 # option(OPTION_NAME "description for end user" OFF)
 # if(OPTION_NAME)
 #     # you can do anything here, eg. setup new optional executable
-#     target_compile_definitions(example PRIVATE DEFINE_NAME)
+#     target_compile_definitions(exampleApp PRIVATE DEFINE_NAME)
 # endif()
 
-# Add shared library
+# Add building new shared library
 # add_library(exampleLibrary SHARED ${LIBRARY_SOURCES})
 # target_link_libraries (exampleLibrary ${CMAKE_THREAD_LIBS_INIT})
 # set_property(TARGET exampleLibrary PROPERTY CXX_STANDARD 14) # we want C++14
@@ -71,13 +83,14 @@ if(MINGW)
     install(FILES ${GCC_PATH}/${libgcc}
         ${GCC_PATH}/libwinpthread-1.dll
         ${GCC_PATH}/libstdc++-6.dll
-        DESTINATION ./
+        DESTINATION ./bin/
     )
 endif(MINGW)
 
 
 #------------------------------------------------------------------------------
-# Other targets
+# Other MISC targets
+#------------------------------------------------------------------------------
 
 file(GLOB_RECURSE ALL_SOURCE_FILES *.cpp *.cc *.c)
 file(GLOB_RECURSE ALL_HEADER_FILES *.h *.hpp)
@@ -91,16 +104,6 @@ if(TIDY_PATH)
         COMMAND ${TIDY_PATH} ${ALL_SOURCE_FILES} -p=./ )
 else()
     message(STATUS "clang-tidy - static analysis              NO ")
-endif()
-
-# run clang-format on all files
-find_program(FORMAT_PATH clang-format)
-if(FORMAT_PATH)
-    message(STATUS "clang-format - code formating             YES ")
-    add_custom_target(format
-        COMMAND ${FORMAT_PATH} -i ${ALL_SOURCE_FILES} ${ALL_HEADER_FILES} )
-else()
-    message(STATUS "clang-format - code formating             NO ")
 endif()
 
 # cpp check static analysis
@@ -121,9 +124,19 @@ else()
     message(STATUS "cppcheck - static analysis                NO ")
 endif()
 
+# run clang-format on all files
+find_program(FORMAT_PATH clang-format)
+if(FORMAT_PATH)
+    message(STATUS "clang-format - code formating             YES ")
+    add_custom_target(format
+        COMMAND ${FORMAT_PATH} -i ${ALL_SOURCE_FILES} ${ALL_HEADER_FILES} )
+else()
+    message(STATUS "clang-format - code formating             NO ")
+endif()
+
 
 # Does not work well, left here for future work, but it would still only
-# provide same info as tidy, only in html form.
+# provides same info as tidy, only in html form.
 #
 # Produces html analysis in *.plist dirs in build dir or build/source directory
 # add_custom_target(

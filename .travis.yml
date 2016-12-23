@@ -22,5 +22,5 @@ compiler:
 script:
   - mkdir build
   - cd build
-  - cmake .. && make check
+  - cmake .. && make check && make package
 

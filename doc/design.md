@@ -1,6 +1,5 @@
 # Design Document
 
-
 Goal of this project is to create a base empty project for everyone to use.
 
 ## Used technologies
@@ -13,6 +12,10 @@ Project is built on these technologies:
     - Used as build tool
     - Doxygen generation
     - CTest - for running tests
+    - CPack - for packaging the releases
+        + NSIS - windows installer
+        + RPM / DEB - linux packages
+        + compressed archives
 * Doxygen
     - For documentation and API reference generation
     - Generates wiki from markdown files

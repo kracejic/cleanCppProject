@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Example Application
+Comment=This is an example application for C++
+Keywords=cpp;cmake;example;
+Exec=exampleApp
+Icon=exampleApp.png
+Terminal=true
+Type=Application
+Categories=Utility;Photography;GNOME;GTK;

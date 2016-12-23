@@ -1,23 +1,26 @@
-# https://cmake.org/cmake/help/v3.5/manual/ctest.1.html
+# https://cmake.org/cmake/help/latest/manual/ctest.1.html
 # https://cmake.org/Wiki/CMake/Testing_With_CTest
-# https://cmake.org/cmake/help/v3.5/command/add_test.html?
+# https://cmake.org/cmake/help/latest/command/add_test.html?
 
 include(CTest)
-enable_testing()
 
-# Convenience targets for fast testing
+# Convenience targets for fast testing, they depends on binaries (so the build
+# is triggered, when sources were changed).
 add_custom_target(check
     COMMAND echo [----] Running tests
     COMMAND ${CMAKE_CTEST_COMMAND}  --output-on-failure -C Debug
-    DEPENDS example unittests)
+    DEPENDS exampleApp unittests)
 
 add_custom_target(checkVerbose
     COMMAND echo [----] Running tests
     COMMAND ${CMAKE_CTEST_COMMAND}  -V --output-on-failure -C Debug
-    DEPENDS example unittests)
+    DEPENDS exampleApp unittests)
 
 #------------------------------------------------------------------------------
 # CTest test suite
+#
+# Test suite is defined here, when executed test fails (returns not 0), test
+# failed. There are more options, check CMake documentation. 
 #
 # Good to use to integration test, run whole program with parameters,
 # check if it will crash, produce correct results, etc.
@@ -25,13 +28,13 @@ add_custom_target(checkVerbose
 
 # Basic runable tests (will not crash)
 add_test(NAME "Is_Runable "
-    COMMAND $<TARGET_FILE:example>)
+    COMMAND $<TARGET_FILE:exampleApp>)
 
 add_test(NAME "Is_Runable-v"
-    COMMAND $<TARGET_FILE:example> -v)
+    COMMAND $<TARGET_FILE:exampleApp> -v)
 
 add_test(NAME "Is_Runable-h"
-    COMMAND $<TARGET_FILE:example> -h)
+    COMMAND $<TARGET_FILE:exampleApp> -h)
 
 
 
@@ -39,7 +42,7 @@ add_test(NAME "Is_Runable-h"
 
 # Add unit test to CTest suite as one of the tests
 add_test(NAME "catch_unit_tests"
-    COMMAND $<TARGET_FILE:unittests> --use-colour yes
+    COMMAND $<TARGET_FILE:unittests>
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 
 #------------------------------------------------------------------------------
@@ -53,7 +56,7 @@ set(SRCTEST
     )
 
 add_executable(unittests EXCLUDE_FROM_ALL ${SRCTEST})
-target_compile_definitions(unittests PRIVATE UNIT_TESTS)
+target_compile_definitions(unittests PRIVATE UNIT_TESTS) #add -DUNIT_TESTS define
 set_property(TARGET unittests PROPERTY CXX_STANDARD 14) # we want C++14
 add_dependencies(unittests Catch) # Catch is needed for unit tests, located in ../external
 target_include_directories(unittests PRIVATE

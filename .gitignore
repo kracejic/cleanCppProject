@@ -6,3 +6,4 @@ external/*
 tags
 *.pyc
 *.swp
+*.swo

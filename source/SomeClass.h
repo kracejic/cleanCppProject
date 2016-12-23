@@ -29,7 +29,7 @@ class BaseClass
     {
         delete mPointer;
     };
-    int *mPointer;
+    int* mPointer;
 };
 
 /**
@@ -53,7 +53,7 @@ class SomeClass : public BaseClass
     int mVal{0}; ///< Stores the value
     std::vector<Data> mData;
     std::vector<std::string> mStrings;
-    Data *mParent;
+    Data* mParent;
 
   public:
     SomeClass(); ///< Creates empty SomeClass
