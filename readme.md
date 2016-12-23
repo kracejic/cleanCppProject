@@ -139,6 +139,7 @@ and you can now open a `.sln` file with Visual Studio. You need to right click o
 * Miscellaneous
     * *doc* - build documentation (if doxygen is available)
     * *format* - run clang-format on all source files (.clang-format in root directory of a project is used)
+    * *gdb* - run target executable with gdb (does not work from ninja, needs gdb)
 * Static analysis
     * *tidy* - run clang static analysis on all sources
     * *cppcheck* - call cppcheck on all files (another static analysis)

@@ -41,6 +41,14 @@ add_custom_target(exampleApp-run
 # short convenience target
 add_custom_target(run DEPENDS exampleApp-run)
 
+# convenience run gdb target
+find_program(GDB_PATH gdb)
+if(GDB_PATH)
+    add_custom_target(gdb
+        WORKING_DIRECTORY ${CMAKE_INSTALL_PREFIX}/bin
+        COMMAND ${GDB_PATH} ./exampleApp
+        DEPENDS exampleApp Install_)
+endif()
 
 # And this would add -DBAR_ENABLE_FEATURE or equivalent to build command
 # target_compile_definitions(exampleApp PRIVATE BAR_ENABLE_FEATURE)
