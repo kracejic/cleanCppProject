@@ -55,12 +55,12 @@ if(DOXYGEN_FOUND)
         VERBATIM)
 
     # Where docs will be installed.
-    # Note: if docs shall be not a part of final config, delete this install command,
+    # Note: if docs shall be not a part of final config, comment this install command,
     # docs will be only available in [build_dir]/doc/doc/index.html
-    install(
-        DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/doc/
-        DESTINATION ./share/doc/${PROJECT_NAME}
-        OPTIONAL)
+    # install(
+    #     DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/doc/
+    #     DESTINATION share/doc/${PROJECT_NAME}
+    #     OPTIONAL)
 endif()
 
 

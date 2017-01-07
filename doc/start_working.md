@@ -9,12 +9,12 @@ consult them for function description.
 
 Other than that CMake is fairly simple language, which can get things done quickly. 
 
-If you found yourself in a situation when you do not know the status if
-variables, use `cmake .. -LH` or `cmake .. -LAH` for actual variables values.
+If you found yourself in a situation when you do not know the status of
+variables, use `cmake .. -LH` or `cmake .. -LAH` for current variables values.
 
-Start with reading `project/CMakeLists.txt` and continue to
-`project/source/CMakeLists.txt`. If you are interested in testing (you should
-be), read also `project/test/CMakeLists.txt` and see how testing is done.
+Start with reading `project_folder/CMakeLists.txt` and continue to
+`project_folder/source/CMakeLists.txt`. If you are interested in testing (you should
+be), read also `project_folder/test/CMakeLists.txt` and see how testing is done and so on.
 
 ## Source code
 

@@ -51,10 +51,10 @@ More in [How to start working](doc/start_working.md).
 
 #### Prerequisites on Linux
 
-* Arch Linux: `sudo pacman -S cmake g++ graphviz git clang clang-tools-extra cppcheck java-runtime-common`
+* Arch Linux: `sudo pacman -S cmake g++ graphviz git clang clang-tools-extra cppcheck java-runtime-common cppcheck`
     * download plantuml.jar and have it somewhere where *PATH* points to
 
-* Ubuntu 16.04: `sudo apt-get install cmake g++ graphviz plantuml git clang clang-tidy clang-format`
+* Ubuntu 16.04: `sudo apt-get install cmake g++ graphviz plantuml git clang clang-tidy clang-format cppcheck`
 
 #### Prerequisites on Windows
 
@@ -88,7 +88,7 @@ Ninja build witch clang, build all+doc and install it to dist folder:
 ~~~
 mkdir build ; cd build
 cmake -GNinja -DCMAKE_CXX_COMPILER="clang++" ..
-ninja all doc && ninja install
+ninja all doc install
 ~~~
 
 
@@ -138,6 +138,8 @@ and you can now open a `.sln` file with Visual Studio. You need to right click o
     * *package* - builds packages (zip,deb,rpm,windows installer depending on OS)
 * Miscellaneous
     * *doc* - build documentation (if doxygen is available)
+        * docs can be found in `build_dir/doc/doc/index.html`
+        * if you want them to be a part of install package, uncomment section at the end of `doc/CMakeLists.txt`
     * *format* - run clang-format on all source files (.clang-format in root directory of a project is used)
     * *gdb* - run target executable with gdb (does not work from ninja, needs gdb)
 * Static analysis
