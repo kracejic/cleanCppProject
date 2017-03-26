@@ -85,9 +85,9 @@ else()
             /usr/share/icons/hicolor
             /usr/share/icons/hicolor/256x256
             /usr/share/icons/hicolor/256x256/apps
-            /usr/share/icons/hicolor
-            /usr/share/icons/hicolor/256x256
-            /usr/share/icons/hicolor/256x256/apps)
+            /usr/share/icons/gnome
+            /usr/share/icons/gnome/256x256
+            /usr/share/icons/gnome/256x256/apps)
     else()
         message(STATUS "   + RPM                                  NO ")
     endif()
@@ -102,12 +102,17 @@ else()
 
 
     # Icon and app shortcut for Linux systems
+    # Note: .desktop file must have same name as executable
     install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/exampleApp.desktop
         DESTINATION share/applications/
         PERMISSIONS OWNER_READ OWNER_WRITE GROUP_READ WORLD_READ
         )
     install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/exampleApp.png
         DESTINATION share/icons/hicolor/256x256/apps/
+        PERMISSIONS OWNER_READ OWNER_WRITE GROUP_READ WORLD_READ
+        )
+    install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/exampleApp.png
+        DESTINATION share/icons/gnome/256x256/apps/
         PERMISSIONS OWNER_READ OWNER_WRITE GROUP_READ WORLD_READ
         )
     # License file
