@@ -27,18 +27,24 @@ if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
 endif()
 #------------------------------------------------------------------------------
 # Custom Install target, used in run target in source/CMakeLists.txt
-add_custom_target( Install_ COMMAND "${CMAKE_COMMAND}" --build . --target install
-    WORKING_DIRECTORY "${CMAKE_BINARY_DIR}")
+if (CMAKE_GENERATOR MATCHES "Makefiles")
+    # Make it multithreaded
+    add_custom_target( Install_ COMMAND "${CMAKE_COMMAND}" --build . --target
+        install -- -j WORKING_DIRECTORY "${CMAKE_BINARY_DIR}")
+else()
+    add_custom_target( Install_ COMMAND "${CMAKE_COMMAND}" --build . --target
+        install WORKING_DIRECTORY "${CMAKE_BINARY_DIR}")
+endif()
 
 
 #------------------------------------------------------------------------------
 # Included CMakeLists.txt
 
-# Documentation build
-add_subdirectory(doc)
-
 # External resources/repositories are downloaded here
 add_subdirectory(external)
+
+# Documentation build
+add_subdirectory(doc)
 
 # Images, databases and other data which needs to be installed for project
 add_subdirectory(data)

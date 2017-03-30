@@ -25,9 +25,11 @@
     - **source** - contain source files
         + CMakeLists.txt - source building
         + .ycm_extra_conf.py - for ycm smart autocompletion
-    - **test** - testing
-        + CMakeLists.txt - tests building
-        + testmain.cpp - main tests function
+        + **unittest* contains unittest build
+            + CMakeLists.txt - unittest building
+            + testmain.cpp - main unit tests function
+    - **test** - integration tests, CTest, data sets for tests and unit tests
+        + CMakeLists.txt - tests specification
     - **external**
         + CMakeLists.txt - external projects handling (eg. Download of Catch)
     - readme.md - main readme file

@@ -66,6 +66,10 @@ endif()
 # set_property(TARGET exampleLibrary PROPERTY CXX_STANDARD 14) # we want C++14
 
 
+#------------------------------------------------------------------------------
+# Unit tests
+
+add_subdirectory(unittest)
 
 #-------------------------------------------------------------------------------
 # Copy MINGW needed libraries for building on windows
