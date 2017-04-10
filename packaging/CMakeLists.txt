@@ -14,6 +14,7 @@ set(CPACK_PACKAGE_VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
 set(CPACK_PACKAGE_VERSION_MINOR ${PROJECT_VERSION_MINOR})
 set(CPACK_PACKAGE_VERSION_PATCH ${PROJECT_VERSION_PATCH})
 
+set(CPACK_PACKAGING_INSTALL_PREFIX "/")
 set(CPACK_PACKAGE_INSTALL_DIRECTORY "${CMAKE_PROJECT_NAME}")
 set(CPACK_PACKAGE_DIRECTORY "${CMAKE_BINARY_DIR}/out")
 
@@ -58,6 +59,27 @@ if(WIN32 AND NOT UNIX)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/exampleApp.icon.in.rc
         ${PROJECT_BINARY_DIR}/exampleApp.icon.rc)
 
+elseif(APPLE)
+    set(CPACK_GENERATOR "DragNDrop")
+    set(CPACK_SET_DESTDIR true)
+    set(CPACK_PACKAGING_INSTALL_PREFIX "..")
+    #    set(CPACK_BUNDLE_NAME "exampleApp")
+    configure_file(${CMAKE_SOURCE_DIR}/packaging/MacOSXBundleInfo.plist.in ${CMAKE_BINARY_DIR}/Info.plist)
+
+    set(MACOSX_BUNDLE_BUNDLE_NAME "exampleApp")
+    set(MACOSX_BUNDLE_BUNDLE_GUI_IDENTIFIER "com.ea.exampleApp")
+    set(MACOSX_BUNDLE_ICON_FILE ${CMAKE_SOURCE_DIR}/packaging/ exampleApp.icns)
+    set(MACOSX_BUNDLE_INFO_PLIST ${CMAKE_SOURCE_DIR}/packaging/MacOSXBundleInfo.plist.in)
+    
+    set_source_files_properties(${CMAKE_SOURCE_DIR}/packaging/exampleApp.icns PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
+    
+    #    set(CPACK_BUNDLE_PLIST "${CMAKE_BINARY_DIR}/Info.plist")
+    #    set(CPACK_BUNDLE_ICON "${CMAKE_SOURCE_DIR}/packaging/exampleApp.icns")
+    set(CPACK_DMG_VOLUME_NAME "exampleApp")
+    set(CPACK_DMG_DS_STORE_SETUP_SCRIPT "${CMAKE_SOURCE_DIR}/packaging/DS_Store.scpt") 
+    set(CPACK_DMG_BACKGROUND_IMAGE "${CMAKE_SOURCE_DIR}/packaging/dmg_background.png")
+    set(CPACK_OSX_PACKAGE_VERSION "10.6") #min package version
+    
 else()
     #-----------------------------------------------------------------------------
     # Linux specific
