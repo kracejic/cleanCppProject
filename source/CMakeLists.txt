@@ -9,6 +9,15 @@ include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
+#-------------------------------------------------------------------------------
+#exampleApp executable setup
+set(ICON_RESOURCE "")
+if(WIN32) #windows icon resource file, provided from /packaging directory
+    set(ICON_RESOURCE "${PROJECT_BINARY_DIR}/exampleApp.icon.rc")
+elseif (APPLE)
+    set(ICON_RESOURCE "${CMAKE_SOURCE_DIR}/packaging/exampleApp.icns")
+endif()
+
 # source files are listed here
 set(SRCS
     ${CMAKE_CURRENT_BINARY_DIR}/version.cpp
@@ -19,19 +28,27 @@ set(SRCS
 
 find_package (Threads REQUIRED) #threading
 
-#-------------------------------------------------------------------------------
-#exampleApp executable setup
-if(WIN32) #windows icon resource file, provided from /packaging directory
-    set(WINDOWS_ICON_RESOURCE "${PROJECT_BINARY_DIR}/exampleApp.icon.rc")
-endif()
-
-add_executable(exampleApp ${SRCS} ${WINDOWS_ICON_RESOURCE})
+add_executable(exampleApp MACOSX_BUNDLE ${SRCS} ${ICON_RESOURCE})
 target_link_libraries (exampleApp ${CMAKE_THREAD_LIBS_INIT}) #threading
+
 if(NOT MSVC)
     target_compile_options(exampleApp PRIVATE -Wall -Wextra -Wshadow -Wnon-virtual-dtor -Wunused -pedantic) # extra warnings
 endif()
+
+if(APPLE)
+    set_target_properties(exampleApp PROPERTIES MACOSX_BUNDLE_BUNDLE_NAME "exampleApp")
+    set_target_properties(exampleApp PROPERTIES MACOSX_BUNDLE_BUNDLE_GUI_IDENTIFIER "com.ea.exampleApp")
+    set_target_properties(exampleApp PROPERTIES MACOSX_BUNDLE_ICON_FILE exampleApp.icns)
+    set_target_properties(exampleApp PROPERTIES MACOSX_BUNDLE_INFO_PLIST ${CMAKE_SOURCE_DIR}/packaging/MacOSXBundleInfo.plist.in)
+    set_source_files_properties(${CMAKE_SOURCE_DIR}/packaging/exampleApp.icns PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
+endif()
+
 set_property(TARGET exampleApp PROPERTY CXX_STANDARD 14) # we want C++14
-install(TARGETS exampleApp DESTINATION bin) #copy executable to bin folder on install
+if(APPLE)
+    install(TARGETS exampleApp DESTINATION "/") #copy executable to bin folder on install
+else()
+    install(TARGETS exampleApp DESTINATION bin) #copy executable to bin folder on install
+endif()
 # convenience target for running the binary
 add_custom_target(exampleApp-run
     WORKING_DIRECTORY ${CMAKE_INSTALL_PREFIX}/bin
