@@ -38,6 +38,15 @@ git commit -m "first commit"
 
 More in [How to start working](doc/start_working.md).
 
+## How to keep the link with us 
+
+We are improving this repo on a regular basis, if you want to get more from us, try to pull the main repo.
+
+~~~
+cd yourNewProject/ 
+git pull --git-dir='.git-cleanCppProject'
+~~~
+
 ## Building instructions
 
 ### Prerequisites
@@ -155,15 +164,6 @@ and you can now open a `.sln` file with Visual Studio. You need to right click o
 * `-DCMAKE_INSTALL_PREFIX`= - location for installation
 * `-DVERSION_HOST`= - build machine name, see Version::getVersionLong in version.h.in
 * `-DCMAKE_BUILD_TYPE`=RelWithDebInfo - for build type
-
-### Keeping syncing with us 
-
-We are improving this repo on a regular basis, if you want to get more from us, try to pull the main repo.
-
-~~~
-cd yourNewProject/ 
-git pull --git-dir='.git-cleanCppProject'
-~~~
 
 # License
 
