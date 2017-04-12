@@ -12,9 +12,10 @@ include_directories(
 #-------------------------------------------------------------------------------
 #exampleApp executable setup
 set(ICON_RESOURCE "")
+
 if(WIN32) #windows icon resource file, provided from /packaging directory
     set(ICON_RESOURCE "${PROJECT_BINARY_DIR}/exampleApp.icon.rc")
-elseif (APPLE)
+elseif (APPLE) #osx icon ressource file, provided from /packaging directory
     set(ICON_RESOURCE "${CMAKE_SOURCE_DIR}/packaging/exampleApp.icns")
 endif()
 
