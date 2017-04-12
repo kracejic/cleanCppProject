@@ -30,7 +30,7 @@ This is a empty frame for project in C++. It should help to start a new project 
 ~~~
 git clone https://github.com/kracejic/cleanCppProject.git yourNewProject
 cd yourNewProject
-rm -rf .git
+mv .git .git-cleanCppProject
 git init
 git add .
 git commit -m "first commit"
@@ -156,7 +156,14 @@ and you can now open a `.sln` file with Visual Studio. You need to right click o
 * `-DVERSION_HOST`= - build machine name, see Version::getVersionLong in version.h.in
 * `-DCMAKE_BUILD_TYPE`=RelWithDebInfo - for build type
 
+### Keeping syncing with us 
 
+We are improving this repo on a regular basis, if you want to get more from us, try to pull the main repo.
+
+~~~
+cd yourNewProject/ 
+git pull --git-dir='.git-cleanCppProject'
+~~~
 
 # License
 
