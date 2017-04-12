@@ -45,11 +45,8 @@ if(APPLE)
 endif()
 
 set_property(TARGET exampleApp PROPERTY CXX_STANDARD 14) # we want C++14
-if(APPLE)
-    install(TARGETS exampleApp DESTINATION "/") #copy executable to bin folder on install
-else()
-    install(TARGETS exampleApp DESTINATION bin) #copy executable to bin folder on install
-endif()
+# Bundle destination specific for Mac DMG.
+install(TARGETS exampleApp BUNDLE DESTINATION "." RUNTIME DESTINATION bin)
 # convenience target for running the binary
 add_custom_target(exampleApp-run
     WORKING_DIRECTORY ${CMAKE_INSTALL_PREFIX}/bin

@@ -9,7 +9,7 @@ set(HOMEPAGE "https://github.com/kracejic/cleanCppProject")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY
     "Clean cpp project. This is simple cpp example project build with CMake.")
 set(CPACK_PACKAGE_DESCRIPTION_FILE "${PROJECT_SOURCE_DIR}/readme.md")
-SET(CPACK_RESOURCE_FILE_LICENSE "${PROJECT_SOURCE_DIR}/license.md")
+set(CPACK_RESOURCE_FILE_LICENSE "${PROJECT_SOURCE_DIR}/license.md")
 set(CPACK_PACKAGE_VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
 set(CPACK_PACKAGE_VERSION_MINOR ${PROJECT_VERSION_MINOR})
 set(CPACK_PACKAGE_VERSION_PATCH ${PROJECT_VERSION_PATCH})
@@ -62,10 +62,7 @@ elseif(APPLE)
     #--------------------------------------------------------------------------
     # Apple specific
     set(CPACK_GENERATOR "DragNDrop")
-    set(CPACK_SET_DESTDIR true)
-    set(CPACK_PACKAGING_INSTALL_PREFIX "..")
-    #    set(CPACK_BUNDLE_NAME "exampleApp")
-    configure_file(${CMAKE_SOURCE_DIR}/packaging/MacOSXBundleInfo.plist.in ${CMAKE_BINARY_DIR}/Info.plist)
+    set(CPACK_PACKAGING_INSTALL_PREFIX "/")
 
     set(MACOSX_BUNDLE_BUNDLE_NAME "exampleApp")
     set(MACOSX_BUNDLE_BUNDLE_GUI_IDENTIFIER "com.exampleApp.exampleApp")
@@ -74,8 +71,6 @@ elseif(APPLE)
     
     set_source_files_properties(${PROJECT_SOURCE_DIR}/packaging/exampleApp.icns PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
     
-    #    set(CPACK_BUNDLE_PLIST "${CMAKE_BINARY_DIR}/Info.plist")
-    #    set(CPACK_BUNDLE_ICON "${CMAKE_SOURCE_DIR}/packaging/exampleApp.icns")
     set(CPACK_DMG_VOLUME_NAME "exampleApp")
     set(CPACK_DMG_DS_STORE_SETUP_SCRIPT "${PROJECT_SOURCE_DIR}/packaging/DS_Store.scpt") 
     set(CPACK_DMG_BACKGROUND_IMAGE "${PROJECT_SOURCE_DIR}/packaging/dmg_background.png")
