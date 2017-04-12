@@ -16,7 +16,7 @@ set(ICON_RESOURCE "")
 if(WIN32) #windows icon resource file, provided from /packaging directory
     set(ICON_RESOURCE "${PROJECT_BINARY_DIR}/exampleApp.icon.rc")
 elseif (APPLE) #osx icon ressource file, provided from /packaging directory
-    set(ICON_RESOURCE "${CMAKE_SOURCE_DIR}/packaging/exampleApp.icns")
+	set(ICON_RESOURCE "${PROJECT_SOURCE_DIR}/packaging/exampleApp.icns")
 endif()
 
 # source files are listed here
@@ -38,10 +38,10 @@ endif()
 
 if(APPLE)
     set_target_properties(exampleApp PROPERTIES MACOSX_BUNDLE_BUNDLE_NAME "exampleApp")
-    set_target_properties(exampleApp PROPERTIES MACOSX_BUNDLE_BUNDLE_GUI_IDENTIFIER "com.ea.exampleApp")
+    set_target_properties(exampleApp PROPERTIES MACOSX_BUNDLE_BUNDLE_GUI_IDENTIFIER "com.exampleApp.exampleApp")
     set_target_properties(exampleApp PROPERTIES MACOSX_BUNDLE_ICON_FILE exampleApp.icns)
-    set_target_properties(exampleApp PROPERTIES MACOSX_BUNDLE_INFO_PLIST ${CMAKE_SOURCE_DIR}/packaging/MacOSXBundleInfo.plist.in)
-    set_source_files_properties(${CMAKE_SOURCE_DIR}/packaging/exampleApp.icns PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
+    set_target_properties(exampleApp PROPERTIES MACOSX_BUNDLE_INFO_PLIST ${PROJECT_SOURCE_DIR}/packaging/MacOSXBundleInfo.plist.in)
+    set_source_files_properties(${PROJECT_SOURCE_DIR}/packaging/exampleApp.icns PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
 endif()
 
 set_property(TARGET exampleApp PROPERTY CXX_STANDARD 14) # we want C++14
