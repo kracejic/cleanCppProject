@@ -65,6 +65,11 @@ endif()
 # target_link_libraries (exampleLibrary ${CMAKE_THREAD_LIBS_INIT})
 # set_property(TARGET exampleLibrary PROPERTY CXX_STANDARD 14) # we want C++14
 
+# How to include and link OpenGL and GLUT libraries
+# find_package(OpenGL REQUIRED)
+# find_package(GLUT REQUIRED)
+# target_include_directories(exampleApp SYSTEM ${OPENGL_INCLUDE_DIRS} ${GLUT_INCLUDE_DIRS} )
+# target_link_libraries(exampleApp ${OPENGL_LIBRARIES} ${GLUT_LIBRARY} ) 
 
 #------------------------------------------------------------------------------
 # Unit tests
