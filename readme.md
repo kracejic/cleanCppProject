@@ -9,7 +9,7 @@ This is a empty frame for project in C++. It should help to start a new project 
 
 * Modern, simple CMake build scripts, divided into several components for readability.
 * Sane and simple targets for everything (see *targets* section).
-* CPack script which can produce **deb**, **rpm**, **windows installer** and various compressed packages.
+* CPack script which can produce **deb**, **rpm**, **windows installer**,**bundle app**, **dmg** and various compressed packages.
 * Tests via CTest.
 * Unit tests via Catch.
 * Documentation generation via Doxygen (code + wiki + UML diagrams with Graphviz and PlanUML).
@@ -30,13 +30,22 @@ This is a empty frame for project in C++. It should help to start a new project 
 ~~~
 git clone https://github.com/kracejic/cleanCppProject.git yourNewProject
 cd yourNewProject
-rm -rf .git
+mv .git .git-cleanCppProject
 git init
 git add .
 git commit -m "first commit"
 ~~~
 
 More in [How to start working](doc/start_working.md).
+
+## How to keep the link with us 
+
+We are improving this repo on a regular basis, if you want to get more from us, try to pull the main repo.
+
+~~~
+cd yourNewProject/ 
+git pull --git-dir='.git-cleanCppProject'
+~~~
 
 ## Building instructions
 
@@ -155,8 +164,6 @@ and you can now open a `.sln` file with Visual Studio. You need to right click o
 * `-DCMAKE_INSTALL_PREFIX`= - location for installation
 * `-DVERSION_HOST`= - build machine name, see Version::getVersionLong in version.h.in
 * `-DCMAKE_BUILD_TYPE`=RelWithDebInfo - for build type
-
-
 
 # License
 
