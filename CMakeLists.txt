@@ -1,8 +1,4 @@
 cmake_minimum_required (VERSION 3.2)
-message(STATUS "")
-message(STATUS "    == Clean Cpp Project configuration ==")
-message(STATUS "")
-
 
 # Project setup, versioning stuff here, change when changing the version
 # Note: keep the project name lower case only for easy linux packaging support
@@ -10,6 +6,11 @@ project (cleancppproject VERSION 0.3.2)
 set(VERSION_TYPE "beta" CACHE STRING "version type" FORCE)
 site_name(VERSION_HOST)
 set(VERSION_HOST "${VERSION_HOST}" CACHE STRING "host of build" FORCE)
+
+message(STATUS "")
+message(STATUS "    == ${PROJECT_NAME} Project configuration ==")
+message(STATUS "")
+
 
 # Be nice to visual studio
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
@@ -64,7 +65,7 @@ add_subdirectory(packaging)
 #-------------------------------------------------------------------------------
 # Wrap up of settings printed on build
 message(STATUS "")
-message(STATUS "    == Final overview ==")
+message(STATUS "    == Final overview for ${PROJECT_NAME} ==")
 message(STATUS "Version:              ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH} ${VERSION_TYPE} @ ${VERSION_HOST}")
 message(STATUS "Install prefix:       ${CMAKE_INSTALL_PREFIX}")
 message(STATUS "CMAKE_BUILD_TYPE:     ${CMAKE_BUILD_TYPE}")

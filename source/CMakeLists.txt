@@ -142,7 +142,7 @@ if(CPPCHECK_PATH)
             --template=gcc
             --verbose
             --quiet
-            ${ALL_SOURCE_FILES} ${ALL_HEADER_FILES}
+            ${ALL_SOURCE_FILES}
     )
 else()
     message(STATUS "cppcheck - static analysis                NO ")
