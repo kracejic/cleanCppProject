@@ -125,7 +125,7 @@ find_program(TIDY_PATH clang-tidy PATHS /usr/local/Cellar/llvm/*/bin)
 if(TIDY_PATH)
     message(STATUS "clang-tidy - static analysis              YES ")
     add_custom_target(tidy
-        COMMAND ${TIDY_PATH} ${ALL_SOURCE_FILES} -p=./ )
+        COMMAND ${TIDY_PATH} -header-filter=.* ${ALL_SOURCE_FILES} -p=./ )
 else()
     message(STATUS "clang-tidy - static analysis              NO ")
 endif()
