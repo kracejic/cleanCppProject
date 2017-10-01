@@ -92,12 +92,18 @@ cmake ..
 make -j8
 ~~~
 
-
 Ninja build witch clang, build all+doc and install it to dist folder:
 ~~~
 mkdir build ; cd build
 cmake -GNinja -DCMAKE_CXX_COMPILER="clang++" ..
 ninja all doc install
+~~~
+
+Release build which will install itself into `/usr` after `sudo make install`
+~~~
+mkdir build ; cd build
+cmake .. -DCMAKE_INSTALL_PREFIX="/usr" -DCMAKE_BUILD_TYPE="Release"
+make -j8 install
 ~~~
 
 
@@ -114,6 +120,7 @@ cmake -GNinja ..
 ninja install
 ~~~
 
+You can use `cmake -G "MSYS Makefiles" ..` if you want to use make.
 
 #### Build on Windows using Microsoft Visual Studio 14
 

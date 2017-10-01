@@ -10,7 +10,7 @@ include_directories(
 )
 
 #-------------------------------------------------------------------------------
-#exampleApp executable setup
+# exampleApp executable setup
 set(ICON_RESOURCE "")
 
 if(WIN32) #windows icon resource file, provided from /packaging directory
