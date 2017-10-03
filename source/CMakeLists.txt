@@ -10,7 +10,7 @@ include_directories(
 )
 
 #-------------------------------------------------------------------------------
-#exampleApp executable setup
+# exampleApp executable setup
 set(ICON_RESOURCE "")
 
 if(WIN32) #windows icon resource file, provided from /packaging directory
@@ -80,6 +80,11 @@ endif()
 # target_link_libraries (exampleLibrary ${CMAKE_THREAD_LIBS_INIT})
 # set_property(TARGET exampleLibrary PROPERTY CXX_STANDARD 14) # we want C++14
 
+# How to include and link OpenGL and GLUT libraries
+# find_package(OpenGL REQUIRED)
+# find_package(GLUT REQUIRED)
+# target_include_directories(exampleApp SYSTEM ${OPENGL_INCLUDE_DIRS} ${GLUT_INCLUDE_DIRS} )
+# target_link_libraries(exampleApp ${OPENGL_LIBRARIES} ${GLUT_LIBRARY} ) 
 
 #------------------------------------------------------------------------------
 # Unit tests
@@ -120,7 +125,7 @@ find_program(TIDY_PATH clang-tidy PATHS /usr/local/Cellar/llvm/*/bin)
 if(TIDY_PATH)
     message(STATUS "clang-tidy - static analysis              YES ")
     add_custom_target(tidy
-        COMMAND ${TIDY_PATH} ${ALL_SOURCE_FILES} -p=./ )
+        COMMAND ${TIDY_PATH} -header-filter=.* ${ALL_SOURCE_FILES} -p=./ )
 else()
     message(STATUS "clang-tidy - static analysis              NO ")
 endif()
@@ -137,7 +142,7 @@ if(CPPCHECK_PATH)
             --template=gcc
             --verbose
             --quiet
-            ${ALL_SOURCE_FILES} ${ALL_HEADER_FILES}
+            ${ALL_SOURCE_FILES}
     )
 else()
     message(STATUS "cppcheck - static analysis                NO ")

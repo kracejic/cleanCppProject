@@ -92,12 +92,18 @@ cmake ..
 make -j8
 ~~~
 
-
 Ninja build witch clang, build all+doc and install it to dist folder:
 ~~~
 mkdir build ; cd build
 cmake -GNinja -DCMAKE_CXX_COMPILER="clang++" ..
 ninja all doc install
+~~~
+
+Release build which will install itself into `/usr` after `sudo make install`
+~~~
+mkdir build ; cd build
+cmake .. -DCMAKE_INSTALL_PREFIX="/usr" -DCMAKE_BUILD_TYPE="Release"
+make -j8 install
 ~~~
 
 
@@ -114,6 +120,7 @@ cmake -GNinja ..
 ninja install
 ~~~
 
+You can use `cmake -G "MSYS Makefiles" ..` if you want to use make.
 
 #### Build on Windows using Microsoft Visual Studio 14
 
@@ -167,7 +174,7 @@ and you can now open a `.sln` file with Visual Studio. You need to right click o
 
 # License
 
-> Copyright (c) 2016 Kracejic
+> Copyright (c) 2017 Kracejic
 >
 > Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 >
