@@ -1,5 +1,17 @@
 /* The standard CSS for doxygen 
 modified by RossCairns.com
+
+Headers/top:     #42657B
+Link             #366495
+
+Text color:      #3E3E3E
+Background:      white
+
+Code-background  #f5f5f5
+Gray-borders     #CCCCCC
+
+Code             #826542
+
  */
 
 .container {
@@ -10,7 +22,6 @@ modified by RossCairns.com
 
 body, table, div, p, dl {
     font-family: sans-serif;
-    font-size: 12px;
 }
 
 p, div, dl {
@@ -26,24 +37,37 @@ div.contents p {
 
 /* @group Heading Levels */
 
-h1 {
-    margin-bottom: 10px;
-    margin-top:0;
-    font-size: 30px;
+h1, h1.groupheader {
+    margin-top:10px;
+    margin-bottom: 0px;
+    font-size: 22px;
+    color:#42657B;
     padding: 0px 0px 20px 0px ;
 
 }
 
-h2 {
+h2, h2.groupheader  {
     padding-top: 10px;
     font-size: 17px;
     color:#42657B;
-    font-family: Lucida Grande, Verdana, Geneva, Arial, sans-serif;
+    font-family: sans-serif;
 }
 
-h3 {
-    font-size: 17px;
-    font-family: Lucida Grande, Verdana, Geneva, Arial, sans-serif;
+h3, h3.groupheader  {
+    font-size: 15px;
+    color:#42657B;
+    font-family: sans-serif;
+}
+
+h4, h4.groupheader  {
+    font-size: 14px;
+    color:#42657B;
+    font-family: sans-serif;
+}
+
+/* class help */
+h2.groupheader  {
+    border-bottom:1px solid #CCCCCC;
 }
 
 dt {
@@ -92,6 +116,10 @@ h3.version {
 div#main-nav li {
     border: none;
 }
+div#main-nav li a:hover {
+    border: none;
+    background-color:#384F5D;
+}
 div#main-nav ul, div#main-nav a, div#main-nav a:hover, 
 div#nav-path.navpath ul, #nav-path a {
     background-image:none;
@@ -105,12 +133,20 @@ div#nav-path.navpath ul, #nav-path a {
 }
 
 
-div#top, div#projectname , .sm-dox a span.sub-arrow, div#main-nav ul , div#main-nav li a {
-    background-color:#323F4D;
+div#top, div#projectname, div#main-nav ul , div#main-nav li a {
+    background-color:#42657B;
+    color:white;
+}
+.sm-dox a span.sub-arrow {
+    background-color:transparent;
     color:white;
     border-color:white transparent transparent transparent;
 }
-
+.sm-dox ul a span.sub-arrow {
+    background-color:transparent;
+    color:white;
+    border-color:transparent transparent transparent white;
+}
 
 div.qindex, div.navtab{
     background-color: #e8eef2;
@@ -131,18 +167,19 @@ div.navtab {
 
 #titlearea {
     border-bottom:1px solid white;
+    padding-left:6px;
 }
 
 /* @group Link Styling */
 
 a {
-    color: #555F74;
+    color: #366495;
     font-weight: normal;
     text-decoration: none;
 }
 
 .contents a:visited {
-    color: #555F74;
+    color: #366495;
 }
 
 a:hover {
@@ -155,9 +192,9 @@ a.qindex {
 
 a.qindexHL {
     font-weight: bold;
-    background-color: #6666cc;
+    background-color: #366495;
     color: #ffffff;
-    border: 1px double #9295C2;
+    border: 1px double #CCCCCC;
 }
 
 .contents a.qindexHL:visited {
@@ -172,11 +209,11 @@ a.elRef {
 }
 
 a.code {
-    color: #3030f0;
+    color: #366495;
 }
 
 a.codeRef {
-    color: #3030f0;
+    color: #366495;
 }
 
 /* @end */
@@ -187,16 +224,16 @@ dl.el {
 
 .fragment {
     font-family: monospace, fixed;
-    padding: 0.5rem 0.5rem;
+    padding: 0.8rem 0.8rem;
     margin: 0.5rem 2px 0.5rem 2px;
-    background-color: #f0f0f0;
+    background-color: #f5f5f5;
     border: none;
 }
 
 pre.fragment, div.fragment {
     border: 1px solid #CCCCCC;
     background-color: #f5f5f5;
-    padding: 4px 6px;
+    padding: 8px 8px;
     margin: 4px 8px 4px 2px;
     overflow: auto;
     word-wrap: break-word;
@@ -206,7 +243,7 @@ pre.fragment, div.fragment {
 div.ah {
     background-color: black;
     font-weight: bold;
-    color: #ffffff;
+    color: white;
     margin-bottom: 3px;
     margin-top: 3px
 }
@@ -287,6 +324,10 @@ div.center img {
 img.footer {
     border: 0px;
     vertical-align: middle;
+}
+
+code {
+    color:#826542;
 }
 
 /* @group Code Colorization */
@@ -603,6 +644,15 @@ table.doxtable th {
     padding-bottom: 4px;
     padding-top: 5px;
     text-align:left;
+}
+
+dl.reflist dt, dl.reflist dd {
+    background-color:transparent;
+    background-image:none;
+    border:none;
+    box-shadow:none;
+    border-left:1px solid black;
+    border-bottom-left-radius:0px;
 }
 
 
