@@ -2,6 +2,12 @@
 modified by RossCairns.com
  */
 
+.container {
+    margin:0 auto;
+    max-width: 1000px;
+    background-color: white;
+}
+
 body, table, div, p, dl {
     font-family: sans-serif;
     font-size: 12px;
@@ -22,13 +28,14 @@ div.contents p {
 
 h1 {
     margin-bottom: 10px;
+    margin-top:0;
     font-size: 30px;
     padding: 0px 0px 20px 0px ;
 
 }
 
 h2 {
-    padding-top: 30px;
+    padding-top: 10px;
     font-size: 17px;
     color:#42657B;
     font-family: Lucida Grande, Verdana, Geneva, Arial, sans-serif;
@@ -85,11 +92,25 @@ h3.version {
 div#main-nav li {
     border: none;
 }
-div#main-nav ul, div#main-nav a, div#main-nav a:hover  {
+div#main-nav ul, div#main-nav a, div#main-nav a:hover, 
+div#nav-path.navpath ul, #nav-path a {
     background-image:none;
-    color:#283a5d;
+    color:white;
     text-shadow:none;
 }
+.navpath li {
+    background-image:none;
+    border-right:1px solid white;
+    border-radius:1.4em;
+}
+
+
+div#top, div#projectname , .sm-dox a span.sub-arrow, div#main-nav ul , div#main-nav li a {
+    background-color:#323F4D;
+    color:white;
+    border-color:white transparent transparent transparent;
+}
+
 
 div.qindex, div.navtab{
     background-color: #e8eef2;
@@ -108,8 +129,8 @@ div.navtab {
     margin-right: 15px;
 }
 
-.titlearea {
-    border-bottom:none;
+#titlearea {
+    border-bottom:1px solid white;
 }
 
 /* @group Link Styling */
@@ -144,7 +165,7 @@ a.qindexHL {
 }
 
 a.el {
-    font-weight: bold;
+    font-weight: normal;
 }
 
 a.elRef {
@@ -190,15 +211,20 @@ div.ah {
     margin-top: 3px
 }
 
-div#top {
-    background-color:#8DB6CA;
-}
+div.headertitle {
+    margin-top:1em;
+    margin-left:12px;
+    padding: 0px;
 
+}
 div.groupHeader, div.title, div.header {
-    margin-left: 16px;
-    margin-top: 12px;
-    margin-bottom: 6px;
+    margin-left: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 0px;
+    color:#42657B;
     font-weight: bold;
+    font-size:24px;
     font-family: sans-serif;
     background-image:none;
     background-color:white;
@@ -214,8 +240,6 @@ div.groupText {
 body {
     background: white;
     color: black;
-    margin-right: 20px;
-    margin-left: 20px;
 }
 
 td.indexkey {
@@ -409,7 +433,7 @@ hr {
 
 .memitem {
     padding: 0;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
 }
 
 .memname {
@@ -590,12 +614,9 @@ hr {
 }
 
 .contents {
-    padding-top: 30px;
+    padding-top: 0px;
 }
 
-h1 {
-    margin-top:0;
-}
 .contents .dynsection {
     margin-top:10px;
 }

@@ -82,10 +82,6 @@ frame "Internal network" {
       artifact "generated documentation" as doc
     }
 
-    :developer: ..> dev : "develops at"
-    :developer: ..> doc : "looks at"
-
-
     gitB --> doxygen
     doxygen --> doc
 
@@ -95,8 +91,6 @@ frame "external web server" {
   artifact "customer support, etc."
   artifact "released versions" as release
 }
-
-:customer: ..> release : downloads 
 
 gitB --> buildB
 buildB -right-> release
@@ -136,10 +130,6 @@ frame "Internal network" {
       artifact "generated documentation" as doc
     }
 
-    :developer: ..> dev : "develops at"
-    :developer: ..> doc : "looks at"
-
-
     gitB --> doxygen
     doxygen --> doc
 
@@ -149,8 +139,6 @@ frame "external web server" {
   artifact "customer support, etc."
   artifact "released versions" as release
 }
-
-:customer: ..> release : downloads 
 
 gitB --> buildB
 buildB -right-> release
