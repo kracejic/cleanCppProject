@@ -81,7 +81,8 @@ DIRECTORY_GRAPH        = YES
 GENERATE_LEGEND        = YES
 INCLUDED_BY_GRAPH      = YES
 INCLUDE_GRAPH          = YES
-DOT_IMAGE_FORMAT       = png:cairo:cairo
+DOT_IMAGE_FORMAT       = svg
+INTERACTIVE_SVG        = YES
 
 # More insight to templates, generaly not needed
 TEMPLATE_RELATIONS     = NO
@@ -89,7 +90,7 @@ TEMPLATE_RELATIONS     = NO
 # in class diagrams, you will have members and such
 # Also they will be bigger
 UML_LOOK               = YES
-UML_LIMIT_NUM_FIELDS   = 16
+UML_LIMIT_NUM_FIELDS   = 6
 
 
 
@@ -122,4 +123,4 @@ STRIP_CODE_COMMENTS    = NO
 
 # Side panel
 # If you enable this, change .container max-width: 960px; to 1240px
-GENERATE_TREEVIEW      = NO
+GENERATE_TREEVIEW      = YES

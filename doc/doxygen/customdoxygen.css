@@ -1,5 +1,6 @@
 /* The standard CSS for doxygen 
-modified by RossCairns.com
+modified by RossCairns.com https://bitbucket.org/rc1/doxygen-style/wiki/Home,
+then modified by kracejic https://github.com/kracejic/cleanCppProject.
 
 Headers/top:     #42657B
 Link             #366495
@@ -22,16 +23,22 @@ Code             #826542
 
 body, table, div, p, dl {
     font-family: sans-serif;
+    font: 400 14px/22px sans-serif;
 }
 
 p, div, dl {
     color:#3E3E3E;
 }
 
+dl {
+    margin-top:0px;
+    margin-bottom:0px;
+}
+
 div.contents p {
     font-family: sans-serif;
     margin-top: 0.0em;
-    margin-bottom: 0.8em;
+    margin-bottom: 0.2em;
 
 }
 
@@ -131,6 +138,10 @@ div#nav-path.navpath ul, #nav-path a {
     border-right:1px solid white;
     border-radius:1.4em;
 }
+#side-nav #nav-sync {
+    top: 0px;
+    right: 8px;
+}
 
 
 div#top, div#projectname, div#main-nav ul , div#main-nav li a {
@@ -147,6 +158,33 @@ div#top, div#projectname, div#main-nav ul , div#main-nav li a {
     color:white;
     border-color:transparent transparent transparent white;
 }
+
+.ui-resizable-e {
+    background-image: none;
+    background-color: #f5f5f5;
+    width: 4px;
+}
+div#nav-tree, #nav-tree .label {
+    background-image:none;
+    background-color:#f5f5f5;
+    font-size: 14px;
+    font-family: sans-serif;
+}
+div#side-nav {
+    position:relative;
+    float:left;
+    margin: 0px;
+    width:200px;
+    padding: 0px;
+    clear:none;
+}
+#nav-tree .selected, #nav-tree .selected a {
+    text-shadow:none;
+    background-image:none;
+    color: #3E3E3E;
+    font-weight: bold;
+}
+
 
 div.qindex, div.navtab{
     background-color: #e8eef2;
@@ -234,7 +272,7 @@ pre.fragment, div.fragment {
     border: 1px solid #CCCCCC;
     background-color: #f5f5f5;
     padding: 8px 8px;
-    margin: 4px 8px 4px 2px;
+    margin: 8px 8px 8px 2px;
     overflow: auto;
     word-wrap: break-word;
     line-height: 125%;
@@ -412,8 +450,11 @@ th.dirtab {
 
 hr {
     height: 0;
-    border: none;
-    border-top: 1px solid #666;
+}
+
+div .plantumlgraph {
+    text-align:left;
+    transform:scale(0.85) translateX(-10%);
 }
 
 /* @group Member Descriptions */
@@ -480,7 +521,7 @@ hr {
 .memname {
     white-space: nowrap;
     font-weight: bold;
-    font-size: 15px;
+    font-size: 16px;
     color:#42657B;
     margin-left:0px;
     border-collapse: collapse;
@@ -658,7 +699,7 @@ dl.reflist dt, dl.reflist dd {
 
 hr {
     border-top:none;
-    border-bottom:none;
+    border-bottom:1px solid #CCCCCC;
     margin-top:30px;
     padding-top:10px;
 }

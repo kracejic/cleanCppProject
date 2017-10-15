@@ -1,7 +1,7 @@
 
 
 
-# Description of the directory structure
+# Directory structure
 
 * mainProjectFolder
     - **build** - user created, build takes place here
