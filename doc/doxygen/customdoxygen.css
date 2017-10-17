@@ -120,20 +120,40 @@ h3.version {
     padding-bottom:10px;
 }
 
-div#main-nav li {
+div#main-nav li, div#navrow1 li {
     border: none;
 }
-div#main-nav li a:hover {
+div#main-nav li a:hover,
+div#main-nav li.current,
+div#navrow1 li a:hover, div#navrow1 li.current,
+div#navrow2 li a:hover, div#navrow2 li.current,
+div#navrow3 li a:hover, div#navrow3 li.current,
+div#navrow4 li a:hover, div#navrow4 li.current
+{
     border: none;
     background-color:#384F5D;
 }
 div#main-nav ul, div#main-nav a, div#main-nav a:hover, 
-div#nav-path.navpath ul, #nav-path a {
+div#nav-path.navpath ul, #nav-path a,
+div#navrow1 a, div#navrow1, div#navrow1 li,
+div#navrow2 a, div#navrow2, div#navrow2 li,
+div#navrow3 a, div#navrow3, div#navrow3 li,
+div#navrow4 a, div#navrow4, div#navrow4 li
+{
     background-image:none;
     color:white;
     text-shadow:none;
 }
-.navpath li {
+div#navrow1.tabs,
+div#navrow2.tabs2,
+div#navrow3.tabs2,
+div#navrow4.tabs3
+{
+    border-bottom:1px solid #CCCCCC;
+}
+
+.navpath li
+{
     background-image:none;
     border-right:1px solid white;
     border-radius:1.4em;
@@ -433,6 +453,13 @@ input.search {
     background-color: #F1F5F9;
 }
 
+#MSearchBox {
+    position:relative;
+    text-align: right;
+    float:right;
+    widows: 100%;
+}
+
 td.tiny {
     font-size: 75%;
 }
@@ -538,6 +565,7 @@ div .plantumlgraph {
 .memproto {
     padding: 0;
     background-color: white;
+    background-image: none;
     font-weight: bold;
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
