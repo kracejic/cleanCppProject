@@ -4,7 +4,7 @@ cmake_minimum_required (VERSION 3.2)
 # Note: keep the project name lower case only for easy linux packaging support
 project (cleancppproject VERSION 0.3.2)
 set(VERSION_TYPE "beta" CACHE STRING "version type" FORCE)
-site_name(VERSION_HOST)
+site_name(VERSION_HOST) # read hostname to VERSION_HOST
 set(VERSION_HOST "${VERSION_HOST}" CACHE STRING "host of build" FORCE)
 
 message(STATUS "")
@@ -25,6 +25,13 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
     set (CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/dist" CACHE PATH
         "Install path prefix, prepended onto install directories." FORCE )
+endif()
+#------------------------------------------------------------------------------
+# General settings for all
+if(MSVC)
+    add_compile_options(/std:c++14 /W3 /WX )
+else()
+    add_compile_options(-std=c++14 -Wall -Wextra -Wshadow -Wnon-virtual-dtor -Wunused -pedantic)
 endif()
 #------------------------------------------------------------------------------
 # Custom Install target, used in run target in source/CMakeLists.txt

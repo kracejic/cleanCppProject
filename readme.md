@@ -103,7 +103,8 @@ Release build which will install itself into `/usr` after `sudo make install`
 ~~~
 mkdir build ; cd build
 cmake .. -DCMAKE_INSTALL_PREFIX="/usr" -DCMAKE_BUILD_TYPE="Release"
-make -j8 install
+make -j8 all
+sudo make install
 ~~~
 
 

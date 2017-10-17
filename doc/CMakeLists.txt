@@ -1,5 +1,3 @@
-cmake_minimum_required (VERSION 2.8)
-
 # This CMake file will add doc target for convenient documentation generation.
 #
 # Additional features are supported:

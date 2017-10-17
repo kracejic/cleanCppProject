@@ -4,38 +4,27 @@ configure_file (
   "${CMAKE_CURRENT_BINARY_DIR}/version.cpp"
   )
 
-
-include_directories(
-    ${CMAKE_CURRENT_SOURCE_DIR}
-)
+#------------------------------------------------------------------------------
+# Libraries dependencies
+find_package (Threads REQUIRED) #threading
 
 #-------------------------------------------------------------------------------
 # exampleApp executable setup
 set(ICON_RESOURCE "")
-
 if(WIN32) #windows icon resource file, provided from /packaging directory
     set(ICON_RESOURCE "${PROJECT_BINARY_DIR}/exampleApp.icon.rc")
 elseif (APPLE) #osx icon ressource file, provided from /packaging directory
-	set(ICON_RESOURCE "${PROJECT_SOURCE_DIR}/packaging/exampleApp.icns")
+    set(ICON_RESOURCE "${PROJECT_SOURCE_DIR}/packaging/exampleApp.icns")
 endif()
 
-# source files are listed here
-set(SRCS
+add_executable(exampleApp MACOSX_BUNDLE  
+    ${ICON_RESOURCE}
     ${CMAKE_CURRENT_BINARY_DIR}/version.cpp
     SomeClass.cpp
     SomeClass.h
-    main.cpp
-)
-
-find_package (Threads REQUIRED) #threading
-
-add_executable(exampleApp MACOSX_BUNDLE ${SRCS} ${ICON_RESOURCE})
-target_link_libraries (exampleApp ${CMAKE_THREAD_LIBS_INIT}) #threading
-
-if(NOT MSVC)
-    target_compile_options(exampleApp PRIVATE -Wall -Wextra -Wshadow -Wnon-virtual-dtor -Wunused -pedantic) # extra warnings
-endif()
-
+    main.cpp)
+target_include_directories(exampleApp PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+target_link_libraries (exampleApp PRIVATE ${CMAKE_THREAD_LIBS_INIT})
 if(APPLE)
     set_target_properties(exampleApp PROPERTIES MACOSX_BUNDLE_BUNDLE_NAME "exampleApp")
     set_target_properties(exampleApp PROPERTIES MACOSX_BUNDLE_BUNDLE_GUI_IDENTIFIER "com.exampleApp.exampleApp")
@@ -43,15 +32,15 @@ if(APPLE)
     set_target_properties(exampleApp PROPERTIES MACOSX_BUNDLE_INFO_PLIST ${PROJECT_SOURCE_DIR}/packaging/MacOSXBundleInfo.plist.in)
     set_source_files_properties(${PROJECT_SOURCE_DIR}/packaging/exampleApp.icns PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
 endif()
+install(TARGETS exampleApp 
+    BUNDLE DESTINATION "." 
+    RUNTIME DESTINATION bin)
 
-set_property(TARGET exampleApp PROPERTY CXX_STANDARD 14) # we want C++14
-# Bundle destination specific for Mac DMG.
-install(TARGETS exampleApp BUNDLE DESTINATION "." RUNTIME DESTINATION bin)
 # convenience target for running the binary
 add_custom_target(exampleApp-run
     WORKING_DIRECTORY ${CMAKE_INSTALL_PREFIX}/bin
     COMMAND ./exampleApp
-    DEPENDS exampleApp Install_)
+    DEPENDS Install_)
 
 # short convenience target
 add_custom_target(run DEPENDS exampleApp-run)
@@ -62,7 +51,7 @@ if(GDB_PATH)
     add_custom_target(gdb
         WORKING_DIRECTORY ${CMAKE_INSTALL_PREFIX}/bin
         COMMAND ${GDB_PATH} ./exampleApp
-        DEPENDS exampleApp Install_)
+        DEPENDS Install_)
 endif()
 
 # And this would add -DBAR_ENABLE_FEATURE or equivalent to build command
@@ -113,7 +102,7 @@ endif(MINGW)
 
 
 #------------------------------------------------------------------------------
-# Other MISC targets
+# Other MISC targets - formating, static analysis
 #------------------------------------------------------------------------------
 
 file(GLOB_RECURSE ALL_SOURCE_FILES *.cpp *.cc *.c)
