@@ -127,3 +127,7 @@ set(EXTERNAL_CATCH_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Catch/src/Catch/sing
 add_custom_target(external-update-all
     COMMENT "Updated all external projects"
     DEPENDS external-Catch-update)
+
+add_custom_target(update
+    COMMENT "Updated all external projects"
+    DEPENDS external-update-all)
