@@ -1,0 +1,45 @@
+stages:
+  - prepare
+  - build
+  - test
+  - package
+
+cache:
+  untracked: true
+  paths:
+    - build
+    - external
+
+prepare:
+  stage: prepare
+  script:
+    - git reset --hard HEAD 
+    - git clean -d -f -x
+    - mkdir build
+    - cd build
+    - cmake ..
+    - make external-update-all
+
+build:
+  stage: build
+  script:
+    - cd build
+    - make
+    - make install
+
+test:
+  stage: test
+  script:
+    - cd build
+    - make check
+
+package:
+  stage: package
+  artifacts:
+    expire_in: 1 week
+    paths:
+      - build/out/
+  script:
+    - cd build
+    - make package
+
