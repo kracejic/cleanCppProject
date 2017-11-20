@@ -36,6 +36,7 @@
     - CMakeLists.md - Main CMake configuration
     - .clang-format - clang format config file
     - .clang-tidy - clang tidy config file
-    - .travis.yml - continuous integration configuration
+    - .travis.yml - continuous integration configuration for Travis CI
+    - .gitlab-ci.yml - continuous integration configuration for Gitlab CI
 
 

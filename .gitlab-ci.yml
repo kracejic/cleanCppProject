@@ -1,3 +1,4 @@
+# Simple image with CMake, make, git and g++ 
 image: kracejic/alpinecpp
 
 stages:
@@ -12,6 +13,8 @@ cache:
     - build
     - external
 
+# Since we are using cache to persist all data, we need to clean in the first
+# step.
 prepare:
   stage: prepare
   script:
