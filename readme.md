@@ -15,6 +15,7 @@ This is a empty frame for project in C++. It should help to start a new project 
 * Documentation generation via Doxygen (code + wiki + UML diagrams with Graphviz and PlanUML).
 * Static analysis support (clang-tidy, cppcheck).
 * Works with your favourite linux distro, Windows and MacOS.
+* Gitlab CI and Travis CI configuration files
 
 ## Important pages
 
