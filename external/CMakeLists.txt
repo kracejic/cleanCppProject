@@ -10,7 +10,7 @@ find_package(Git REQUIRED)
 ExternalProject_Add(
     Catch
     PREFIX ${CMAKE_CURRENT_SOURCE_DIR}/Catch
-    GIT_REPOSITORY https://github.com/philsquared/Catch.git
+    GIT_REPOSITORY https://github.com/catchorg/Catch2.git
     # For shallow git clone (without downloading whole history)
     # GIT_SHALLOW 1
     # For point at certain tag
