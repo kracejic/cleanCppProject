@@ -8,11 +8,13 @@ include(CTest)
 # is triggered, when sources were changed).
 add_custom_target(check
     COMMAND echo [----] Running tests
+    USES_TERMINAL
     COMMAND ${CMAKE_CTEST_COMMAND}  --output-on-failure -C Debug
     DEPENDS exampleApp unittests)
 
 add_custom_target(checkVerbose
     COMMAND echo [----] Running tests
+    USES_TERMINAL
     COMMAND ${CMAKE_CTEST_COMMAND}  -V --output-on-failure -C Debug
     DEPENDS exampleApp unittests)
 
@@ -44,5 +46,6 @@ add_test(NAME "Is_Runable-h"
 # unit test build is located in source/unittest/CMakeLists.txt
 add_test(NAME "catch_unit_tests"
     COMMAND $<TARGET_FILE:unittests>
+    USES_TERMINAL
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 

@@ -6,13 +6,14 @@
 #include "SomeClass.h"
 #include "version.h"
 
-
 using namespace std;
 
 void printHelp()
 {
     cout << "Help for cleanCppApplication " << endl;
-    cout << "Version: " << Version::getVersionLong() << endl;
+    cout << "Version: " << Version::current().asLongStr() << endl;
+    cout << "Version: " << Version::current().asShortStr() << endl;
+    cout << "Version: " << Version::current().asNumber() << endl;
     cout << "Author:  " << endl;
     cout << "URL:     " << endl;
     /// @todo Do stuff in here also
@@ -56,7 +57,7 @@ void printHelp()
  * deactivate main
  *
  * \enduml
-*/
+ */
 int main(int argc, char const* argv[])
 {
     // Print help if no arguments are given
@@ -72,7 +73,7 @@ int main(int argc, char const* argv[])
         if (tmp == "--help" || tmp == "-h")
             printHelp();
         else if (tmp == "--version")
-            cout << "v" << Version::getVersionShort() << endl;
+            cout << "v" << Version::current().asLongStr() << endl;
         else
             break;
     }
@@ -99,10 +100,9 @@ int main(int argc, char const* argv[])
     if (argc == 3)
         return 1;
 
-
+    // we will crash here
     delete a;
     cout << *a << endl;
-
 
     return 0;
 }

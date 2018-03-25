@@ -2,7 +2,7 @@ cmake_minimum_required (VERSION 3.2)
 
 # Project setup, versioning stuff here, change when changing the version
 # Note: keep the project name lower case only for easy linux packaging support
-project (cleancppproject VERSION 0.3.2)
+project (cleancppproject VERSION 0.3.4)
 set(VERSION_TYPE "beta" CACHE STRING "version type" FORCE)
 site_name(VERSION_HOST) # read hostname to VERSION_HOST
 set(VERSION_HOST "${VERSION_HOST}" CACHE STRING "host of build" FORCE)
@@ -18,6 +18,9 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 # Be nice and export compile commands by default, this is handy for clang-tidy
 # and for other tools.
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
+# We can use include() and find_package() for our scripts in there
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
 #-------------------------------------------------------------------------------
 # Set default install location to dist folder in build dir
@@ -75,6 +78,7 @@ message(STATUS "")
 message(STATUS "    == Final overview for ${PROJECT_NAME} ==")
 message(STATUS "Version:              ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH} ${VERSION_TYPE} @ ${VERSION_HOST}")
 message(STATUS "Install prefix:       ${CMAKE_INSTALL_PREFIX}")
+message(STATUS "Compiler:             ${CMAKE_CXX_COMPILER}")
 message(STATUS "CMAKE_BUILD_TYPE:     ${CMAKE_BUILD_TYPE}")
 message(STATUS "  possible options: Debug Release RelWithDebInfo MinSizeRel")
 message(STATUS "  set with ` cmake -DCMAKE_BUILD_TYPE=Debug .. `")

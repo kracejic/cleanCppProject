@@ -4,6 +4,7 @@
 include(InstallRequiredSystemLibraries)
 
 set(CPACK_PACKAGE_VENDOR "kracejic")
+set(CPACK_PACKAGE_NAME ${PROJECT_NAME})
 set(CPACK_PACKAGE_CONTACT "kracejic <kracejic@gmail.com>")
 set(HOMEPAGE "https://github.com/kracejic/cleanCppProject")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY
@@ -23,7 +24,6 @@ set(CPACK_PACKAGE_EXECUTABLES "exampleApp" "My Example Executable")
 set(CPACK_CREATE_DESKTOP_LINKS "exampleApp")
 set(CPACK_STRIP_FILES TRUE)
 
-
 if(WIN32 AND NOT UNIX)
     #--------------------------------------------------------------------------
     # Windows specific
@@ -39,7 +39,7 @@ if(WIN32 AND NOT UNIX)
         message(STATUS "   + NSIS                                 YES ")
         # Note: There is a bug in NSI that does not handle full unix paths properly. Make
         # sure there is at least one set of four (4) backlasshes.
-        set(CPACK_NSIS_DISPLAY_NAME "Clean cpp Project")
+        set(CPACK_NSIS_DISPLAY_NAME ${CPACK_PACKAGE_NAME})
         # Icon of the installer
         set(CPACK_NSIS_MUI_ICON "${CMAKE_CURRENT_SOURCE_DIR}\\\\exampleApp.ico")
         # set(CPACK_NSIS_HELP_LINK "http:\\\\\\\\www.my-project-home-page.org")
@@ -64,10 +64,11 @@ elseif(APPLE)
     set(CPACK_GENERATOR "DragNDrop")
     set(CPACK_PACKAGING_INSTALL_PREFIX "/")
 
-    set(MACOSX_BUNDLE_BUNDLE_NAME "exampleApp")
+    set(MACOSX_BUNDLE_BUNDLE_NAME ${CPACK_PACKAGE_NAME})
     set(MACOSX_BUNDLE_BUNDLE_GUI_IDENTIFIER "com.exampleApp.exampleApp")
     set(MACOSX_BUNDLE_ICON_FILE ${PROJECT_SOURCE_DIR}/packaging/ exampleApp.icns)
     set(MACOSX_BUNDLE_INFO_PLIST ${PROJECT_SOURCE_DIR}/packaging/MacOSXBundleInfo.plist.in)
+    set(MACOSX_BUNDLE_BUNDLE_VERSION "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH}")
     
     set_source_files_properties(${PROJECT_SOURCE_DIR}/packaging/exampleApp.icns PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
     

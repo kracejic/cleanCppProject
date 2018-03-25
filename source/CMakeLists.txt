@@ -1,15 +1,32 @@
+include(cleanCppExtensions)
+
 # configure version.cpp.in with selected version
 configure_file (
   "${CMAKE_CURRENT_SOURCE_DIR}/version.cpp.in"
   "${CMAKE_CURRENT_BINARY_DIR}/version.cpp"
   )
+# If you want to have date and time of the build, your targets has to depend on this
+add_custom_target(versionFileTouchForRebuild
+    COMMAND ${CMAKE_COMMAND} -E touch "${CMAKE_CURRENT_BINARY_DIR}/version.cpp")
 
 #------------------------------------------------------------------------------
 # Libraries dependencies
 find_package (Threads REQUIRED) #threading
 
+#------------------------------------------------------------------------------
+# By using macro to add common dependencies you can avoid repetition when you have
+# multiple binaries.
+# Use with `addCommonDependencies(exampleApp)`
+# macro(addCommonDependencies TARGET)
+#     add_dependencies(${TARGET} versionFileTouchForRebuild) # We want precise time of build in version
+#     target_include_directories(${TARGET} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+#     target_link_libraries (${TARGET} PRIVATE ${CMAKE_THREAD_LIBS_INIT})
+#     target_compile_definitions(${TARGET} PRIVATE -DSOME_DEFINE)
+# endmacro()
+
 #-------------------------------------------------------------------------------
 # exampleApp executable setup
+
 set(ICON_RESOURCE "")
 if(WIN32) #windows icon resource file, provided from /packaging directory
     set(ICON_RESOURCE "${PROJECT_BINARY_DIR}/exampleApp.icon.rc")
@@ -17,14 +34,16 @@ elseif (APPLE) #osx icon ressource file, provided from /packaging directory
     set(ICON_RESOURCE "${PROJECT_SOURCE_DIR}/packaging/exampleApp.icns")
 endif()
 
-add_executable(exampleApp MACOSX_BUNDLE  
+add_executable(exampleApp MACOSX_BUNDLE
     ${ICON_RESOURCE}
     ${CMAKE_CURRENT_BINARY_DIR}/version.cpp
     SomeClass.cpp
     SomeClass.h
     main.cpp)
+add_dependencies(exampleApp versionFileTouchForRebuild) # We want precise time of build in version
 target_include_directories(exampleApp PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 target_link_libraries (exampleApp PRIVATE ${CMAKE_THREAD_LIBS_INIT})
+
 if(APPLE)
     set_target_properties(exampleApp PROPERTIES MACOSX_BUNDLE_BUNDLE_NAME "exampleApp")
     set_target_properties(exampleApp PROPERTIES MACOSX_BUNDLE_BUNDLE_GUI_IDENTIFIER "com.exampleApp.exampleApp")
@@ -32,27 +51,24 @@ if(APPLE)
     set_target_properties(exampleApp PROPERTIES MACOSX_BUNDLE_INFO_PLIST ${PROJECT_SOURCE_DIR}/packaging/MacOSXBundleInfo.plist.in)
     set_source_files_properties(${PROJECT_SOURCE_DIR}/packaging/exampleApp.icns PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
 endif()
-install(TARGETS exampleApp 
-    BUNDLE DESTINATION "." 
+
+install(TARGETS exampleApp
+    BUNDLE DESTINATION "."
     RUNTIME DESTINATION bin)
 
-# convenience target for running the binary
-add_custom_target(exampleApp-run
-    WORKING_DIRECTORY ${CMAKE_INSTALL_PREFIX}/bin
-    COMMAND ./exampleApp
-    DEPENDS Install_)
+# Using macro from cmake/cleanCpppExtensions.cpp included on the top
+# Provides exampleApp-run and exampleApp-dbg
+addRunAndDebugTargets(exampleApp)
 
-# short convenience target
+# short convenience target from cmake/cleanCpppExtensions.cpp
 add_custom_target(run DEPENDS exampleApp-run)
 
-# convenience run gdb target
-find_program(GDB_PATH gdb)
-if(GDB_PATH)
-    add_custom_target(gdb
-        WORKING_DIRECTORY ${CMAKE_INSTALL_PREFIX}/bin
-        COMMAND ${GDB_PATH} ./exampleApp
-        DEPENDS Install_)
-endif()
+# Manually specified convenience target for running the binary, we use macro
+# add_custom_target(exampleApp-run
+#     WORKING_DIRECTORY ${CMAKE_INSTALL_PREFIX}/bin
+#     USES_TERMINAL
+#     COMMAND ./exampleApp
+#     DEPENDS Install_)
 
 # And this would add -DBAR_ENABLE_FEATURE or equivalent to build command
 # target_compile_definitions(exampleApp PRIVATE BAR_ENABLE_FEATURE)
@@ -73,7 +89,7 @@ endif()
 # find_package(OpenGL REQUIRED)
 # find_package(GLUT REQUIRED)
 # target_include_directories(exampleApp SYSTEM ${OPENGL_INCLUDE_DIRS} ${GLUT_INCLUDE_DIRS} )
-# target_link_libraries(exampleApp ${OPENGL_LIBRARIES} ${GLUT_LIBRARY} ) 
+# target_link_libraries(exampleApp ${OPENGL_LIBRARIES} ${GLUT_LIBRARY} )
 
 #------------------------------------------------------------------------------
 # Unit tests
@@ -82,6 +98,7 @@ add_subdirectory(unittest)
 
 #-------------------------------------------------------------------------------
 # Copy MINGW needed libraries for building on windows
+
 if(MINGW)
     message(STATUS "MinGW detected")
     get_filename_component(GCC_PATH ${CMAKE_C_COMPILER} PATH)
@@ -102,64 +119,9 @@ endif(MINGW)
 
 
 #------------------------------------------------------------------------------
-# Other MISC targets - formating, static analysis
-#------------------------------------------------------------------------------
+# Other MISC targets
 
-file(GLOB_RECURSE ALL_SOURCE_FILES *.cpp *.cc *.c)
-file(GLOB_RECURSE ALL_HEADER_FILES *.h *.hpp)
-
-# Static analysis via clang-tidy target
-# We check for program, since when it is not here, target makes no sense
-find_program(TIDY_PATH clang-tidy PATHS /usr/local/Cellar/llvm/*/bin)
-if(TIDY_PATH)
-    message(STATUS "clang-tidy - static analysis              YES ")
-    add_custom_target(tidy
-        COMMAND ${TIDY_PATH} -header-filter=.* ${ALL_SOURCE_FILES} -p=./ )
-else()
-    message(STATUS "clang-tidy - static analysis              NO ")
-endif()
-
-# cpp check static analysis
-find_program(CPPCHECK_PATH cppcheck)
-if(CPPCHECK_PATH)
-    message(STATUS "cppcheck - static analysis                YES ")
-    add_custom_target(
-            cppcheck
-            COMMAND ${CPPCHECK_PATH}
-            --enable=warning,performance,portability,information,missingInclude
-            --std=c++11
-            --template=gcc
-            --verbose
-            --quiet
-            ${ALL_SOURCE_FILES}
-    )
-else()
-    message(STATUS "cppcheck - static analysis                NO ")
-endif()
-
-# run clang-format on all files
-find_program(FORMAT_PATH clang-format)
-if(FORMAT_PATH)
-    message(STATUS "clang-format - code formating             YES ")
-    add_custom_target(format
-        COMMAND ${FORMAT_PATH} -i ${ALL_SOURCE_FILES} ${ALL_HEADER_FILES} )
-else()
-    message(STATUS "clang-format - code formating             NO ")
-endif()
-
-
-# Does not work well, left here for future work, but it would still only
-# provides same info as tidy, only in html form.
-#
-# Produces html analysis in *.plist dirs in build dir or build/source directory
-# add_custom_target(
-#     analyze
-#     COMMAND rm -rf ../*.plist
-#     COMMAND rm -rf *.plist
-#     COMMAND clang-check -analyze -extra-arg -Xclang -extra-arg -analyzer-output=html
-#     ${ALL_SOURCE_FILES}
-#     -p=./
-#     COMMAND echo ""
-#     )
+# Adds misc targets: format, cppcheck, tidy, see cmake/cleanCppExtensions.cmake
+addMiscTargets()
 
 
