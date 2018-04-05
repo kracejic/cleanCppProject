@@ -17,7 +17,6 @@ macro(addRunAndDebugTargets TARGET)
             DEPENDS ${TARGET}
             COMMAND ${GDB_PATH} ./${TARGET})
     endif()
-    install(TARGETS ${TARGET} DESTINATION .)
 endmacro()
 
 

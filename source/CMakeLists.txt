@@ -5,7 +5,8 @@ configure_file (
   "${CMAKE_CURRENT_SOURCE_DIR}/version.cpp.in"
   "${CMAKE_CURRENT_BINARY_DIR}/version.cpp"
   )
-# If you want to have date and time of the build, your targets has to depend on this
+# If you want to have date and time of the build, your targets has to depend on this.
+# This will force recompilation of version.o and thus forcing gcc to update __DATE__ macro.
 add_custom_target(versionFileTouchForRebuild
     COMMAND ${CMAKE_COMMAND} -E touch "${CMAKE_CURRENT_BINARY_DIR}/version.cpp")
 
