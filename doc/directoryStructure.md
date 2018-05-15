@@ -11,6 +11,8 @@
                 - **data** - here folder data is copied
             * **doc**
                 - doxygen lives here documentation
+    - **cmake** - contains cmake scripts that can be included with include()
+        + cleanCppExtensions.cmake - reusable helpers for source/CMakeLists.txt
     - **data** - contain data
     - **doc** - contains documentation
         + CMakeLists.txt - doc building

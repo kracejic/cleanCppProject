@@ -19,6 +19,7 @@ add_custom_target(unit
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/test
     COMMAND $<TARGET_FILE:unittests>
     DEPENDS unittests)
+# Verbose printing of results
 add_custom_target(unitall
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/test
     COMMAND $<TARGET_FILE:unittests> -s -a -r=compact
