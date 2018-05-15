@@ -14,8 +14,10 @@ This is a empty frame for project in C++. It should help to start a new project 
 * Unit tests via Catch.
 * Documentation generation via Doxygen (code + wiki + UML diagrams with Graphviz and PlanUML).
 * Static analysis support (clang-tidy, cppcheck).
+* Dynamic analysis helpers via sanitizers.
 * Works with your favourite linux distro, Windows and MacOS.
-* Gitlab CI and Travis CI configuration files
+* Gitlab CI and Travis CI configuration files.
+* Support for gold linker for faster linking time.
 
 ## Important pages
 
@@ -146,6 +148,7 @@ and you can now open a `.sln` file with Visual Studio. You need to right click o
     * *install* - install binaries into *CMAKE_INSTALL_PREFIX*
     * *exampleApp* - build exampleApp binary
     * *exampleApp-run* - build, install and run exampleApp binary (for your convenience)
+    * *exampleApp-gdb* - build, install and run exampleApp binary in gdb (for your convenience)
     * *run* - alias for exampleApp-run (in order to keep it short)
 * Testing
     * *check* - run whole test suite (see test/CMakeLists.txt)
@@ -170,9 +173,11 @@ and you can now open a `.sln` file with Visual Studio. You need to right click o
 
 ### CMAKE variables
 
-* `-DCMAKE_INSTALL_PREFIX`= - location for installation
-* `-DVERSION_HOST`= - build machine name, see Version::getVersionLong in version.h.in
-* `-DCMAKE_BUILD_TYPE`=RelWithDebInfo - for build type
+* `-DCMAKE_INSTALL_PREFIX` - location for installation
+* `-DVERSION_HOST` - build machine name, see version.h.in
+* `-DCMAKE_BUILD_TYPE` - for build type
+* `-DMEASURE_ALL=ON/OFF` - Measure time of all compilations, best used with single threaded build. Needs `time` command (unix).
+* -`-DUSE_GOLD_LINKER=ON/OFF` - whether to link with Gold linker.
 
 # License
 

@@ -1,48 +1,83 @@
 #include "version.h"
 
-using namespace std;
+namespace Version {
 
+Version makeCurrentVersion()
+{
+    Version ret;
+    // clang-format off
+    ret.major = @PROJECT_VERSION_MAJOR@;
+    ret.minor = @PROJECT_VERSION_MINOR@;
+    ret.patch = @PROJECT_VERSION_PATCH@;
+    // clang-format on
+    ret.datetime = std::string(__DATE__) + " " + __TIME__;
+    ret.machine = "@VERSION_HOST@";
+    ret.type = "@VERSION_TYPE@";
+    return ret;
+}
 
-std::string Version::getBuildTime()
+Version v{ makeCurrentVersion() };
+
+//-----------------------------------------------------------------------------
+const Version& current()
 {
-    return std::string(__DATE__) + " " + __TIME__;
+    return v;
+}
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------------
+// struct Version stuff
+//-----------------------------------------------------------------------------------
+Version::Version() {}
+Version::Version(long long version)
+{
+    major = version / (1000 * 1000);
+    version = version % (1000 * 1000);
+    minor = version / (1000);
+    version = version % (1000);
+    patch = version;
 }
 //-----------------------------------------------------------------------------------
-int Version::getMajor()
+long long Version::asNumber() const
 {
-    return @PROJECT_VERSION_MAJOR@;
+    return (major * 10000 * 10000) + (minor * 10000) + patch;
 }
 //-----------------------------------------------------------------------------------
-int Version::getMinor()
+std::string Version::asShortStr() const
 {
-    return @PROJECT_VERSION_MINOR@;
-}
-//-----------------------------------------------------------------------------------
-int Version::getPatch()
-{
-    return @PROJECT_VERSION_PATCH@;
-}
-//-----------------------------------------------------------------------------------
-long long Version::getVersionNumber()
-{
-    return @PROJECT_VERSION_MAJOR@ * 10000 * 10000 + @PROJECT_VERSION_MINOR@ * 10000 +
-           @PROJECT_VERSION_PATCH@;
-}
-//-----------------------------------------------------------------------------------
-std::string Version::getVersionShort()
-{
-    string version = to_string(getMajor()) + "." + to_string(getMinor()) + "." +
-                     to_string(getPatch()) + " @VERSION_TYPE@";
+    std::string version = std::to_string(major) + "." + std::to_string(minor) + "." + std::to_string(patch) + " " + type;
     return version;
 }
 //-----------------------------------------------------------------------------------
-std::string Version::getVersionLong()
+std::string Version::asLongStr() const
 {
-    return getVersionShort() + " / " + getBuildTime() + " / @VERSION_HOST@";
+    return asShortStr() + " / " + datetime + " / " + machine;
 }
 //-----------------------------------------------------------------------------------
-std::string Version::getBuildMachine()
+bool Version::operator<(const Version& other)
 {
-    return "@VERSION_HOST@";
+    return asNumber() < other.asNumber();
+}
+bool Version::operator>(const Version& other)
+{
+    return asNumber() > other.asNumber();
+}
+bool Version::operator<=(const Version& other)
+{
+    return asNumber() <= other.asNumber();
+}
+bool Version::operator>=(const Version& other)
+{
+    return asNumber() >= other.asNumber();
+}
+bool Version::operator==(const Version& other)
+{
+    return asNumber() == other.asNumber();
+}
+bool Version::operator!=(const Version& other)
+{
+    return asNumber() != other.asNumber();
 }
 //-----------------------------------------------------------------------------------
+
+} // namespace Version
