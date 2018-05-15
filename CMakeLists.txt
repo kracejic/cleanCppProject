@@ -11,6 +11,8 @@ message(STATUS "")
 message(STATUS "    == ${PROJECT_NAME} Project configuration ==")
 message(STATUS "")
 
+#------------------------------------------------------------------------------
+# General settings
 
 # Be nice to visual studio
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
@@ -22,6 +24,15 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 # We can use include() and find_package() for our scripts in there
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
+# Use gold linker to speed up linking time, see cmake/useGoldLinker.cmake
+include(useGoldLinker)
+
+# Helpful option enable build profiling to identify slowly compiling files
+option(MEASURE_ALL "When enabled all commands will be passed through time command" OFF)
+if(MEASURE_ALL)
+    set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE "time")
+endif()
+
 #-------------------------------------------------------------------------------
 # Set default install location to dist folder in build dir
 # we do not want to install to /usr by default
@@ -30,7 +41,7 @@ if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
         "Install path prefix, prepended onto install directories." FORCE )
 endif()
 #------------------------------------------------------------------------------
-# General settings for all
+# Enable helpfull warnings and C++14 for all files
 if(MSVC)
     add_compile_options(/std:c++14 /W3 /WX )
 else()

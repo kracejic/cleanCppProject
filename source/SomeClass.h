@@ -53,12 +53,12 @@ class SomeClass : public BaseClass
     int mVal{0}; ///< Stores the value
     std::vector<Data> mData;
     std::vector<std::string> mStrings;
-    Data* mParent;
 
   public:
     SomeClass(); ///< Creates empty SomeClass
     ~SomeClass();
 
+    Data* mParent;
 
     /**
      * Sets the value

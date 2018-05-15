@@ -10,6 +10,7 @@ configure_file (
 add_custom_target(versionFileTouchForRebuild
     COMMAND ${CMAKE_COMMAND} -E touch "${CMAKE_CURRENT_BINARY_DIR}/version.cpp")
 
+
 #------------------------------------------------------------------------------
 # Libraries dependencies
 find_package (Threads REQUIRED) #threading
