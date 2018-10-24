@@ -27,7 +27,7 @@ add_custom_target(external-Catch-update
     COMMAND ${GIT_EXECUTABLE} pull
     DEPENDS Catch)
 # set include directory
-set(EXTERNAL_CATCH_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Catch/src/Catch/single_include" PARENT_SCOPE)
+set(EXTERNAL_CATCH_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Catch/src/Catch/single_include/Catch2" PARENT_SCOPE)
 
 
 # Examples for External Projects
