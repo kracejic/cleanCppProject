@@ -2,14 +2,14 @@
 
 ![Build Status](https://travis-ci.org/kracejic/cleanCppProject.svg?branch=master)
 
-This is a empty frame for project in C++. It should help to start a new project without caring much about project/build environment setup.
+This is an empty frame for project in C++. It should help to start a new project without caring much about project/build environment setup.
 
 
 ## Features
 
 * Modern, simple CMake build scripts, divided into several components for readability.
 * Sane and simple targets for everything (see *targets* section).
-* CPack script which can produce **deb**, **rpm**, **windows installer**,**bundle app**, **dmg** and various compressed packages.
+* CPack script which can produce **deb**, **rpm**, **windows installer**, **bundle app**, **dmg** and various compressed packages.
 * Tests via CTest.
 * Unit tests via Catch.
 * Documentation generation via Doxygen (code + wiki + UML diagrams with Graphviz and PlanUML).
