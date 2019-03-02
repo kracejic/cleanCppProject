@@ -1,5 +1,5 @@
 # Simple image with CMake, make, git and g++ 
-image: kracejic/alpinecpp
+image: kracejic/alpinecppheavy
 
 stages:
   - prepare
@@ -23,7 +23,7 @@ prepare:
     - mkdir build
     - cd build
     - cmake ..
-    - make external-update-all
+    - make update
 
 build:
   stage: build

@@ -1,6 +1,6 @@
 # This is an attempt on universal .ycm_extra_conf.py
-# You can have one in your home and point to it from your .vimrc with: 
-#    let g:ycm_global_ycm_extra_conf = '~/path/.ycm_extra_conf.py'  
+# You can have one in your home and point to it from your .vimrc with:
+#    let g:ycm_global_ycm_extra_conf = '~/path/.ycm_extra_conf.py'
 
 # Sources (from oldest to newest):
 # https://github.com/Valloric/ycmd/blob/master/cpp/ycm/.ycm_extra_conf.py
@@ -160,7 +160,7 @@ def flags_for_file(filename):
         final_flags = BASE_FLAGS
         clang_flags = flags_for_clang_complete(root)
         if clang_flags:
-            final_flags = final_flags + clang_flags
+            final_flags = clang_flags
         include_flags = flags_for_include(root)
         if include_flags:
             final_flags = final_flags + include_flags

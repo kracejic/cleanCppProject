@@ -4,7 +4,6 @@
 
 This is an empty frame for project in C++. It should help to start a new project without caring much about project/build environment setup.
 
-
 ## Features
 
 * Modern, simple CMake build scripts, divided into several components for readability.
@@ -14,10 +13,12 @@ This is an empty frame for project in C++. It should help to start a new project
 * Unit tests via Catch.
 * Documentation generation via Doxygen (code + wiki + UML diagrams with Graphviz and PlanUML).
 * Static analysis support (clang-tidy, cppcheck).
-* Dynamic analysis helpers via sanitizers.
+* Dynamic analysis helpers via sanitizers (see cmake/sanitizers.cmake).
 * Works with your favourite linux distro, Windows and MacOS.
-* Gitlab CI and Travis CI configuration files.
+* Gitlab CI and Travis CI configuration examples.
 * Support for gold linker for faster linking time.
+* Helpers for adding external dependencies downloaded during configuration or build.
+    * see `external/CMakeLists.txt` and `cmake/cleanCppExtension.cmake`
 
 ## Important pages
 
@@ -167,8 +168,7 @@ and you can now open a `.sln` file with Visual Studio. You need to right click o
     * *tidy* - run clang static analysis on all sources
     * *cppcheck* - call cppcheck on all files (another static analysis)
 * External
-    * *external-update-all* - update all external sources/projects
-    * *external-update-Catch* - update Catch (Unit test library)
+    * *update* - update all external sources/projects
 
 
 ### CMAKE variables
@@ -177,11 +177,11 @@ and you can now open a `.sln` file with Visual Studio. You need to right click o
 * `-DVERSION_HOST` - build machine name, see version.h.in
 * `-DCMAKE_BUILD_TYPE` - for build type
 * `-DMEASURE_ALL=ON/OFF` - Measure time of all compilations, best used with single threaded build. Needs `time` command (unix).
-* -`-DUSE_GOLD_LINKER=ON/OFF` - whether to link with Gold linker.
+* `-DUSE_GOLD_LINKER=ON/OFF` - whether to link with Gold linker.
 
 # License
 
-> Copyright (c) 2017 Kracejic
+> Copyright (c) 2019 Kracejic
 >
 > Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 >

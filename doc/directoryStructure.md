@@ -13,6 +13,8 @@
                 - doxygen lives here documentation
     - **cmake** - contains cmake scripts that can be included with include()
         + cleanCppExtensions.cmake - reusable helpers for source/CMakeLists.txt
+        + sanitizers.cmake - adds sanitizers options
+        + useGoldLinker.cmake - enables simple use of gold linker for faster linkage
     - **data** - contain data
     - **doc** - contains documentation
         + CMakeLists.txt - doc building
@@ -33,7 +35,7 @@
     - **test** - integration tests, CTest, data sets for tests and unit tests
         + CMakeLists.txt - tests specification
     - **external**
-        + CMakeLists.txt - external projects handling (eg. Download of Catch)
+        + CMakeLists.txt - external projects handling (eg. Download of Catch and examples to do more)
     - readme.md - main readme file
     - CMakeLists.md - Main CMake configuration
     - .clang-format - clang format config file

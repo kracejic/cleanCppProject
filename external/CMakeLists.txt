@@ -1,133 +1,71 @@
 include(ExternalProject)
 find_package(Git REQUIRED)
 # find_package(Hg REQUIRED)
+include(cleanCppExtensions)
 
+#------------------------------------------------------------------------------
+# Convenience update all, dependencies are added in ExternalHeaderOnly_Add
+add_custom_target(update COMMENT "Updated all external projects")
 
 #------------------------------------------------------------------------------
 # Catch - Unit test header only library
-#  * sets EXTERNAL_CATCH_INCLUDE_DIR 
 
-ExternalProject_Add(
-    Catch
-    PREFIX ${CMAKE_CURRENT_SOURCE_DIR}/Catch
-    GIT_REPOSITORY https://github.com/catchorg/Catch2.git
-    # For shallow git clone (without downloading whole history)
-    # GIT_SHALLOW 1
-    # For point at certain tag
-    # GIT_TAG 1.5.7
-    #disables auto update on every build
-    UPDATE_DISCONNECTED 1
-    #disable following
-    CONFIGURE_COMMAND "" BUILD_COMMAND "" INSTALL_DIR "" INSTALL_COMMAND ""
-    )
-# Update Catch target
-add_custom_target(external-Catch-update
-    COMMENT "Updated Catch"
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Catch/src/Catch
-    COMMAND ${GIT_EXECUTABLE} pull
-    DEPENDS Catch)
-# set include directory
-set(EXTERNAL_CATCH_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Catch/src/Catch/single_include/catch2" PARENT_SCOPE)
+# For details about ExternalHeaderOnly_Add see cmake/cleanCppExtensions.cmake
 
+# target_link_libraries (exampleApp PRIVATE catch)
+# #include <catch.hpp>
+ExternalHeaderOnly_Add(Catch
+    "https://github.com/catchorg/Catch2.git" "origin/master" "single_include/catch2")
 
-# Examples for External Projects
-# #------------------------------------------------------------------------------
-# # nlohmann/json
-# #  * sets EXTERNAL_JSON_INCLUDE_DIR 
-#
-# ExternalProject_Add(
-#     Json
-#     PREFIX ${CMAKE_CURRENT_SOURCE_DIR}/Json
-#     GIT_REPOSITORY https://github.com/nlohmann/json.git
-#     # For shallow git clone (without downloading whole history)
-#     # GIT_SHALLOW 1
-#     # For point at certain tag
-#     # GIT_TAG 1.5.7
-#     #disables auto update on every build
-#     UPDATE_DISCONNECTED 1
-#     #disable following
-#     CONFIGURE_COMMAND "" BUILD_COMMAND "" INSTALL_DIR "" INSTALL_COMMAND ""
-#     )
-# # Update json target
-# add_custom_target(external-Json-update
-#     COMMENT "Updated Nlohmann/Json"
-#     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Json/src/Json
-#     COMMAND ${GIT_EXECUTABLE} pull
-#     DEPENDS Json)
-# # set include directory
-# set(EXTERNAL_JSON_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Json/src/Json/src" PARENT_SCOPE)
-#
-#
-# #------------------------------------------------------------------------------
-# # spdlog
-# #  * sets EXTERNAL_SPDLOG_INCLUDE_DIR 
-#
-# ExternalProject_Add(
-#     spdlog
-#     PREFIX ${CMAKE_CURRENT_SOURCE_DIR}/spdlog
-#     GIT_REPOSITORY https://github.com/gabime/spdlog.git
-#     # For shallow git clone (without downloading whole history)
-#     # GIT_SHALLOW 1
-#     # For point at certain tag
-#     # GIT_TAG 1.5.7
-#     #disables auto update on every build
-#     UPDATE_DISCONNECTED 1
-#     #disable following
-#     CONFIGURE_COMMAND "" BUILD_COMMAND "" INSTALL_DIR "" INSTALL_COMMAND ""
-#     )
-# # Update spdlog target
-# add_custom_target(external-spdlog-update
-#     COMMENT "Updated gabime/spdlog"
-#     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/spdlog/src/spdlog
-#     COMMAND ${GIT_EXECUTABLE} pull
-#     DEPENDS spdlog)
-# # set include directory
-# set(EXTERNAL_SPDLOG_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/spdlog/src/spdlog/include" PARENT_SCOPE)
-#
-# #------------------------------------------------------------------------------
-# # whoshuu/cpr
-# # C++ http requests library
-# #  * sets CPR_INCLUDE_DIR 
-# #  * sets CPR_LIBRARIES 
-#
-# ExternalProject_Add(
-#     Cpr-ext
-#     PREFIX ${CMAKE_CURRENT_SOURCE_DIR}/cpr
-#     GIT_REPOSITORY https://github.com/whoshuu/cpr.git
-#     # For shallow git clone (without downloading whole history)
-#     # GIT_SHALLOW 1
-#     # For point at certain tag
-#     # GIT_TAG 1.5.7
-#     #disables auto update on every build
-#     UPDATE_DISCONNECTED 1
-#     #disable install step
-#     INSTALL_DIR "" INSTALL_COMMAND ""
-#     )
-# set(CPR_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/cpr/src/Cpr-ext/include CACHE
-#     INTERNAL "")
-# set(CPR_LIBRARIES
-#     ${CMAKE_CURRENT_SOURCE_DIR}/cpr/src/Cpr-ext-build/lib/libcpr.a curl CACHE
-#     INTERNAL "")
-#
-# # Update cpr target
-# add_custom_target(external-cpr-update
-#     COMMENT "Updated whoshuu/cpr"
-#     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/cpr/src/cpr
-#     COMMAND ${GIT_EXECUTABLE} pull
-#     DEPENDS Cpr-ext)
-#
-# # Uset this with:
-# # target_include_directories(your_target_name ${CPR_INCLUDE_DIRS})
-# # target_link_libraries(your_target_name ${CPR_LIBRARIES})
+#------------------------------------------------------------------------------
+# Examples of other external projects
+#------------------------------------------------------------------------------
 
+#------------------------------------------------------------------------------
+# target_link_libraries (exampleApp PRIVATE json)
+# #include <nlohmann/json.hpp>
+# ExternalHeaderOnly_Add(json
+#     "https://github.com/nlohmann/json.git" "origin/master" "single_include")
+
+#------------------------------------------------------------------------------
+# target_link_libraries (exampleApp PRIVATE spdlog)
+# #include <spdlog/spdlog.h>
+# Bundled fmt can be used: #include <spdlog/fmt/fmt.h>
+# spdlog::error("Some error message with arg: {}", 1);
+# ExternalHeaderOnly_Add(spdlog
+#     "https://github.com/gabime/spdlog.git" "v1.x" "include")
+
+#------------------------------------------------------------------------------
+# target_link_libraries (exampleApp PRIVATE doctest)
+# #include <doctest.h>
+# ExternalHeaderOnly_Add("DocTest"
+#     "https://github.com/onqtam/doctest.git" "origin/master" "src/DocTest")
+
+#------------------------------------------------------------------------------
+# target_link_libraries (exampleApp PRIVATE fmt)
+# #include <fmt/format.h>
+# Use with: `fmt::print("Hello {} - {}!\n", "world", 3.56f);`
+
+# ExternalDownloadNowGit(fmt "https://github.com/fmtlib/fmt.git" "origin/master")
+# add_library(fmt STATIC ${fmt_SOURCE_DIR}/src/format.cc)
+# target_include_directories(fmt SYSTEM PUBLIC ${fmt_SOURCE_DIR}/include)
+# # target_compile_definitions(spdlog INTERFACE -DSPDLOG_FMT_EXTERNAL) #if using SPDLOG
 
 
 #------------------------------------------------------------------------------
-# Convenience update all
-add_custom_target(external-update-all
-    COMMENT "Updated all external projects"
-    DEPENDS external-Catch-update)
+# cpr - HTTP(S) requests library with nice interface
 
-add_custom_target(update
-    COMMENT "Updated all external projects"
-    DEPENDS external-update-all)
+# target_link_libraries (exampleApp PRIVATE fmt)
+# #include <cpr/cpr.h>
+# auto r = cpr::Get(cpr::Url{"https://ohnheiser.cz"});
+# cout<<r.text<<endl;
+
+# find_package(CURL REQUIRED)
+# ExternalDownloadNowGit(cpr https://github.com/finkandreas/cpr.git origin/master)
+# option(BUILD_CPR_TESTS "" OFF) #disable tests
+# option(USE_SYSTEM_CURL "" ON ) #use system curl
+# add_subdirectory(${cpr_SOURCE_DIR} EXCLUDE_FROM_ALL)
+# # Make headers come as SYSTEM, to get rid of all warning on included headers
+# target_include_directories(cpr SYSTEM PUBLIC ${CPR_INCLUDE_DIRS} ${CURL_INCLUDE_DIRS})
+
+

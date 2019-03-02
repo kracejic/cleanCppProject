@@ -1,4 +1,15 @@
+# Adds convenience methods, see cmake/cleanCppExtensions.cmake
 include(cleanCppExtensions)
+
+# Creates options to turn on sanitizers, see cmake/sanitizers.cmake
+include(sanitizers)
+
+# Enable helpfull warnings and C++14 for all files
+if(MSVC)
+    add_compile_options(/std:c++14 /W3 /WX )
+else()
+    add_compile_options(-std=c++14 -Wall -Wextra -Wshadow -Wnon-virtual-dtor -Wunused -pedantic)
+endif()
 
 # configure version.cpp.in with selected version
 configure_file (
@@ -44,7 +55,7 @@ add_executable(exampleApp MACOSX_BUNDLE
     main.cpp)
 add_dependencies(exampleApp versionFileTouchForRebuild) # We want precise time of build in version
 target_include_directories(exampleApp PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
-target_link_libraries (exampleApp PRIVATE ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries (exampleApp PRIVATE Threads::Threads)
 
 if(APPLE)
     set_target_properties(exampleApp PROPERTIES MACOSX_BUNDLE_BUNDLE_NAME "exampleApp")
@@ -92,6 +103,16 @@ add_custom_target(run DEPENDS exampleApp-run)
 # find_package(GLUT REQUIRED)
 # target_include_directories(exampleApp SYSTEM ${OPENGL_INCLUDE_DIRS} ${GLUT_INCLUDE_DIRS} )
 # target_link_libraries(exampleApp ${OPENGL_LIBRARIES} ${GLUT_LIBRARY} )
+
+# How to use some other standard packages
+# find_package(ZLIB REQUIRED) 
+# target_link_libraries (exampleApp PRIVATE ZLIB::ZLIB)
+# 
+# find_package(OpenSSL REQUIRED)
+# target_link_libraries (exampleApp PRIVATE OpenSSL::SSL OpenSSL::Crypto)
+#
+# find_package(CURL REQUIRED)
+# target_link_libraries (exampleApp PRIVATE CURL::libcurl)
 
 #------------------------------------------------------------------------------
 # Unit tests

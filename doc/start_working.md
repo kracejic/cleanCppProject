@@ -67,6 +67,19 @@ Then change description in **.desktop** and **packaging/CMakeLists.txt** files.
 Just change replace packaging/exampleApp.ico and packaging/exampleApp.png with
 your own images.
 
+## Add depenencies
+
+Look at the `external/CMakeLists.txt` to see examples on adding external
+libraries. There are examples for:
+
+* nlohmann/json - amazing library for json handling
+* spdlog - fast and simple logging library
+* doctest - alternative to catch unit test library
+* fmt - python text/output like formating
+* cpr - requests for humans for C++
+
+Just uncomment the part of the code and add the dependencies via `target_link_libraries`.
+
 ## Tests
 
 ### Unit tests
