@@ -24,7 +24,7 @@ class BaseClass
         mPointer = new int(5);
     };
 
-    ~BaseClass(){};
+    ~BaseClass() {};
     void freePtr()
     {
         delete mPointer;
@@ -38,8 +38,8 @@ class BaseClass
 class Data
 {
   public:
-    Data(){};
-    ~Data(){};
+    Data() {};
+    ~Data() {};
 };
 
 /**
@@ -50,7 +50,7 @@ class Data
  */
 class SomeClass : public BaseClass
 {
-    int mVal{0}; ///< Stores the value
+    int mVal {0}; ///< Stores the value
     std::vector<Data> mData;
     std::vector<std::string> mStrings;
 

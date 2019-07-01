@@ -33,7 +33,7 @@ find_package (Threads REQUIRED) #threading
 # macro(addCommonDependencies TARGET)
 #     add_dependencies(${TARGET} versionFileTouchForRebuild) # We want precise time of build in version
 #     target_include_directories(${TARGET} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
-#     target_link_libraries (${TARGET} PRIVATE ${CMAKE_THREAD_LIBS_INIT})
+#     target_link_libraries (${TARGET} PRIVATE Threads::Threads)
 #     target_compile_definitions(${TARGET} PRIVATE -DSOME_DEFINE)
 # endmacro()
 
@@ -95,14 +95,14 @@ add_custom_target(run DEPENDS exampleApp-run)
 
 # Add building new shared library
 # add_library(exampleLibrary SHARED ${LIBRARY_SOURCES})
-# target_link_libraries (exampleLibrary ${CMAKE_THREAD_LIBS_INIT})
+# target_link_libraries (exampleLibrary PRIVATE ${CMAKE_THREAD_LIBS_INIT})
 # set_property(TARGET exampleLibrary PROPERTY CXX_STANDARD 14) # we want C++14
 
 # How to include and link OpenGL and GLUT libraries
 # find_package(OpenGL REQUIRED)
 # find_package(GLUT REQUIRED)
-# target_include_directories(exampleApp SYSTEM ${OPENGL_INCLUDE_DIRS} ${GLUT_INCLUDE_DIRS} )
-# target_link_libraries(exampleApp ${OPENGL_LIBRARIES} ${GLUT_LIBRARY} )
+# target_include_directories(exampleApp PRIVATE SYSTEM ${OPENGL_INCLUDE_DIRS} ${GLUT_INCLUDE_DIRS} )
+# target_link_libraries(exampleApp PRIVATE ${OPENGL_LIBRARIES} ${GLUT_LIBRARY} )
 
 # How to use some other standard packages
 # find_package(ZLIB REQUIRED) 
