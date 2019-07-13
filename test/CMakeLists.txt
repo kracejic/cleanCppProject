@@ -46,6 +46,5 @@ add_test(NAME "Is_Runable-h"
 # unit test build is located in source/unittest/CMakeLists.txt
 add_test(NAME "catch_unit_tests"
     COMMAND $<TARGET_FILE:unittests>
-    USES_TERMINAL
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 
