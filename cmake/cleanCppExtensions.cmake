@@ -49,7 +49,7 @@ macro(ExternalHeaderOnly_Add LIBNAME REPOSITORY GIT_TAG INCLUDE_FOLDER_PATH)
         COMMENT "Updated ${LIBNAME}"
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${LIBNAME}/src/${LIBNAME}_download
         COMMAND ${GIT_EXECUTABLE} fetch --recurse-submodules
-        COMMAND ${GIT_EXECUTABLE} reset --hard ${GIT_TAG}
+        COMMAND ${GIT_EXECUTABLE} reset --hard origin/${GIT_TAG}
         COMMAND ${GIT_EXECUTABLE} submodule update --init --force --recursive --remote --merge
         DEPENDS ${LIBNAME}_download)
 
