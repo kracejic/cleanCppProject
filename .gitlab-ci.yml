@@ -8,6 +8,7 @@ stages:
   - package
 
 cache:
+  key: ${CI_COMMIT_REF_SLUG}
   untracked: true
   paths:
     - build
@@ -23,7 +24,7 @@ prepare:
     - mkdir build
     - cd build
     - cmake ..
-    - make update
+    - make update -j8
 
 build:
   stage: build

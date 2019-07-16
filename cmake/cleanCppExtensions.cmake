@@ -24,7 +24,7 @@ endmacro()
 # Example usage:
 #
 #     ExternalHeaderOnly_Add("Catch"
-#         "https://github.com/catchorg/Catch2.git" "origin/master" "single_include/catch2")
+#         "https://github.com/catchorg/Catch2.git" "master" "single_include/catch2")
 #
 # Use with:
 #     target_link_libraries(unittests Catch)
@@ -38,7 +38,7 @@ macro(ExternalHeaderOnly_Add LIBNAME REPOSITORY GIT_TAG INCLUDE_FOLDER_PATH)
         # For shallow git clone (without downloading whole history)
         # GIT_SHALLOW 1
         # For point at certain tag
-        GIT_TAG ${GIT_TAG}
+        GIT_TAG origin/${GIT_TAG}
         #disables auto update on every build
         UPDATE_DISCONNECTED 1
         #disable following
@@ -85,7 +85,7 @@ macro(ExternalDownloadNowGit LIBNAME REPOSITORY GIT_TAG)
         # switch to target TAG and update submodules
         execute_process(
             WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${LIBNAME}/src/${LIBNAME}_download
-            COMMAND ${GIT_EXECUTABLE} reset --hard ${GIT_TAG}
+            COMMAND ${GIT_EXECUTABLE} reset --hard origin/${GIT_TAG}
             COMMAND ${GIT_EXECUTABLE} submodule update --init --force --recursive --remote --merge
             )
     endif()
@@ -95,7 +95,7 @@ macro(ExternalDownloadNowGit LIBNAME REPOSITORY GIT_TAG)
         COMMENT "Updated ${LIBNAME}"
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${LIBNAME}/src/${LIBNAME}_download
         COMMAND ${GIT_EXECUTABLE} fetch --recurse-submodules
-        COMMAND ${GIT_EXECUTABLE} reset --hard ${GIT_TAG}
+        COMMAND ${GIT_EXECUTABLE} reset --hard origin/${GIT_TAG}
         COMMAND ${GIT_EXECUTABLE} submodule update --init --force --recursive --remote --merge)
     # Add this as dependency to the general update target
     add_dependencies(update ${LIBNAME}_update)
