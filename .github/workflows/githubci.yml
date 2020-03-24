@@ -1,33 +1,63 @@
-name: CI
+name: C/C++ CI
 
 on: [push]
 
 jobs:
   build:
-
-    runs-on: ubuntu-latest
-
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        # 3 jobs in total
+        os: [ubuntu-latest, macOS-latest]
+        compiler: [{
+          "cc": "clang",
+          "cxx": "clang++"
+        }]
+        exclude:
+          - os: macOS-latest
+            compiler:
+              cc: gcc
     steps:
-    - uses: actions/checkout@v1
-    - name: prepare
+    - uses: actions/checkout@v2
+      name: checkout
+      with:
+        clean: true
+        fetch-depth: 1
+    - name: install dependencies
       run: |
-        mkdir -p build
+        set -e
+        if [ "$RUNNER_OS" = "macOS" ]; then
+          brew install ninja
+        else
+          sudo apt-get update || true
+          sudo apt-get install -y ninja-build
+        fi
+        sudo python3 -m pip install --upgrade pip
+        sudo pip3 install scikit-build cmake requests gitpython gcovr pyyaml
+    - name: cmake
+      env:
+        CC: ${{ matrix.compiler.cc }}
+        CXX: ${{ matrix.compiler.cxx }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # has to be included to access other secrets
+        GITHUB_HUNTER_USERNAME: ${{ secrets.GITHUB_HUNTER_USERNAME }}
+        GITHUB_HUNTER_TOKEN: ${{ secrets.GITHUB_HUNTER_TOKEN }}
+      run: |
+        mkdir build
         cd build
-        cmake ..
-        make update -j
+        cmake .. -GNinja
     - name: build
       run: |
         cd build
-        make -j
-        make install
+        ninja -j2 all
     - name: check
       run: |
         cd build
-        make check -j
+        ninja check -j2
     - name: package
       run: |
         cd build
-        make package
+        ninja package
         rm -rf out/_CPack_Packages
     - name: archive results
       uses: actions/upload-artifact@v1

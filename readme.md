@@ -1,6 +1,7 @@
 # cleanCppProject
 
-![Build Status](https://travis-ci.org/kracejic/cleanCppProject.svg?branch=master)
+![Github C/C++ Ubuntu/Mac OS X Build](https://github.com/kracejic/cleanCppProject/workflows/C%2FC%2B%2B%20CI/badge.svg)
+![Travis C/C++ Ubuntu/Mac OS X Build](https://travis-ci.org/kracejic/cleanCppProject.svg?branch=master)
 
 This is an empty frame for project in C++. It should help to start a new project without caring much about project/build environment setup.
 
