@@ -23,4 +23,16 @@ add_custom_target(unitall
     COMMAND $<TARGET_FILE:unittests> -s -a -r=compact
     DEPENDS unittests)
 
+add_custom_target(junit
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/test
+    COMMAND $<TARGET_FILE:unittests> -r=junit -o ${CMAKE_BINARY_DIR}/junit.xml
+    DEPENDS unittests)
 
+
+if(GDB_PATH)
+    add_custom_target(unit-gdb
+        WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/test
+        USES_TERMINAL
+        DEPENDS unittests
+        COMMAND ${GDB_PATH} $<TARGET_FILE:unittests>)
+endif()

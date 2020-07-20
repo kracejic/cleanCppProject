@@ -7,3 +7,9 @@ tags
 *.pyc
 *.swp
 *.swo
+*.log
+.gdb_history
+*.pu
+.clangd/*
+.scannerwork/*
+compile_commands.json
