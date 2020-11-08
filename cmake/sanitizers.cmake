@@ -21,8 +21,8 @@ if (CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR "${CMAKE_CXX_COMPILER_ID}" STREQUAL
     option(THREAD_SANITIZER "description" OFF)
     message(STATUS "  + THREAD_SANITIZER                      ${THREAD_SANITIZER}")
     if(THREAD_SANITIZER)
-        add_compile_options(-fsanitize=undefined)
-        link_libraries(-fsanitize=undefined)
+        add_compile_options(-fsanitize=thread)
+        link_libraries(-fsanitize=thread)
     endif()
 
     # Clang only
