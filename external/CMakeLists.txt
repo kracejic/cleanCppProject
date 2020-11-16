@@ -15,7 +15,7 @@ add_custom_target(update COMMENT "Updated all external projects")
 # target_link_libraries (exampleApp PRIVATE catch)
 # #include <catch.hpp>
 ExternalHeaderOnly_Add(Catch
-    "https://github.com/catchorg/Catch2.git" "master" "single_include/catch2")
+    "https://github.com/catchorg/Catch2.git" "v2.x" "single_include/catch2")
 
 #------------------------------------------------------------------------------
 # Examples of other external projects
