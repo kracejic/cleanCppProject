@@ -1,0 +1,33 @@
+name: CI-build-and-test
+
+on: 
+  push:
+    # To run on all branches, but not 'master'.
+    branches:
+      -  '*'
+      - '!master'
+  pull_request:
+jobs:
+  build:
+    name: CI-${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: build and test
+      uses: lukka/run-cmake@v0
+      with:
+        cmakeListsOrSettingsJson: CMakeListsTxtAdvanced
+        cmakeListsTxtPath: '${{ github.workspace }}/CMakeLists.txt'
+        buildDirectory: '${{ runner.workspace }}/build'
+        cmakeAppendedArgs: '-G "Ninja"'
+        buildWithCMakeArgs: "--target check -- -j 0"
+    - name: archive build output
+      uses: actions/upload-artifact@v1
+      with:
+        name: packages
+        path: ${{ runner.workspace }}/build/source/
