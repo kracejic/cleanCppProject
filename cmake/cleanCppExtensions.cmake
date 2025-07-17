@@ -36,22 +36,20 @@ macro(ExternalHeaderOnly_Add LIBNAME REPOSITORY GIT_TAG INCLUDE_FOLDER_PATH)
         PREFIX ${CMAKE_CURRENT_SOURCE_DIR}/${LIBNAME}
         GIT_REPOSITORY ${REPOSITORY}
         # For shallow git clone (without downloading whole history)
-        GIT_SHALLOW 1
+        # GIT_SHALLOW 1
         # For point at certain tag
-        GIT_TAG origin/${GIT_TAG}
+        GIT_TAG ${GIT_TAG}
         #disables auto update on every build
         UPDATE_DISCONNECTED 1
         #disable following
+        STAMP_DIR ${CMAKE_CURRENT_SOURCE_DIR}/${LIBNAME}/stamp
         CONFIGURE_COMMAND "" BUILD_COMMAND "" INSTALL_DIR "" INSTALL_COMMAND ""
         )
-    # special target
+    ExternalProject_Add_StepTargets(${LIBNAME}_download download)
+    ExternalProject_Add_StepTargets(${LIBNAME}_download update)
     add_custom_target(${LIBNAME}_update
         COMMENT "Updated ${LIBNAME}"
-        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${LIBNAME}/src/${LIBNAME}_download
-        COMMAND ${GIT_EXECUTABLE} fetch --recurse-submodules
-        COMMAND ${GIT_EXECUTABLE} reset --hard origin/${GIT_TAG}
-        COMMAND ${GIT_EXECUTABLE} submodule update --init --force --recursive --remote --merge
-        DEPENDS ${LIBNAME}_download)
+        DEPENDS ${LIBNAME}_download-update)
 
     set(${LIBNAME}_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/${LIBNAME}/src/${LIBNAME}_download/)
     add_library(${LIBNAME} INTERFACE)
@@ -59,6 +57,7 @@ macro(ExternalHeaderOnly_Add LIBNAME REPOSITORY GIT_TAG INCLUDE_FOLDER_PATH)
     add_dependencies(update ${LIBNAME}_update)
     target_include_directories(${LIBNAME} SYSTEM INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/${LIBNAME}/src/${LIBNAME}_download/${INCLUDE_FOLDER_PATH})
 endmacro()
+
 
 #------------------------------------------------------------------------------
 # This command will clone git repo during cmake setup phase, also adds 
@@ -188,3 +187,54 @@ macro(FORCE_CXX_COMPILER compiler id)
         set(CMAKE_COMPILER_IS_GNUCXX 1)
     endif()
 endmacro()
+
+#------------------------------------------------------------------------------
+if(ENABLE_INCLUDE_WHAT_YOU_USE)
+    find_program(INCLUDE_WHAT_YOU_USE include-what-you-use)
+    if(INCLUDE_WHAT_YOU_USE)
+        set(CMAKE_CXX_INCLUDE_WHAT_YOU_USE ${INCLUDE_WHAT_YOU_USE})
+        message(STATUS "ENABLE_INCLUDE_WHAT_YOU_USE               YES ")
+    else()
+        message(SEND_ERROR "include-what-you-use requested but executable not found")
+    endif()
+else()
+    message(STATUS "ENABLE_INCLUDE_WHAT_YOU_USE               NO ")
+endif()
+#------------------------------------------------------------------------------
+option(ENABLE_IPO "Enable Interprocedural Optimization, aka Link Time Optimization (LTO)" OFF)
+
+if(ENABLE_IPO)
+    include(CheckIPOSupported)
+    check_ipo_supported(
+	RESULT
+	result
+	OUTPUT
+	output)
+    if(result)
+	set(CMAKE_INTERPROCEDURAL_OPTIMIZATION TRUE)
+	message(STATUS "LTO - link time optimization              YES")
+    else()
+	message(SEND_ERROR "IPO is not supported: ${output}")
+    endif()
+else()
+    message(STATUS "LTO - link time optimization              NO ")
+endif()
+#------------------------------------------------------------------------------
+# This function will prevent in-source builds
+function(AssureOutOfSourceBuilds)
+  # make sure the user doesn't play dirty with symlinks
+  get_filename_component(srcdir "${CMAKE_SOURCE_DIR}" REALPATH)
+  get_filename_component(bindir "${CMAKE_BINARY_DIR}" REALPATH)
+
+  # disallow in-source builds
+  if("${srcdir}" STREQUAL "${bindir}")
+    message("######################################################")
+    message("Warning: in-source builds are disabled")
+    message("Please create a separate build directory and run cmake from there")
+    message("######################################################")
+    message(FATAL_ERROR "Quitting configuration")
+  endif()
+endfunction()
+
+assureoutofsourcebuilds()
+

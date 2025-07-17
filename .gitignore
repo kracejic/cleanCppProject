@@ -11,5 +11,6 @@ tags
 .gdb_history
 *.pu
 .clangd/*
+.cache/
 .scannerwork/*
 compile_commands.json

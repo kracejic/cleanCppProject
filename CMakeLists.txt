@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 3.6)
+cmake_minimum_required (VERSION 3.19)
 
 # Project setup, versioning stuff here, change when changing the version
 # Note: keep the project name lower case only for easy linux packaging support

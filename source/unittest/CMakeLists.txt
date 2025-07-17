@@ -4,12 +4,11 @@
 # For testing on the function/class level.
 
 add_executable(unittests EXCLUDE_FROM_ALL
-    testmain.cpp
     ../SomeClass.cpp
     )
 target_compile_definitions(unittests PRIVATE UNIT_TESTS) # add -DUNIT_TESTS define
 target_include_directories(unittests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/..)
-target_link_libraries(unittests PRIVATE Catch)
+target_link_libraries(unittests PRIVATE Catch2::Catch2WithMain)
 
 # convenience target for running only the unit tests
 add_custom_target(unit
